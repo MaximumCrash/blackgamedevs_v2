@@ -6,7 +6,8 @@ export default {
 		link: "#10A37E",
 		link_seconary: '#886D72',
 		link_hover: "#24F0BC",
-		border: '#333'
+		border: '#333',
+		filterBorder: '#666',
 	},
 	fontWeights: {
 		body: 400,

@@ -22,13 +22,13 @@ const Header = () => {
 		}
 		}
 	`)
-console.log(edges);
+	
 	if (edges.edges[0] === undefined) {
 		return (<></>)
 	}
 
 	return (
-	<Box sx={{'& > *': {color: 'primary'}, fontFamily: 'heading', borderBottom: '1px dotted', borderColor: 'border'}}>
+	<Box sx={{'& > *': {color: 'primary'}, '& > h1': {fontSize: '3rem'}, fontFamily: 'heading', borderBottom: '1px dotted', borderColor: 'border'}}>
 		<MDXProvider components={shortcodes}>
 			<MDXRenderer>
 			{edges.edges[0].node.body}

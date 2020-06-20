@@ -8,7 +8,7 @@ const Games = ({children}) => {
 	const _Children = React.Children.toArray(children);
 
 	return (
-		<Box>
+		<Box className="games">
 			<img src={icon} alt="Games"/>
 			{_Children.map((game) => {
 				console.log(game)
