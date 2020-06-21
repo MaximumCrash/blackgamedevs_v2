@@ -50,13 +50,31 @@ const SiteProvider = ({ children, value }) => {
 
   const AllData = { people: people.edges, companies: companies.edges }
 
-  // const AllFilters = Object.keys(AllData).map((n) => {
-  //   return AllData[n].map((f) => {
+  const AllFilters = Object.keys(AllData).map((n) => {
+    return AllData[n].map(({node}) => {
+      const skills = node.rawBody
+                    .substring(
+                      node.rawBody.lastIndexOf("<Skills>") + 9,
+                      node.rawBody.lastIndexOf("</Skills>")
+                    )
+                    .split("\n")
+                    .filter(n => n !== "")
+      
+      const locations = node.rawBody
+                    .substring(
+                     node.rawBody.lastIndexOf("<Location>") + 11,
+                      node.rawBody.lastIndexOf("</Location>")
+                    )
+                    .split("\n")
+                    .filter(n => n !== "")
+        return ({skills, locations});
+    })
+  }).flat(1);
 
-  //   })
-  // })
-
-  // console.log(AllFilters);
+  const skills = [... new Set(AllFilters.map(({skills}) => skills).flat(1))];
+  const locations = [... new Set(AllFilters.map(({locations}) => locations).flat(1))];
+  const filterSet = {skills, locations};
+  
 
   const [results, setResults] = useState(AllData)
   const [filters, setFilters] = useState(null)
@@ -81,6 +99,7 @@ const SiteProvider = ({ children, value }) => {
         setResults,
         filters,
         setFilters,
+        filterSet,
         query,
         setQuery,
         AllData,

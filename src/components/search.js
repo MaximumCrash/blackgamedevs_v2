@@ -1,6 +1,6 @@
 //** @jsx jsx */
 import React, { useState } from "react"
-import { Input, Box, Text, jsx } from "theme-ui"
+import { Input, Box, Text, Flex, jsx } from "theme-ui"
 import SmoothCollapse from "react-smooth-collapse"
 import Sticky from "react-sticky-el"
 import { navigate } from "@reach/router"
@@ -17,6 +17,7 @@ const Search = () => {
     AllData,
     filters,
     setFilters,
+    filterSet,
     query,
     setQuery,
   } = useSite()
@@ -69,7 +70,8 @@ const Search = () => {
   }
 
   const setFilter = filter => {
-    const updatedFilters = (filters !== null && filters !== '') ? `${filters} +${filter}` : ``;
+
+    const updatedFilters = (filters !== null && filters !== '') ? `${filters} +${filter}` : `+${filter}`;
     const queryString = updatedFilters !== '' ? `${updatedFilters} ${query}*` : `${query}*`
     if (lunr) {
       const refs = lunr["en"].index.search(queryString.replace(/\s/g, '\\'))
@@ -240,7 +242,7 @@ const Search = () => {
                 position: "absolute",
                 top: 0,
                 right: 0,
-                transition: "all .164s ease-in-out",
+                transition: "all .1s ease",
                 "&.hide": { transform: "rotate(180deg)" },
               }}
             />
@@ -248,28 +250,95 @@ const Search = () => {
           
         </Text>
         {(filters && filters.length > 0) &&
-            <Text sx={{color: 'text2', fontSize: '15px', display: 'inline-block', ml: '1rem', textDecoration: 'underline', cursor: 'pointer'}} onClick={clearFilters}>Clear filters</Text>
+            <Text sx={{color: 'text2', fontSize: '15px', display: 'inline-block', ml: '1rem', textDecoration: 'underline', cursor: 'pointer'}} onClick={clearFilters}>Remove filters</Text>
           }
         <SmoothCollapse
           eagerRender={true}
           allowOverflowWhenOpen={true}
-          expanded={!filtersOpen}
+          expanded={filters && filters.length}
           sx={{ pl: "1rem", pr: "1rem" }}
         >
+          Current Filters: {' '}
           {filters &&
             filters.split("+").map((filter, index) => (
-              <Box key={`selected-filters-${index}`}>
-                {filter} <span>X</span>
-              </Box>
+              <React.Fragment key={`selected-filters-${index}`}>
+                {filter}{index !== filters.split("+").length - 1 ? "," :""}
+              </React.Fragment>
             ))}
         </SmoothCollapse>
         <SmoothCollapse
           eagerRender={true}
           allowOverflowWhenOpen={true}
           expanded={filtersOpen}
-          sx={{ pl: "1rem", pr: "1rem" }}
+          sx={{ pl: "1rem", pr: "1rem", mt: '.24rem' }}
         >
-          Filters Go Here
+          {filterSet.skills.length && 
+          <>
+          <Text sx={{ fontSize: '1.16rem', mb: '.64rem'}}>Skills:</Text>
+            <Flex sx={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flexStart', mt: '.32rem'}}>
+              
+              {filterSet.skills.map((skill) => {
+                return (
+                  <Box sx={{fontSize: "1rem",
+		fontWeight: "normal",
+		borderRadius: "5px",
+		border: "1px solid",
+		mb: "1rem",
+    mr: '.5rem',
+    color: filters && filters.includes(skill) ? "link_hover" : 'text2',
+		borderColor: filters && filters.includes(skill) ? "link_hover" : "filterBorder",
+		padding: ".2rem .6rem",
+		cursor: 'pointer',
+    transition: "all .1s ease",
+		':hover': {
+						borderColor: 'text',
+						color: 'text',
+						
+					},
+					'&:hover > *': {
+							color: 'text'
+						},}} onClick={() => setFilter(skill)}>
+                  {skill}
+                  </Box>
+                )
+              })}
+            </Flex>
+            </>
+          } 
+
+          {filterSet.locations.length && 
+          <>
+          <Text sx={{ fontSize: '1.16rem', mb: '.64rem'}}>Locations:</Text>
+            <Flex sx={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flexStart', mt: '.32rem'}}>
+              
+              {filterSet.locations.map((location) => {
+                return (
+                  <Box sx={{fontSize: "1rem",
+		fontWeight: "normal",
+		borderRadius: "5px",
+		border: "1px solid",
+		mb: "1rem",
+    mr: '.5rem',
+    color: filters && filters.includes(location) ? "link_hover" : 'text2',
+		borderColor: filters && filters.includes(location) ? "link_hover" : "filterBorder",
+		padding: ".2rem .6rem",
+		cursor: 'pointer',
+    transition: "all .1s ease",
+		':hover': {
+						borderColor: 'text',
+						color: 'text',
+						
+					},
+					'&:hover > *': {
+							color: 'text'
+						},}} onClick={() => setFilter(location)}>
+                  {location}
+                  </Box>
+                )
+              })}
+            </Flex>
+            </>
+          } 
         </SmoothCollapse>
       </Box>
     </Sticky>

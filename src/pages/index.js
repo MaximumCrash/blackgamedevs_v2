@@ -13,8 +13,8 @@ import noUserImage from '@public/no-user-image.png'
 const Index = () => {
   const {
     results: { people, companies },
+	
   } = useSite()
-  console.log(people)
 
   const sortByName = (dataObj) => {
 	  return dataObj.sort((a, b) => {
@@ -28,6 +28,7 @@ const Index = () => {
 		  return a.node.name.localeCompare(b.node.name)
 	  })
   }
+
 
   return (
     <>

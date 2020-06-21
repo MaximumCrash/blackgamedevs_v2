@@ -45,7 +45,7 @@ const Skills = ({children}) => {
 					mr: "1rem",
                     borderColor: "filterBorder",
                     padding: ".2rem .6rem",
-					transition: 'all .164s ease-in-out',
+					transition: "all .1s ease",
 					color: 'text2',
 					fontSize: '15px',
 					':hover': {
