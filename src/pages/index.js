@@ -10,11 +10,31 @@ import Search from "@components/search"
 import iconLocation from "@public/icons/icon-location.svg"
 import noUserImage from '@public/no-user-image.png'
 
+import {motion, AnimatePresence} from 'framer-motion';
+
 const Index = () => {
   const {
     results: { people, companies },
 	
-  } = useSite()
+  } = useSite();
+
+  console.log(people)
+
+  const list = {
+  visible: {
+    opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.3,
+    },
+  },
+  hidden: {
+    opacity: 0,
+    transition: {
+      when: "afterChildren",
+    },
+  },
+}
 
   const sortByName = (dataObj) => {
 	  return dataObj.sort((a, b) => {
@@ -42,6 +62,7 @@ const Index = () => {
       {people && (
         <Flex
           as="ul"
+		  key="people"
           sx={{
             listStyleType: "none",
             p: 0,
@@ -52,15 +73,18 @@ const Index = () => {
           }}
         >
           <MDXProvider components={Shortcodes}>
-            {sortByName(people).map(({ node }) => {
+            <AnimatePresence exitBeforeEnter initial={false}>
+			{sortByName(people).map(({ node, index }) => {
 				const hasImage = node.rawBody.includes('![');
 
-				return (<Flex
-                as="li"
-                sx={{
-                  m: "2rem 0 0 2rem",
+				return (
+				
+				<motion.li sx={{m: "2rem 0 0 2rem",
                   width: "30%",
-                  maxWidth: "405px",
+                  maxWidth: "405px",}} key={node.id} initial={{opacity: 0, y: 32}} transition={{ ease: "easeInOut", duration: .164 }} animate={{opacity: 1, y: 0, scale: 1}} exit={{opacity: 0, y: 32}}>
+				<Flex
+                sx={{
+                  
                   flexDirection: "column",
                   alignItems: "flex-start",
                   "& > .title": {
@@ -91,8 +115,10 @@ const Index = () => {
                 <MDXRenderer>
 				
 				{node.body}</MDXRenderer>
-              </Flex>)
+				
+              </Flex></motion.li>)
 			})}
+			</AnimatePresence>
           </MDXProvider>
         </Flex>
       )}

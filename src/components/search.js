@@ -9,6 +9,7 @@ import searchIcon from "@public/icons/search_icon.svg"
 import minusIcon from "@public/icons/minus_icon.svg"
 import { useSite } from "@layouts/SiteContext"
 import { groupBy } from "@src/utils"
+import {motion, AnimatePresence} from 'framer-motion';
 
 const Search = () => {
   const {
@@ -259,9 +260,8 @@ const Search = () => {
           sx={{ pl: "1rem", pr: "1rem" }}
         >
           Current Filters: {' '}
-          {filters &&
-            filters.split("+").map((filter, index) => (
-              <React.Fragment key={`selected-filters-${index}`}>
+          {filters && filters.split("+").map((filter, index) => (
+              <React.Fragment key={`selected-filters-${index}-${filter}`}>
                 {filter}{index !== filters.split("+").length - 1 ? "," :""}
               </React.Fragment>
             ))}
@@ -279,7 +279,7 @@ const Search = () => {
               
               {filterSet.skills.map((skill) => {
                 return (
-                  <Box sx={{fontSize: "1rem",
+                  <motion.div whileTap={{scale: 0.8}} transition={{ ease: "easeInOut", duration: .1 }} sx={{fontSize: "1rem",
 		fontWeight: "normal",
 		borderRadius: "5px",
 		border: "1px solid",
@@ -299,7 +299,7 @@ const Search = () => {
 							color: 'text'
 						},}} onClick={() => setFilter(skill)}>
                   {skill}
-                  </Box>
+                  </motion.div>
                 )
               })}
             </Flex>
@@ -313,7 +313,7 @@ const Search = () => {
               
               {filterSet.locations.map((location) => {
                 return (
-                  <Box sx={{fontSize: "1rem",
+                  <motion.div whileTap={{scale: 0.8}} transition={{ ease: "easeInOut", duration: .1 }} sx={{fontSize: "1rem",
 		fontWeight: "normal",
 		borderRadius: "5px",
 		border: "1px solid",
@@ -333,7 +333,7 @@ const Search = () => {
 							color: 'text'
 						},}} onClick={() => setFilter(location)}>
                   {location}
-                  </Box>
+                  </motion.div>
                 )
               })}
             </Flex>
