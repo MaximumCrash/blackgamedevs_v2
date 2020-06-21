@@ -2,7 +2,7 @@ export default {
   colors: {
     background: "#111",
     text: "#CCC",
-    text2: '#999',
+    text_secondary: "#999",
     primary: "#EF3054",
     link: "#10A37E",
     link_secondary: "#886D72",

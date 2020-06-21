@@ -3,8 +3,8 @@ const path = require("path")
 module.exports = {
   siteMetadata: {
     title: `Black Game Devs`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    description: `A list of black game developers, designers, artists, and more. Here they are. Hire them. Buy their stuff.`,
+    author: `Arthur Ward, Jr, Catt Small, Chris Algoo, Réjon Taylor-Foster`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -15,7 +15,7 @@ module.exports = {
         path: `${__dirname}/src/pages/`,
       },
     },
-    { 
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `layouts`,
@@ -101,8 +101,8 @@ module.exports = {
       options: {
         alias: {
           "@src": path.resolve(__dirname, "src"),
-          "@components": path.resolve(__dirname, "src/components"),
-          "@layouts": path.resolve(__dirname, "src/layouts"),
+          "@modules": path.resolve(__dirname, "src/modules"),
+          "@layouts": path.resolve(__dirname, "src/modules/layouts"),
           "@pages": path.resolve(__dirname, "src/pages"),
           "@public": path.resolve(__dirname, "public"),
           "@people": path.resolve(__dirname, "people"),
@@ -129,7 +129,7 @@ module.exports = {
         ],
         fields: [
           { name: "name", store: true, attributes: { boost: 20 } },
-          { name: "location", store: true, attributes: {boost: 10} },
+          { name: "location", store: true, attributes: { boost: 10 } },
           { name: "skills", store: true, attributes: { boost: 15 } },
           { name: "id", store: true },
           { name: "type", store: true },

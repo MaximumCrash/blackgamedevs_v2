@@ -1,18 +1,21 @@
-//** @jsx jsx  */
+// This is the footer component that gets used by site_layout.
+// It pulls down the footer.mdx content and renders its mdx.
+
+// If you want to update the footer's content I recommend using the mdx file 
+// but if you know your way around, go crazy :)
+//** @jsx jsx */
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Box, jsx } from "theme-ui"
 
-import shortcodes from "@components/shortcodes.js"
+import shortcodes from "@components/shortcodes"
 
-import _Header from "./header.mdx"
-
-const Header = () => {
+const Footer = () => {
   const { allMdx: edges } = useStaticQuery(graphql`
-    query MyQuery {
-      allMdx(filter: { fileAbsolutePath: { regex: "/header.mdx/" } }) {
+    query GetFooter {
+      allMdx(filter: { fileAbsolutePath: { regex: "/footer.mdx/" } }) {
         edges {
           node {
             body
@@ -30,10 +33,10 @@ const Header = () => {
     <Box
       sx={{
         "& > *": { color: "primary" },
-        "& > h1": { fontSize: "3rem" },
         fontFamily: "heading",
-        borderBottom: "1px dotted",
+        borderTop: "1px dotted",
         borderColor: "border",
+        mt: "3rem",
       }}
     >
       <MDXProvider components={shortcodes}>
@@ -43,4 +46,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Footer

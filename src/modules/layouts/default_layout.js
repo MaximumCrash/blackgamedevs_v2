@@ -1,3 +1,7 @@
+/*
+This is the layout that wraps all MDX type pages. 
+See gatsby-config.js (gatsby-plugin-mdx)
+*/
 import React from "react"
 import SEO from "./seo.js"
 

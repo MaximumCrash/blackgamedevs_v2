@@ -9,7 +9,7 @@ import searchIcon from "@public/icons/search_icon.svg"
 import minusIcon from "@public/icons/minus_icon.svg"
 import { useSite } from "@layouts/SiteContext"
 import { groupBy } from "@src/utils"
-import {motion, AnimatePresence} from 'framer-motion';
+import { motion, AnimatePresence } from "framer-motion"
 
 const Search = () => {
   const {
@@ -25,15 +25,18 @@ const Search = () => {
 
   const [filtersOpen, setFiltersOpen] = useState(false)
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    navigate(`/search?q=${query}`);
+  const onSubmit = e => {
+    e.preventDefault()
+    navigate(`/search?q=${query}`)
   }
 
   const onChange = ({ target: { value } }) => {
     if (lunr && value !== "") {
-      const queryString = (filters !== '' && filters !== null) ? `${filters} ${value}*` : `${value}*`;
-      const refs = lunr["en"].index.search(queryString.replace(/\s/g, '*'))
+      const queryString =
+        filters !== "" && filters !== null
+          ? `${filters} ${value}*`
+          : `${value}*`
+      const refs = lunr["en"].index.search(queryString.replace(/\s/g, "*"))
       const results = groupBy(
         refs.map(({ ref }) => {
           const { id, name, type } = lunr["en"].store[ref]
@@ -41,7 +44,7 @@ const Search = () => {
 
           return {
             type,
-            node: {...node, name},
+            node: { ...node, name },
           }
         }),
         "type"
@@ -59,7 +62,7 @@ const Search = () => {
 
           return {
             type,
-            node: {...node, name},
+            node: { ...node, name },
           }
         }),
         "type"
@@ -71,11 +74,14 @@ const Search = () => {
   }
 
   const setFilter = filter => {
-
-    const updatedFilters = (filters !== null && filters !== '') ? `${filters} +${filter}` : `+${filter}`;
-    const queryString = updatedFilters !== '' ? `${updatedFilters} ${query}*` : `${query}*`
+    const updatedFilters =
+      filters !== null && filters !== ""
+        ? `${filters} +${filter}`
+        : `+${filter}`
+    const queryString =
+      updatedFilters !== "" ? `${updatedFilters} ${query}*` : `${query}*`
     if (lunr) {
-      const refs = lunr["en"].index.search(queryString.replace(/\s/g, '\\'))
+      const refs = lunr["en"].index.search(queryString.replace(/\s/g, "\\"))
       const results = groupBy(
         refs.map(({ ref }) => {
           const { id, name, type } = lunr["en"].store[ref]
@@ -83,7 +89,7 @@ const Search = () => {
 
           return {
             type,
-            node: {...node, name},
+            node: { ...node, name },
           }
         }),
         "type"
@@ -99,7 +105,9 @@ const Search = () => {
     const updatedFilters = filters.replace(`+${filter}`, "")
 
     if (lunr) {
-      const refs = lunr["en"].index.search(updatedFilters !== '' ? `${updatedFilters} ${query}*` : `${query}*`)
+      const refs = lunr["en"].index.search(
+        updatedFilters !== "" ? `${updatedFilters} ${query}*` : `${query}*`
+      )
       const results = groupBy(
         refs.map(({ ref }) => {
           const { id, name, type } = lunr["en"].store[ref]
@@ -107,7 +115,7 @@ const Search = () => {
 
           return {
             type,
-            node: {...node, name},
+            node: { ...node, name },
           }
         }),
         "type"
@@ -129,7 +137,7 @@ const Search = () => {
 
           return {
             type,
-            node: {...node, name},
+            node: { ...node, name },
           }
         }),
         "type"
@@ -248,21 +256,34 @@ const Search = () => {
               }}
             />
           </Box>
-          
         </Text>
-        {(filters && filters.length > 0) &&
-            <Text sx={{color: 'text2', fontSize: '15px', display: 'inline-block', ml: '1rem', textDecoration: 'underline', cursor: 'pointer'}} onClick={clearFilters}>Remove filters</Text>
-          }
+        {filters && filters.length > 0 && (
+          <Text
+            sx={{
+              color: "text_secondary",
+              fontSize: "15px",
+              display: "inline-block",
+              ml: "1rem",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+            onClick={clearFilters}
+          >
+            Remove filters
+          </Text>
+        )}
         <SmoothCollapse
           eagerRender={true}
           allowOverflowWhenOpen={true}
           expanded={filters && filters.length}
           sx={{ pl: "1rem", pr: "1rem" }}
         >
-          Current Filters: {' '}
-          {filters && filters.split("+").map((filter, index) => (
+          Current Filters:{" "}
+          {filters &&
+            filters.split("+").map((filter, index) => (
               <React.Fragment key={`selected-filters-${index}-${filter}`}>
-                {filter}{index !== filters.split("+").length - 1 ? "," :""}
+                {filter}
+                {index !== filters.split("+").length - 1 ? "," : ""}
               </React.Fragment>
             ))}
         </SmoothCollapse>
@@ -270,75 +291,111 @@ const Search = () => {
           eagerRender={true}
           allowOverflowWhenOpen={true}
           expanded={filtersOpen}
-          sx={{ pl: "1rem", pr: "1rem", mt: '.24rem' }}
+          sx={{ pl: "1rem", pr: "1rem", mt: ".24rem" }}
         >
-          {filterSet.skills.length && 
-          <>
-          <Text sx={{ fontSize: '1.16rem', mb: '.64rem'}}>Skills:</Text>
-            <Flex sx={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flexStart', mt: '.32rem'}}>
-              
-              {filterSet.skills.map((skill) => {
-                return (
-                  <motion.div whileTap={{scale: 0.8}} transition={{ ease: "easeInOut", duration: .1 }} sx={{fontSize: "1rem",
-		fontWeight: "normal",
-		borderRadius: "5px",
-		border: "1px solid",
-		mb: "1rem",
-    mr: '.5rem',
-    color: filters && filters.includes(skill) ? "link_hover" : 'text2',
-		borderColor: filters && filters.includes(skill) ? "link_hover" : "filterBorder",
-		padding: ".2rem .6rem",
-		cursor: 'pointer',
-    transition: "all .1s ease",
-		':hover': {
-						borderColor: 'text',
-						color: 'text',
-						
-					},
-					'&:hover > *': {
-							color: 'text'
-						},}} onClick={() => setFilter(skill)}>
-                  {skill}
-                  </motion.div>
-                )
-              })}
-            </Flex>
+          {filterSet.skills.length && (
+            <>
+              <Text sx={{ fontSize: "1.16rem", mb: ".64rem" }}>Skills:</Text>
+              <Flex
+                sx={{
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  alignItems: "flexStart",
+                  mt: ".32rem",
+                }}
+              >
+                {filterSet.skills.map(skill => {
+                  return (
+                    <motion.div
+                      whileTap={{ scale: 0.8 }}
+                      transition={{ ease: "easeInOut", duration: 0.1 }}
+                      sx={{
+                        fontSize: "1rem",
+                        fontWeight: "normal",
+                        borderRadius: "5px",
+                        border: "1px solid",
+                        mb: "1rem",
+                        mr: ".5rem",
+                        color:
+                          filters && filters.includes(skill)
+                            ? "link_hover"
+                            : "text_secondary",
+                        borderColor:
+                          filters && filters.includes(skill)
+                            ? "link_hover"
+                            : "filterBorder",
+                        padding: ".2rem .6rem",
+                        cursor: "pointer",
+                        transition: "all .1s ease",
+                        ":hover": {
+                          borderColor: "text",
+                          color: "text",
+                        },
+                        "&:hover > *": {
+                          color: "text",
+                        },
+                      }}
+                      onClick={() => setFilter(skill)}
+                    >
+                      {skill}
+                    </motion.div>
+                  )
+                })}
+              </Flex>
             </>
-          } 
+          )}
 
-          {filterSet.locations.length && 
-          <>
-          <Text sx={{ fontSize: '1.16rem', mb: '.64rem'}}>Locations:</Text>
-            <Flex sx={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flexStart', mt: '.32rem'}}>
-              
-              {filterSet.locations.map((location) => {
-                return (
-                  <motion.div whileTap={{scale: 0.8}} transition={{ ease: "easeInOut", duration: .1 }} sx={{fontSize: "1rem",
-		fontWeight: "normal",
-		borderRadius: "5px",
-		border: "1px solid",
-		mb: "1rem",
-    mr: '.5rem',
-    color: filters && filters.includes(location) ? "link_hover" : 'text2',
-		borderColor: filters && filters.includes(location) ? "link_hover" : "filterBorder",
-		padding: ".2rem .6rem",
-		cursor: 'pointer',
-    transition: "all .1s ease",
-		':hover': {
-						borderColor: 'text',
-						color: 'text',
-						
-					},
-					'&:hover > *': {
-							color: 'text'
-						},}} onClick={() => setFilter(location)}>
-                  {location}
-                  </motion.div>
-                )
-              })}
-            </Flex>
+          {filterSet.locations.length && (
+            <>
+              <Text sx={{ fontSize: "1.16rem", mb: ".64rem" }}>Locations:</Text>
+              <Flex
+                sx={{
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  alignItems: "flexStart",
+                  mt: ".32rem",
+                }}
+              >
+                {filterSet.locations.map(location => {
+                  return (
+                    <motion.div
+                      whileTap={{ scale: 0.8 }}
+                      transition={{ ease: "easeInOut", duration: 0.1 }}
+                      sx={{
+                        fontSize: "1rem",
+                        fontWeight: "normal",
+                        borderRadius: "5px",
+                        border: "1px solid",
+                        mb: "1rem",
+                        mr: ".5rem",
+                        color:
+                          filters && filters.includes(location)
+                            ? "link_hover"
+                            : "text_secondary",
+                        borderColor:
+                          filters && filters.includes(location)
+                            ? "link_hover"
+                            : "filterBorder",
+                        padding: ".2rem .6rem",
+                        cursor: "pointer",
+                        transition: "all .1s ease",
+                        ":hover": {
+                          borderColor: "text",
+                          color: "text",
+                        },
+                        "&:hover > *": {
+                          color: "text",
+                        },
+                      }}
+                      onClick={() => setFilter(location)}
+                    >
+                      {location}
+                    </motion.div>
+                  )
+                })}
+              </Flex>
             </>
-          } 
+          )}
         </SmoothCollapse>
       </Box>
     </Sticky>
