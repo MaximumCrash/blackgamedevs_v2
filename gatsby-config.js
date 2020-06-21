@@ -15,7 +15,7 @@ module.exports = {
         path: `${__dirname}/src/pages/`,
       },
     },
-    {
+    { 
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `layouts`,
@@ -129,7 +129,7 @@ module.exports = {
         ],
         fields: [
           { name: "name", store: true, attributes: { boost: 20 } },
-          { name: "location", store: true },
+          { name: "location", store: true, attributes: {boost: 10} },
           { name: "skills", store: true, attributes: { boost: 15 } },
           { name: "id", store: true },
           { name: "type", store: true },
@@ -147,9 +147,12 @@ module.exports = {
             location: ({ rawBody }) => {
               return rawBody
                 ? rawBody
+                    .substring(
+                      rawBody.lastIndexOf("<Location>") + 11,
+                      rawBody.lastIndexOf("</Location>")
+                    )
                     .split("\n")
-                    .find(n => n.slice(0, 2) === "##")
-                    .replace(/^##\s/, "")
+                    .filter(n => n !== "")
                 : null
             },
             skills: ({ rawBody }) => {

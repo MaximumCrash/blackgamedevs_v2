@@ -12,7 +12,7 @@ const Skills = ({children}) => {
 		const setFilter = (filter) => {
 		if (filters && filters.includes(filter)) {return;}
 
-		const updatedFilters =  `${filters} +${filter}`;
+		const updatedFilters =  filters !== null && filters !== '' ? `${filters} +${filter}` : `+${filter}`;
 
 		if (lunr) {
 			const refs = lunr["en"].index.search(`${updatedFilters} ${query}*`);

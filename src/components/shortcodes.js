@@ -2,6 +2,7 @@ import React from "react"
 import Header from "@layouts/header"
 import Links from "@components/links"
 import Skills from "@components/skills"
+import Location from '@components/location'
 import { Image, Text } from "theme-ui"
 import gameIcon from "@public/icons/icon-game.svg"
 import businessIcon from "@public/icons/icon-business.svg"
@@ -17,4 +18,5 @@ export default {
   Business: props => <Links {...props} icon={businessIcon} className="business" alt="Business"/>,
   Personal: props => <Links {...props} icon={iconUser} className="personal" alt="Personal"/>,
   Skills,
+  Location
 }

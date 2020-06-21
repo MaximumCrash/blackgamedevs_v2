@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import { Input, Box, Text, jsx } from "theme-ui"
 import SmoothCollapse from "react-smooth-collapse"
 import Sticky from "react-sticky-el"
+import { navigate } from "@reach/router"
 
 import searchIcon from "@public/icons/search_icon.svg"
 import minusIcon from "@public/icons/minus_icon.svg"
@@ -22,9 +23,15 @@ const Search = () => {
 
   const [filtersOpen, setFiltersOpen] = useState(false)
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/search?q=${query}`);
+  }
+
   const onChange = ({ target: { value } }) => {
     if (lunr && value !== "") {
-      const refs = lunr["en"].index.search((filters !== '' && filters !== null) ? `${filters} ${value}*` : `${value}*`)
+      const queryString = (filters !== '' && filters !== null) ? `${filters} ${value}*` : `${value}*`;
+      const refs = lunr["en"].index.search(queryString.replace(/\s/g, '*'))
       const results = groupBy(
         refs.map(({ ref }) => {
           const { id, name, type } = lunr["en"].store[ref]
@@ -63,9 +70,9 @@ const Search = () => {
 
   const setFilter = filter => {
     const updatedFilters = (filters !== null && filters !== '') ? `${filters} +${filter}` : ``;
-
+    const queryString = updatedFilters !== '' ? `${updatedFilters} ${query}*` : `${query}*`
     if (lunr) {
-      const refs = lunr["en"].index.search(updatedFilters !== '' ? `${updatedFilters} ${query}*~1` : `${query}*~1`)
+      const refs = lunr["en"].index.search(queryString.replace(/\s/g, '\\'))
       const results = groupBy(
         refs.map(({ ref }) => {
           const { id, name, type } = lunr["en"].store[ref]
@@ -107,6 +114,28 @@ const Search = () => {
     }
 
     setFilters(updatedFilters)
+  }
+
+  const clearFilters = () => {
+    if (lunr) {
+      const refs = lunr["en"].index.search(`${query}*`)
+      const results = groupBy(
+        refs.map(({ ref }) => {
+          const { id, name, type } = lunr["en"].store[ref]
+          const { node } = AllData[type].find(({ node }) => node.id === id)
+
+          return {
+            type,
+            node: {...node, name},
+          }
+        }),
+        "type"
+      )
+
+      setResults(results.length ? results : AllData)
+    }
+
+    setFilters(null)
   }
 
   return (
@@ -216,7 +245,11 @@ const Search = () => {
               }}
             />
           </Box>
+          
         </Text>
+        {(filters && filters.length > 0) &&
+            <Text sx={{color: 'text2', fontSize: '15px', display: 'inline-block', ml: '1rem', textDecoration: 'underline', cursor: 'pointer'}} onClick={clearFilters}>Clear filters</Text>
+          }
         <SmoothCollapse
           eagerRender={true}
           allowOverflowWhenOpen={true}

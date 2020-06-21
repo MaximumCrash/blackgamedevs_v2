@@ -50,6 +50,14 @@ const SiteProvider = ({ children, value }) => {
 
   const AllData = { people: people.edges, companies: companies.edges }
 
+  // const AllFilters = Object.keys(AllData).map((n) => {
+  //   return AllData[n].map((f) => {
+
+  //   })
+  // })
+
+  // console.log(AllFilters);
+
   const [results, setResults] = useState(AllData)
   const [filters, setFilters] = useState(null)
   const [query, setQuery] = useState("")
@@ -58,7 +66,10 @@ const SiteProvider = ({ children, value }) => {
   //To make it easier for our app to access it we just set it in our app context.
   useLayoutEffect(() => {
     if (window.__LUNR__) {
-      window.__LUNR__.__loaded.then(lunr => setLunr(lunr))
+      window.__LUNR__.__loaded.then(lunr => {
+        console.log(lunr)
+        //lunr.tokenizer.separator = /[\r\n|\n|\r]/
+        setLunr(lunr)})
     }
   }, [])
 

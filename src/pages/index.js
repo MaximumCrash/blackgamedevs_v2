@@ -68,27 +68,8 @@ const Index = () => {
                     order: 0,
                     color: "primary",
                   },
-                  "& > .subtitle": {
+                  "& > .location": {
                     order: 1,
-                    fontSize: "1rem",
-                    fontWeight: "normal",
-                    borderRadius: "5px",
-                    border: "1px solid",
-                    mb: "1rem",
-                    borderColor: "filterBorder",
-                    padding: ".2rem .6rem",
-                    "::before": {
-                      content: '""',
-                      position: "relative",
-                      background: `url(./icons/icon-location.svg)`,
-                      backgroundRepeat: "no-repeat",
-                      height: "19px",
-                      width: "12px",
-                      filter: "invert(80%)",
-                      display: "inline-block",
-                      verticalAlign: "middle",
-                      mr: ".5rem",
-                    },
                   },
                   "& > img": {
                     order: 2,
