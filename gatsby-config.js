@@ -1,5 +1,4 @@
-
-const path = require("path");
+const path = require("path")
 
 module.exports = {
   siteMetadata: {
@@ -37,16 +36,17 @@ module.exports = {
         path: `${__dirname}/companies/`,
       },
     },
-    { resolve: 'gatsby-plugin-theme-ui',
+    {
+      resolve: "gatsby-plugin-theme-ui",
       options: {
-        prismPreset: 'night-owl',
-        preset: '@theme-ui/preset-funk'
-      }
+        prismPreset: "night-owl",
+        preset: "@theme-ui/preset-funk",
+      },
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-remark-images`,
-    'gatsby-remark-unwrap-images',
+    "gatsby-remark-unwrap-images",
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
@@ -61,14 +61,14 @@ module.exports = {
               backgroundColor: "none",
               disableBgImage: true,
               maxWidth: 1000,
-              wrapperStyle: (result) => `width: 100%;margin-left: 0;`,
+              wrapperStyle: result => `width: 100%;margin-left: 0;`,
             },
           },
           {
-            resolve: 'gatsby-remark-unwrap-images'
-          }
+            resolve: "gatsby-remark-unwrap-images",
+          },
         ],
-      }
+      },
     },
     {
       resolve: `gatsby-plugin-layout`,
@@ -76,7 +76,7 @@ module.exports = {
         component: require.resolve(`./src/layouts/site_layout.js`),
       },
     },
-    
+
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -91,11 +91,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-          `Martel\:400,700`,
-          `Poppins\:300,400,700`
-        ],
-        display: 'swap'
+        fonts: [`Martel\:400,700`, `Poppins\:300,400,700`],
+        display: "swap",
       },
     },
     {
@@ -122,56 +119,74 @@ module.exports = {
       options: {
         languages: [
           {
-            name: 'en',
-            filterNodes: (node) => 
+            name: "en",
+            filterNodes: node =>
               node.frontmatter !== undefined &&
               node.fileAbsolutePath &&
-              node.fileAbsolutePath.match(
-                /(\/people\/|\/companies\/).+/
-              ) !== null
-          }
+              node.fileAbsolutePath.match(/(\/people\/|\/companies\/).+/) !==
+                null,
+          },
         ],
         fields: [
-          {name: 'name', store: true, attributes: {boost: 20}},
-          {name: 'location', store: true},
-          {name: 'skills', store: true, attributes: {boost: 15}},
-          {name: 'id', store: true},
-          {name: 'type', store: true}
+          { name: "name", store: true, attributes: { boost: 20 } },
+          { name: "location", store: true },
+          { name: "skills", store: true, attributes: { boost: 15 } },
+          { name: "id", store: true },
+          { name: "type", store: true },
         ],
         resolvers: {
           Mdx: {
-            name: ({rawBody}) => {
-              return rawBody ? rawBody.split("\n").find((n) => n[0] === "#").replace(/^#\s/, '') : null;
+            name: ({ rawBody }) => {
+              return rawBody
+                ? rawBody
+                    .split("\n")
+                    .find(n => n[0] === "#")
+                    .replace(/^#\s/, "")
+                : null
             },
-            location: ({rawBody}) => {
-              return rawBody ? rawBody.split("\n").find((n) => n.slice(0,2) === "##").replace(/^##\s/, '')  : null;
+            location: ({ rawBody }) => {
+              return rawBody
+                ? rawBody
+                    .split("\n")
+                    .find(n => n.slice(0, 2) === "##")
+                    .replace(/^##\s/, "")
+                : null
             },
-            skills: ({rawBody}) => {
-              return rawBody ? rawBody.substring(rawBody.lastIndexOf("<Skills>") + 9, rawBody.lastIndexOf("</Skills>")).split('\n').filter((n) => n !== "")  : null;
+            skills: ({ rawBody }) => {
+              return rawBody
+                ? rawBody
+                    .substring(
+                      rawBody.lastIndexOf("<Skills>") + 9,
+                      rawBody.lastIndexOf("</Skills>")
+                    )
+                    .split("\n")
+                    .filter(n => n !== "")
+                : null
             },
-            id: ({id}) => id,
-            type: ({fileAbsolutePath}) => {
-              const pathHasType = fileAbsolutePath.includes('/people/') || fileAbsolutePath.includes('/companies/');
+            id: ({ id }) => id,
+            type: ({ fileAbsolutePath }) => {
+              const pathHasType =
+                fileAbsolutePath.includes("/people/") ||
+                fileAbsolutePath.includes("/companies/")
 
               if (pathHasType) {
-                if (fileAbsolutePath.includes('/people')) {
-                  return 'people'
+                if (fileAbsolutePath.includes("/people")) {
+                  return "people"
                 }
 
-                return 'companies';
+                return "companies"
+              } else {
+                return null
               }
-              else {
-                return null;
-              }
-            }
-          }
+            },
+          },
         },
-        filename: 'search_index.json',
+        filename: "search_index.json",
         fetchOptions: {
-          credentials: 'same-origin'
-        }
-      }
-    }
+          credentials: "same-origin",
+        },
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
