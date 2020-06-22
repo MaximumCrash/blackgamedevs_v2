@@ -109,21 +109,23 @@ const FilterSet = ({
               onClick={() => onClick(filter)}
               sx={{
                 textTransform: "capitalize",
-                color: filterKeys.includes(filter)
+                color: filterKeys.includes(filter.key)
                   ? "link_hover"
                   : "text_secondary",
-                borderColor: filterKeys.includes(filter)
+                borderColor: filterKeys.includes(filter.key)
                   ? "link_hover"
                   : "filterBorder",
                 "&:hover": {
-                  color: filterKeys.includes(filter) ? "link_hover" : "text",
-                  borderColor: filterKeys.includes(filter)
+                  color: filterKeys.includes(filter.key)
+                    ? "link_hover"
+                    : "text",
+                  borderColor: filterKeys.includes(filter.key)
                     ? "link_hover"
                     : "text",
                 },
               }}
             >
-              {filter}
+              {filter.label}
             </Button>
           )
         })}
@@ -189,7 +191,7 @@ const Filters = () => {
                 sx={{ textTransform: "capitalize", color: "primary" }}
               >{`${type} `}</span>
               <span sx={{ color: "text_secondary" }}>
-                ({filteringBy[type].map(({ key }) => key).join(", ")})
+                ({filteringBy[type].map(({ label }) => label).join(", ")})
               </span>
               {index !== Object.keys(filteringBy).length - 1 && (
                 <span sx={{ fontWeight: "bold" }}>{` and `}</span>
@@ -207,7 +209,7 @@ const Filters = () => {
             filtersOfSet={filterSet[set]}
             filterKeys={filterKeys}
             filtersSelected={filters.some(n => n.set === set)}
-            onClick={key => setFilter({ key, set }, true)}
+            onClick={filter => setFilter({ ...filter, set }, true)}
             removeFilterSet={() => clearFilters(set)}
             key={`filter-set-${index}`}
           >

@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: `Black Game Devs`,
     description: `A list of black game developers, designers, artists, and more. Here they are. Hire them. Buy their stuff.`,
-    author: `Arthur Ward, Jr, Catt Small, Chris Algoo, Réjon Taylor-Foster`,
+    author: `Arthur Ward, Jr, Catt Small, Chris Algoo, Réjon Taylor-Foster (@Maximum_Crash)`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -73,8 +73,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Black Game Developers`,
+        short_name: `BGD`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
@@ -109,68 +109,68 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: "gatsby-plugin-lunr",
-      options: {
-        languages: [
-          {
-            name: "en",
-            filterNodes: node =>
-              node.frontmatter !== undefined &&
-              node.fileAbsolutePath &&
-              node.fileAbsolutePath.match(/(\/directories\/).+/) !== null,
-          },
-        ],
-        fields: [
-          { name: "name", store: true, attributes: { boost: 20 } },
-          { name: "location", store: true, attributes: { boost: 10 } },
-          { name: "skills", store: true, attributes: { boost: 15 } },
-          { name: "id", store: true },
-          { name: "type", store: true },
-        ],
-        resolvers: {
-          Mdx: {
-            name: ({ rawBody }) => {
-              return rawBody
-                ? rawBody
-                    .split("\n")
-                    .find(n => n[0] === "#")
-                    .replace(/^#\s/, "")
-                : null
-            },
-            location: ({ rawBody }) => {
-              return rawBody
-                ? rawBody
-                    .substring(
-                      rawBody.lastIndexOf("<Location>") + 11,
-                      rawBody.lastIndexOf("</Location>")
-                    )
-                    .split("\n")
-                    .filter(n => n !== "")
-                : null
-            },
-            skills: ({ rawBody }) => {
-              return rawBody
-                ? rawBody
-                    .substring(
-                      rawBody.lastIndexOf("<Skills>") + 9,
-                      rawBody.lastIndexOf("</Skills>")
-                    )
-                    .split("\n")
-                    .filter(n => n !== "")
-                : null
-            },
-            id: ({ id }) => id,
-            type: ({ frontmatter: { isCompany } }) =>
-              isCompany ? "companies" : "people",
-          },
-        },
-        filename: "search_index.json",
-        fetchOptions: {
-          credentials: "same-origin",
-        },
-      },
-    },
+    // {
+    //   resolve: "gatsby-plugin-lunr",
+    //   options: {
+    //     languages: [
+    //       {
+    //         name: "en",
+    //         filterNodes: node =>
+    //           node.frontmatter !== undefined &&
+    //           node.fileAbsolutePath &&
+    //           node.fileAbsolutePath.match(/(\/directories\/).+/) !== null,
+    //       },
+    //     ],
+    //     fields: [
+    //       { name: "name", store: true, attributes: { boost: 20 } },
+    //       { name: "location", store: true, attributes: { boost: 10 } },
+    //       { name: "skills", store: true, attributes: { boost: 15 } },
+    //       { name: "id", store: true },
+    //       { name: "type", store: true },
+    //     ],
+    //     resolvers: {
+    //       Mdx: {
+    //         name: ({ rawBody }) => {
+    //           return rawBody
+    //             ? rawBody
+    //                 .split("\n")
+    //                 .find(n => n[0] === "#")
+    //                 .replace(/^#\s/, "")
+    //             : null
+    //         },
+    //         location: ({ rawBody }) => {
+    //           return rawBody
+    //             ? rawBody
+    //                 .substring(
+    //                   rawBody.lastIndexOf("<Location>") + 11,
+    //                   rawBody.lastIndexOf("</Location>")
+    //                 )
+    //                 .split("\n")
+    //                 .filter(n => n !== "")
+    //             : null
+    //         },
+    //         skills: ({ rawBody }) => {
+    //           return rawBody
+    //             ? rawBody
+    //                 .substring(
+    //                   rawBody.lastIndexOf("<Skills>") + 9,
+    //                   rawBody.lastIndexOf("</Skills>")
+    //                 )
+    //                 .split("\n")
+    //                 .filter(n => n !== "")
+    //             : null
+    //         },
+    //         id: ({ id }) => id,
+    //         type: ({ frontmatter: { isCompany } }) =>
+    //           isCompany ? "companies" : "people",
+    //       },
+    //     },
+    //     filename: "search_index.json",
+    //     fetchOptions: {
+    //       credentials: "same-origin",
+    //     },
+    //   },
+    // },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

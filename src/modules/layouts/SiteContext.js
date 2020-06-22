@@ -9,6 +9,7 @@ import React, {
 } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { useLocation } from "@reach/router"
+import { flattenSkills, sanitizeFilter } from "@utils"
 
 export const SiteContext = createContext()
 
@@ -53,36 +54,19 @@ const SiteProvider = ({ children, value }) => {
   }
 
   //Get all existing and unique Filters by taking copy between
-  const AllFilters = directory.edges.map(({ node }) => {
-    const skills = node.rawBody
-      .substring(
-        node.rawBody.lastIndexOf("<Skills>") + 9,
-        node.rawBody.lastIndexOf("</Skills>")
-      )
-      .replace(/[-.#`!*()]["]|[0-9]\./g, "") //Replace MD usual characters with empty
-      .split("\n") //Split by new lines
-      .filter(n => n !== "")
-      .map(n => n.trim()) //Filter out empty strings, and trim whitespace
+  const AllFilters = directory.edges.map(({ node: { rawBody } }) => {
+    const skills = sanitizeFilter(rawBody, "Skills")
+    //Filter out empty strings, trim whitespace, convert to camelCase for key consistency
 
-    const locations = node.rawBody
-      .substring(
-        node.rawBody.lastIndexOf("<Location>") + 11,
-        node.rawBody.lastIndexOf("</Location>")
-      )
-      .replace(/[-.#`!*()]["]|[0-9]\./g, "") //Replace MD usual characters with empty
-      .split("\n") //Split by new lines
-      .filter(n => n !== "")
-      .map(n => n.trim()) //Filter out empty strings, and trim whitespace
+    const locations = sanitizeFilter(rawBody, "Location") //Filter out empty strings, trim whitespace, convert to camelCase for key consistency
 
     return { skills, locations }
   })
 
-  //TODO(REJON): See if FLAT is needed here.
   //Seperate filters based on whether they are skills or locations.
-  const skills = [...new Set(AllFilters.map(({ skills }) => skills).flat(1))]
-  const locations = [
-    ...new Set(AllFilters.map(({ locations }) => locations).flat(1)),
-  ]
+  //Flatten them into 1 array.
+  const skills = flattenSkills(AllFilters, "skills")
+  const locations = flattenSkills(AllFilters, "locations")
 
   const filterSet = { skills, locations }
 

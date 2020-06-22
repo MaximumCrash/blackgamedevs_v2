@@ -1649,7 +1649,7 @@
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.4.3":
+"@babel/runtime@^7.0.0":
   version "7.10.3"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.3.tgz#670d002655a7c366540c67f6fd3342cd09500364"
   integrity sha512-RzGO0RLSdokm9Ipe/YD+7ww8X2Ro79qiXZF3HU9ljrM+qnJmH1Vqth+hbiQZy761LnMJTMitHDuKVYTk3k4dLw==
@@ -7017,15 +7017,6 @@ gatsby-plugin-layout@^1.3.4:
   dependencies:
     "@babel/runtime" "^7.10.2"
 
-gatsby-plugin-lunr@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-lunr/-/gatsby-plugin-lunr-1.5.2.tgz#eaeba70b85294827e031070c9bad70a93226e509"
-  integrity sha512-L+W8Jb7io824oxBGP973/7N9uv5YUhWpjRdteWDfWzku2S3vzlunoKVz5h4kMXezWDZDV2g8YsfWFNor7Gg5QQ==
-  dependencies:
-    "@babel/runtime" "^7.4.3"
-    lunr "^2.3.6"
-    lunr-languages "^1.1.0"
-
 gatsby-plugin-manifest@^2.4.5:
   version "2.4.5"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-manifest/-/gatsby-plugin-manifest-2.4.5.tgz#d6dc8e58b5c022ffaf4b6967474dbf1e0e0eeacc"
@@ -7819,6 +7810,11 @@ graphql-type-json@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.3.1.tgz#47fca2b1fa7adc0758d165b33580d7be7a6cf548"
   integrity sha512-1lPkUXQ2L8o+ERLzVAuc3rzc/E6pGF+6HnjihCVTK0VzR0jCuUd92FqNxoHdfILXqOn2L6b4y47TBxiPyieUVA==
+
+graphql-type-json@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.3.2.tgz#f53a851dbfe07bd1c8157d24150064baab41e115"
+  integrity sha512-J+vjof74oMlCWXSvt0DOf2APEdZOCdubEvGDUAlqH//VBYcOYsGgRW7Xzorr44LvkjiuvecWc8fChxuZZbChtg==
 
 graphql@^14.6.0:
   version "14.6.0"
@@ -9791,12 +9787,7 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-lunr-languages@^1.1.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/lunr-languages/-/lunr-languages-1.4.0.tgz#42abb12aa81447d1ece5aa35676adcdf40a3e8a8"
-  integrity sha512-YWfZDExJN/MJEVE/DbM4AuVRLsqeHi+q3wmECMsWjGIOkd5mr9DUNos7fv8f5do9VLRMYXIzFjn+N4+KPI9pQA==
-
-lunr@^2.3.6:
+lunr@^2.3.8:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/lunr/-/lunr-2.3.8.tgz#a8b89c31f30b5a044b97d2d28e2da191b6ba2072"
   integrity sha512-oxMeX/Y35PNFuZoHp+jUj5OSEmLCaIH4KTFJh7a93cHBoFmpw2IoPs22VIz7vyO2YUnx2Tn9dzIwO2P/4quIRg==
@@ -13907,6 +13898,11 @@ strip-outer@^1.0.0:
   integrity sha512-k55yxKHwaXnpYGsOzg4Vl8+tDrWylxDEpknGjhTiZB8dFRU5rTo9CAzeycivxV3s+zlTKwrs6WxMxR95n26kwg==
   dependencies:
     escape-string-regexp "^1.0.2"
+
+striptags@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/striptags/-/striptags-3.1.1.tgz#c8c3e7fdd6fb4bb3a32a3b752e5b5e3e38093ebd"
+  integrity sha1-yMPn/db7S7OjKjt1LltePjgJPr0=
 
 style-loader@^0.23.1:
   version "0.23.1"
