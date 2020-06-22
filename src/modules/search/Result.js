@@ -12,13 +12,7 @@ const Result = ({ children, frontmatter, rawBody, body }) => {
   const hasImage = rawBody.includes("![")
 
   return (
-    <motion.li
-      sx={{ m: "2rem 0 0 2rem", width: "30%", maxWidth: "405px" }}
-      initial={{ opacity: 0, y: 32 }}
-      transition={{ ease: "easeInOut", duration: 0.164 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 32 }}
-    >
+    
       <Flex
         sx={{
           flexDirection: "column",
@@ -56,7 +50,7 @@ const Result = ({ children, frontmatter, rawBody, body }) => {
         )}
         <MDXRenderer>{body}</MDXRenderer>
       </Flex>
-    </motion.li>
+    
   )
 }
 

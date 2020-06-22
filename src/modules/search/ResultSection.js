@@ -1,17 +1,16 @@
 //** @jsx jsx */
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
-import { AnimatePresence } from "framer-motion"
-import { jsx, Text, Flex } from "theme-ui"
+import { motion, AnimatePresence } from "framer-motion"
+import { jsx, Text, Box, Flex } from "theme-ui"
 
 import Shortcodes from "@ui/shortcodes"
 import { sortNodesBy } from "@utils"
 import Result from "@search/Result"
 import Link from "@modules/utility/Link"
 
-const ResultSection = ({ results, sortBy = "name", children, query, noun }) => {
-  return (
-    <>
+const ResultSection = ({ results, sortBy = "name", children, query, noun }) => (
+    <Box>
       <Text
         as="h2"
         sx={{ color: "primary", fontWeight: "normal", mb: 3, mt: 3 }}
@@ -34,12 +33,22 @@ const ResultSection = ({ results, sortBy = "name", children, query, noun }) => {
         }}
       >
         <MDXProvider components={Shortcodes}>
-          <AnimatePresence exitBeforeEnter initial={false}>
-            {sortNodesBy(results, sortBy).map(({ node }, index) => (
-              <Result key={node.id} {...node} />
+          <AnimatePresence exitBeforeEnter >
+            {sortNodesBy(results, sortBy).map(({ id, ...otherProps }, index) => (
+              <motion.li
+                sx={{ m: "2rem 0 0 2rem", width: "30%", maxWidth: "405px" }}
+                initial={{ opacity: 0, y: 32 }}
+                transition={{ ease: "easeInOut", duration: 0.164 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 32 }}
+              >
+              <Result key={`result-obj-${id}-${index}`} {...otherProps} />
+              </motion.li>
             ))}
-            {results.length === 0 && (
-              <Flex sx={{ flexDirection: "column", p: "2rem", pb: 0 }}>
+            
+          </AnimatePresence>
+          {(results && results.length === 0) && (
+              <Flex key={'no-results'} sx={{ flexDirection: "column", p: "2rem", pb: 0 }}>
                 {query && <Text>{`No results for ${query}`}</Text>}
                 <Text>
                   {`Think ${noun} is missing? Add them to the list `}
@@ -52,11 +61,9 @@ const ResultSection = ({ results, sortBy = "name", children, query, noun }) => {
                 </Text>
               </Flex>
             )}
-          </AnimatePresence>
         </MDXProvider>
       </Flex>
-    </>
+    </Box>
   )
-}
 
 export default ResultSection

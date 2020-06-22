@@ -13,10 +13,18 @@ const Search = () => (
     sx={{
       position: "relative",
       zIndex: "10",
-      p: 3,
-      pb: 2,
+      
       borderBottom: "1px dotted",
       borderColor: "border",
+      maxWidth: "1280px",
+     
+      '& > *': {
+        p: 3,
+        pb: 2,
+        position: 'relative',
+         bg: 'background',
+         maxWidth: "1280px",
+      }
     }}
     stickyStyle={{
       boxShadow:

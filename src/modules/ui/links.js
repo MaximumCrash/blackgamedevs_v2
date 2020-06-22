@@ -1,7 +1,7 @@
 //** @jsx jsx */
 import React from "react"
 import { Box, Flex, jsx } from "theme-ui"
-
+import Link from '@modules/utility/Link'
 const Links = ({ children, icon, className, alt }) => {
   const _Children = React.Children.toArray(children)
 
@@ -26,14 +26,14 @@ const Links = ({ children, icon, className, alt }) => {
           verticalAlign: "middle",
         }}
       />
-      {_Children.map(game => {
-        let element = game
+      {_Children.map((link, index) => {
+        let element = link
 
-        if (game.props.mdxType === "ul" || game.props.mdxType === "ol") {
-          element = game.props.children.props.children
+        if (link.props.mdxType === "ul" || link.props.mdxType === "ol") {
+          element = link.props.children.props.children
         }
 
-        return <Box sx={{ mr: ".65rem", "& > *": { m: 0 } }}>{element}</Box>
+        return <Box key={`links-link-${index}-${element}`} sx={{ mr: ".65rem", "& > *": { m: 0 } }}>{element}</Box>
       })}
     </Flex>
   )

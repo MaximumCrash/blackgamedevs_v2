@@ -23,7 +23,6 @@ export const useSite = () => {
 }
 
 const SiteProvider = ({ children, value }) => {
-  const [lunr, setLunr] = useState(null)
 
   //Get all the results data (directory)
   const { directory } = useStaticQuery(graphql`
@@ -75,27 +74,23 @@ const SiteProvider = ({ children, value }) => {
 
   const [query, setQuery] = useState("")
 
-  //TODO(Rejon): Reimplement LUNR
-  //LUNR becomes available only via the window.
-  //To make it easier for our app to access it we just set it in our app context.
-  useLayoutEffect(() => {
-    if (window.__LUNR__) {
-      window.__LUNR__.__loaded.then(lunr => {
-        console.log(lunr)
-        //lunr.tokenizer.separator = /[\r\n|\n|\r]/
-        setLunr(lunr)
-      })
-    }
-  }, [])
-
   const setFilter = (filter, toggle) => {
+    console.log(filter);
+    const indexOfFilter = filterKeys.indexOf(filter.key)
     if (toggle) {
-      const indexOfFilter = filterKeys.indexOf(filter.key)
+      
       if (indexOfFilter !== -1) {
         const _filters = [...filters]
         _filters.splice(indexOfFilter, 1)
         setFilters(_filters)
       } else {
+        console.log(filter);
+        setFilters([...filters, filter])
+      }
+    }
+    else {
+      if (indexOfFilter === -1) {
+        console.log(filter);
         setFilters([...filters, filter])
       }
     }
@@ -108,11 +103,11 @@ const SiteProvider = ({ children, value }) => {
       setFilters([])
     }
   }
-
+  
+  console.log(filterSet)
   return (
     <SiteContext.Provider
       value={{
-        lunr,
         filters,
         setFilter,
         clearFilters,

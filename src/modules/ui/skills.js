@@ -6,13 +6,13 @@ import Button from "@ui/Button"
 import { useSite } from "@layouts/SiteContext"
 
 const Skills = ({ children }) => {
-  const { filters, setFilters } = useSite()
+  const { filters, setFilter, filterSet } = useSite()
   const _Children = React.Children.toArray(children)
 
-  const setFilter = filter => {
-    if (!filters.includes(filter)) {
-      setFilters([...filters, filter])
-    }
+  const onClick = (f) => {
+    const filter = filterSet.skills.find((n) => n.label === f.trim());
+    console.log(filter, f);
+    setFilter(filter);
   }
 
   return (
@@ -25,9 +25,10 @@ const Skills = ({ children }) => {
         justifyContent: "flex-start",
       }}
     >
-      {_Children.map(child => {
+      {_Children.map((child, index) => {
+      
         return (
-          <Button onClick={() => setFilter(child.props.children)}>
+          <Button key={`skill-child-${index}-${child}`} onClick={() => onClick(child.props.children)}>
             {child}
           </Button>
         )

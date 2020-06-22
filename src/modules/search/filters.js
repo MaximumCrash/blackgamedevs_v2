@@ -107,6 +107,7 @@ const FilterSet = ({
           return (
             <Button
               onClick={() => onClick(filter)}
+              key={filter.key}
               sx={{
                 textTransform: "capitalize",
                 color: filterKeys.includes(filter.key)
