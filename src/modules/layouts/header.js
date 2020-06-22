@@ -1,7 +1,7 @@
 // This is the header component that gets used by site_layout.
 // It pulls down the header.mdx content and renders its mdx.
 
-// If you want to update the header's content I recommend using the mdx file 
+// If you want to update the header's content I recommend using the mdx file
 // but if you know your way around, go crazy :)
 //** @jsx jsx  */
 import React from "react"
@@ -10,7 +10,7 @@ import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Box, jsx } from "theme-ui"
 
-import shortcodes from "@components/shortcodes.js"
+import shortcodes from "@ui/shortcodes.js"
 
 import _Header from "./header.mdx"
 

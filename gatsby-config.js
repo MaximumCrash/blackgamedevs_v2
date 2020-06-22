@@ -19,21 +19,14 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `layouts`,
-        path: `${__dirname}/src/layouts/`,
+        path: `${__dirname}/src/modules/layouts/`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `people`,
-        path: `${__dirname}/people/`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `companies`,
-        path: `${__dirname}/companies/`,
+        name: `directory`,
+        path: `${__dirname}/directory/`,
       },
     },
     {
@@ -52,7 +45,7 @@ module.exports = {
       options: {
         extensions: [`.mdx`, `.md`],
         defaultLayouts: {
-          default: require.resolve("./src/components/default_layout.js"),
+          default: require.resolve("./src/modules/layouts/default_layout.js"),
         },
         gatsbyRemarkPlugins: [
           {
@@ -73,7 +66,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-layout`,
       options: {
-        component: require.resolve(`./src/layouts/site_layout.js`),
+        component: require.resolve(`./src/modules/layouts/site_layout.js`),
       },
     },
 
@@ -103,10 +96,12 @@ module.exports = {
           "@src": path.resolve(__dirname, "src"),
           "@modules": path.resolve(__dirname, "src/modules"),
           "@layouts": path.resolve(__dirname, "src/modules/layouts"),
+          "@ui": path.resolve(__dirname, "src/modules/ui"),
+          "@utils": path.resolve(__dirname, "src/utils.js"),
+          "@search": path.resolve(__dirname, "src/modules/search"),
           "@pages": path.resolve(__dirname, "src/pages"),
           "@public": path.resolve(__dirname, "public"),
-          "@people": path.resolve(__dirname, "people"),
-          "@companies": path.resolve(__dirname, "companies"),
+          "@dir": path.resolve(__dirname, "directory"),
         },
         extensions: [
           //NOTE(Rejon): You don't have to write .js at the end of js files now.
@@ -123,8 +118,7 @@ module.exports = {
             filterNodes: node =>
               node.frontmatter !== undefined &&
               node.fileAbsolutePath &&
-              node.fileAbsolutePath.match(/(\/people\/|\/companies\/).+/) !==
-                null,
+              node.fileAbsolutePath.match(/(\/directories\/).+/) !== null,
           },
         ],
         fields: [
@@ -167,21 +161,8 @@ module.exports = {
                 : null
             },
             id: ({ id }) => id,
-            type: ({ fileAbsolutePath }) => {
-              const pathHasType =
-                fileAbsolutePath.includes("/people/") ||
-                fileAbsolutePath.includes("/companies/")
-
-              if (pathHasType) {
-                if (fileAbsolutePath.includes("/people")) {
-                  return "people"
-                }
-
-                return "companies"
-              } else {
-                return null
-              }
-            },
+            type: ({ frontmatter: { isCompany } }) =>
+              isCompany ? "companies" : "people",
           },
         },
         filename: "search_index.json",

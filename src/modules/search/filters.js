@@ -1,1 +1,222 @@
-import { React } from "react"
+//** @jsx jsx */
+import React, { useState } from "react"
+import { Text, Box, Flex, jsx } from "theme-ui"
+import SmoothCollapse from "react-smooth-collapse"
+
+import minusIcon from "@public/minus-icon.svg"
+import { useSite } from "@layouts/SiteContext"
+import Button from "@modules/ui/Button"
+import { groupBy } from "@utils"
+
+const FilterHeader = ({ onClick, filtersOpen }) => (
+  <Text
+    as="h2"
+    sx={{
+      color: "primary",
+      cursor: "pointer",
+      position: "relative",
+      display: "inline-block",
+      fontWeight: "normal",
+    }}
+    onClick={onClick}
+  >
+    Filters
+    <Box
+      sx={{
+        opacity: "0.64",
+        width: "25px",
+        height: "25px",
+        position: "relative",
+        display: "inline-block",
+        ml: ".46rem",
+        top: "4px",
+      }}
+    >
+      <img
+        src={minusIcon}
+        alt="expand icon"
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          filter: "invert(80%)",
+        }}
+      />
+      <img
+        src={minusIcon}
+        className={filtersOpen ? "hide" : ""}
+        alt="expand icon"
+        sx={{
+          transform: `translate(-50%, -50%) rotate(90deg)`,
+          position: "absolute",
+          top: "50%",
+          right: "-11px",
+          transition: "all .1s ease",
+          filter: "invert(80%)",
+          "&.hide": { transform: "translate(-50%, -50%) rotate(180deg)" },
+        }}
+      />
+    </Box>
+  </Text>
+)
+
+const FilterSet = ({
+  children,
+  filtersOfSet,
+  filterKeys,
+  onClick,
+  removeFilterSet,
+  filtersSelected,
+}) => {
+  return (
+    <>
+      <Text
+        sx={{
+          fontSize: "1.16rem",
+          mb: ".64rem",
+          display: "flex",
+          alignItems: "center",
+          textTransform: "capitalize",
+        }}
+      >
+        {children}:{" "}
+        {filtersSelected && (
+          <span
+            onClick={removeFilterSet}
+            sx={{
+              ml: 3,
+              fontSize: "14px",
+              cursor: "pointer",
+              textDecoration: "underline",
+              color: "text_secondary",
+            }}
+          >
+            Remove {children}
+          </span>
+        )}
+      </Text>
+      <Flex
+        sx={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignItems: "flexStart",
+        }}
+      >
+        {filtersOfSet.map(filter => {
+          return (
+            <Button
+              onClick={() => onClick(filter)}
+              sx={{
+                textTransform: "capitalize",
+                color: filterKeys.includes(filter)
+                  ? "link_hover"
+                  : "text_secondary",
+                borderColor: filterKeys.includes(filter)
+                  ? "link_hover"
+                  : "filterBorder",
+                "&:hover": {
+                  color: filterKeys.includes(filter) ? "link_hover" : "text",
+                  borderColor: filterKeys.includes(filter)
+                    ? "link_hover"
+                    : "text",
+                },
+              }}
+            >
+              {filter}
+            </Button>
+          )
+        })}
+      </Flex>
+    </>
+  )
+}
+
+const Filters = () => {
+  const { filterSet, filters, setFilter, clearFilters, filterKeys } = useSite()
+  const [filtersOpen, setFiltersOpen] = useState(false)
+
+  const filteringBy = groupBy(filters, "set")
+
+  return (
+    <Box>
+      <Flex sx={{ alignItems: "center" }}>
+        <FilterHeader
+          onClick={() => setFiltersOpen(!filtersOpen)}
+          filtersOpen={filtersOpen}
+        />
+        {filters.length > 0 && (
+          <Text
+            sx={{
+              color: "text_secondary",
+              fontSize: "15px",
+              display: "inline-block",
+              ml: "1rem",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+            onClick={() => clearFilters()}
+          >
+            Remove all filters
+          </Text>
+        )}
+      </Flex>
+      <SmoothCollapse
+        expanded={filters.length > 0}
+        sx={{
+          pl: "1rem",
+          pr: "1rem",
+          mt: "0.32rem",
+          position: "relative",
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+            transition: "all .164s easeInOut",
+            height: "1px",
+            backgroundColor: !filtersOpen ? "transparent" : "border",
+            transform: !filtersOpen ? "scaleX(0)" : "scale(1)",
+          },
+          pb: 2,
+        }}
+      >
+        {`Filtering by: `}
+        {Object.keys(filteringBy).map((type, index) => {
+          return (
+            <React.Fragment key={type}>
+              <span
+                sx={{ textTransform: "capitalize", color: "primary" }}
+              >{`${type} `}</span>
+              <span sx={{ color: "text_secondary" }}>
+                ({filteringBy[type].map(({ key }) => key).join(", ")})
+              </span>
+              {index !== Object.keys(filteringBy).length - 1 && (
+                <span sx={{ fontWeight: "bold" }}>{` and `}</span>
+              )}
+            </React.Fragment>
+          )
+        })}
+      </SmoothCollapse>
+      <SmoothCollapse
+        expanded={filtersOpen}
+        sx={{ pl: "1rem", pr: "1rem", mt: ".24rem" }}
+      >
+        {Object.keys(filterSet).map((set, index) => (
+          <FilterSet
+            filtersOfSet={filterSet[set]}
+            filterKeys={filterKeys}
+            filtersSelected={filters.some(n => n.set === set)}
+            onClick={key => setFilter({ key, set }, true)}
+            removeFilterSet={() => clearFilters(set)}
+            key={`filter-set-${index}`}
+          >
+            {set}
+          </FilterSet>
+        ))}
+      </SmoothCollapse>
+    </Box>
+  )
+}
+
+export default Filters

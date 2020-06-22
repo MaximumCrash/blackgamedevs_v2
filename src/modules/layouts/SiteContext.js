@@ -1,3 +1,6 @@
+// This file is the site's global state that's provided through
+// React's Context API.
+// You'll most likely see the use of useSite to access context.
 import React, {
   createContext,
   useContext,
@@ -21,10 +24,11 @@ export const useSite = () => {
 const SiteProvider = ({ children, value }) => {
   const [lunr, setLunr] = useState(null)
 
-  const { people, companies } = useStaticQuery(graphql`
+  //Get all the results data (directory)
+  const { directory } = useStaticQuery(graphql`
     {
-      people: allMdx(
-        filter: { fileAbsolutePath: { regex: "//people//" } }
+      directory: allMdx(
+        filter: { fileAbsolutePath: { regex: "//directory//" } }
         sort: { fields: headings___value, order: ASC }
       ) {
         edges {
@@ -33,60 +37,61 @@ const SiteProvider = ({ children, value }) => {
             fileAbsolutePath
             body
             rawBody
-          }
-        }
-      }
-      companies: allMdx(
-        filter: { fileAbsolutePath: { regex: "//companies//" } }
-        sort: { fields: headings___value, order: ASC }
-      ) {
-        edges {
-          node {
-            id
-            fileAbsolutePath
-            body
-            rawBody
+            frontmatter {
+              isCompany
+            }
           }
         }
       }
     }
   `)
 
-  const AllData = { people: people.edges, companies: companies.edges }
+  //Trransform that data into something consumable (People, Companies)
+  const AllData = {
+    people: directory.edges.filter(({ node }) => !node.frontmatter.isCompany),
+    companies: directory.edges.filter(({ node }) => node.frontmatter.isCompany),
+  }
 
-  const AllFilters = Object.keys(AllData)
-    .map(n => {
-      return AllData[n].map(({ node }) => {
-        const skills = node.rawBody
-          .substring(
-            node.rawBody.lastIndexOf("<Skills>") + 9,
-            node.rawBody.lastIndexOf("</Skills>")
-          )
-          .split("\n")
-          .filter(n => n !== "")
+  //Get all existing and unique Filters by taking copy between
+  const AllFilters = directory.edges.map(({ node }) => {
+    const skills = node.rawBody
+      .substring(
+        node.rawBody.lastIndexOf("<Skills>") + 9,
+        node.rawBody.lastIndexOf("</Skills>")
+      )
+      .replace(/[-.#`!*()]["]|[0-9]\./g, "") //Replace MD usual characters with empty
+      .split("\n") //Split by new lines
+      .filter(n => n !== "")
+      .map(n => n.trim()) //Filter out empty strings, and trim whitespace
 
-        const locations = node.rawBody
-          .substring(
-            node.rawBody.lastIndexOf("<Location>") + 11,
-            node.rawBody.lastIndexOf("</Location>")
-          )
-          .split("\n")
-          .filter(n => n !== "")
-        return { skills, locations }
-      })
-    })
-    .flat(1)
+    const locations = node.rawBody
+      .substring(
+        node.rawBody.lastIndexOf("<Location>") + 11,
+        node.rawBody.lastIndexOf("</Location>")
+      )
+      .replace(/[-.#`!*()]["]|[0-9]\./g, "") //Replace MD usual characters with empty
+      .split("\n") //Split by new lines
+      .filter(n => n !== "")
+      .map(n => n.trim()) //Filter out empty strings, and trim whitespace
 
+    return { skills, locations }
+  })
+
+  //TODO(REJON): See if FLAT is needed here.
+  //Seperate filters based on whether they are skills or locations.
   const skills = [...new Set(AllFilters.map(({ skills }) => skills).flat(1))]
   const locations = [
     ...new Set(AllFilters.map(({ locations }) => locations).flat(1)),
   ]
+
   const filterSet = { skills, locations }
 
-  const [results, setResults] = useState(AllData)
-  const [filters, setFilters] = useState(null)
+  const [filters, setFilters] = useState([])
+  const filterKeys = filters.map(({ key }) => key)
+
   const [query, setQuery] = useState("")
 
+  //TODO(Rejon): Reimplement LUNR
   //LUNR becomes available only via the window.
   //To make it easier for our app to access it we just set it in our app context.
   useLayoutEffect(() => {
@@ -99,15 +104,36 @@ const SiteProvider = ({ children, value }) => {
     }
   }, [])
 
+  const setFilter = (filter, toggle) => {
+    if (toggle) {
+      const indexOfFilter = filterKeys.indexOf(filter.key)
+      if (indexOfFilter !== -1) {
+        const _filters = [...filters]
+        _filters.splice(indexOfFilter, 1)
+        setFilters(_filters)
+      } else {
+        setFilters([...filters, filter])
+      }
+    }
+  }
+
+  const clearFilters = set => {
+    if (set) {
+      setFilters([...filters].filter(n => n.set !== set))
+    } else {
+      setFilters([])
+    }
+  }
+
   return (
     <SiteContext.Provider
       value={{
         lunr,
-        results,
-        setResults,
         filters,
-        setFilters,
+        setFilter,
+        clearFilters,
         filterSet,
+        filterKeys,
         query,
         setQuery,
         AllData,
