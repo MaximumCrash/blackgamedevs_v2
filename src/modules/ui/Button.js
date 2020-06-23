@@ -22,8 +22,8 @@ const Button = ({ children, onClick, ...props }) => (
       padding: ".2rem .6rem",
       cursor: "pointer",
       transition: "all .1s ease",
-      '& > *': {
-        m: 0
+      "& > *": {
+        m: 0,
       },
       ":hover": {
         borderColor: "text",

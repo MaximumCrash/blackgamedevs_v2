@@ -23,7 +23,6 @@ export const useSite = () => {
 }
 
 const SiteProvider = ({ children, value }) => {
-
   //Get all the results data (directory)
   const { directory } = useStaticQuery(graphql`
     {
@@ -46,16 +45,20 @@ const SiteProvider = ({ children, value }) => {
     }
   `)
 
-  //Trransform that data into something consumable (People, Companies)
+  //Transform that data into something consumable (People, Companies)
+  //NOTE(Rejon): Used to securely match result ids to data for rendering when searching/filtering (see )
   const AllData = {
     people: directory.edges.filter(({ node }) => !node.frontmatter.isCompany),
     companies: directory.edges.filter(({ node }) => node.frontmatter.isCompany),
   }
 
   //Get all existing and unique Filters by taking copy between
+  //NOTE(Rejon): Because filters are automagically generated we do the heavy lifting to sanitize text.
+  //             We do this to get our filters into something consistent for comparisons, rendering, and querying via input.
   const AllFilters = directory.edges.map(({ node: { rawBody } }) => {
-    const skills = sanitizeFilter(rawBody, "Skills")
     //Filter out empty strings, trim whitespace, convert to camelCase for key consistency
+    //NOTE(Rejon): The 2nd argument in this SHOULD match the component key ie. <Skills>
+    const skills = sanitizeFilter(rawBody, "Skills")
 
     const locations = sanitizeFilter(rawBody, "Location") //Filter out empty strings, trim whitespace, convert to camelCase for key consistency
 
@@ -63,38 +66,41 @@ const SiteProvider = ({ children, value }) => {
   })
 
   //Seperate filters based on whether they are skills or locations.
-  //Flatten them into 1 array.
+  //Flatten them into 1 array. (Since we're managing individual node data like people and companies which share skills and locations)
   const skills = flattenSkills(AllFilters, "skills")
   const locations = flattenSkills(AllFilters, "locations")
 
-  const filterSet = { skills, locations }
+  const filterSet = { skills, locations } //Helper to make it easier to run comparisons against existing filters in a specific set.
 
-  const [filters, setFilters] = useState([])
-  const filterKeys = filters.map(({ key }) => key)
-  const filtersGrouped = groupBy(filters, 'set')
+  const [filters, setFilters] = useState([]) //Filter State
+  const filterKeys = filters.map(({ key }) => key) //Helper that takes currently selected filters and makes their keys accessible in a single array.
+  const filtersGrouped = groupBy(filters, "set") //Group current filters by their set.
 
-  const [query, setQuery] = useState("")
+  const [query, setQuery] = useState("") //Current search query
 
+  //Method call that takes a filter object and whether we're toggling, or just activating.
   const setFilter = (filter, toggle) => {
     const indexOfFilter = filterKeys.indexOf(filter.key)
+
     if (toggle) {
-      
       if (indexOfFilter !== -1) {
+        //Remove array if it exists
         const _filters = [...filters]
         _filters.splice(indexOfFilter, 1)
         setFilters(_filters)
       } else {
+        //Add filter if it doesn't exist.
         setFilters([...filters, filter])
       }
-    }
-    else {
+    } else {
+      //Just activate/add a filter, no toggle.
       if (indexOfFilter === -1) {
-        console.log(filter);
         setFilters([...filters, filter])
       }
     }
   }
 
+  //Method call that removes filters entirely, or by a specific set.
   const clearFilters = set => {
     if (set) {
       setFilters([...filters].filter(n => n.set !== set))
@@ -102,7 +108,7 @@ const SiteProvider = ({ children, value }) => {
       setFilters([])
     }
   }
-  
+
   return (
     <SiteContext.Provider
       value={{

@@ -11,7 +11,7 @@ const SearchInput = () => {
 
   const onSubmit = e => {
     e.preventDefault()
-    navigate(`/search?q=${query}`)
+    window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
   const onChange = ({ target: { value } }) => {
