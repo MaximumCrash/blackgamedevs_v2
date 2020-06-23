@@ -1,6 +1,6 @@
 //** @jsx jsx */
 import React from "react"
-import { jsx } from "theme-ui"
+import { jsx, Box } from "theme-ui"
 
 import Sticky from "react-sticky-el"
 import SearchInput from "@search/SearchInput"
@@ -14,16 +14,11 @@ const Search = () => (
       position: "relative",
       zIndex: "10",
       
-      borderBottom: "1px dotted",
-      borderColor: "border",
-      maxWidth: "1280px",
      
       '& > *': {
-        p: 3,
-        pb: 2,
+        
         position: 'relative',
          bg: 'background',
-         maxWidth: "1280px",
       }
     }}
     stickyStyle={{
@@ -31,8 +26,12 @@ const Search = () => (
         "rgba(0, 0, 0, 0.32) 0px 8px 15px -9px, rgba(0, 0, 0, 0.64) 0px 8px 7px -9px",
     }}
   >
-    <SearchInput />
-    <Filters />
+    <Box sx={{p: 3,
+        pb: 2, borderBottom: "1px dotted",
+      borderColor: "border",}}>
+      <SearchInput />
+      <Filters />
+    </Box>
   </Sticky>
 )
 

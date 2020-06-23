@@ -44,8 +44,8 @@ const cacheKey = `IndexLunr`
 		nameNormalized: rawBody
 				.split("\n")
 				.find(n => n[0] === "#")
-				.replace(/^#\s/, "").normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
-		location: sanitizeFilter(rawBody, "Location"),
+				.replace(/^#\s/, "").normalize("NFD").replace(/[\u0300-\u036f]|-/g, ""),
+		locations: sanitizeFilter(rawBody, "Location"),
 		skills: sanitizeFilter(rawBody, "Skills"),
 		id,
 		type: node.frontmatter.isCompany ? 'companies' : 'people'
@@ -58,7 +58,7 @@ const cacheKey = `IndexLunr`
     this.ref(`id`)
     this.field(`name`)
 	this.field(`nameNormalized`)
-    this.field(`location`)
+    this.field(`locations`)
 	this.field(`skills`)
 	this.field(`id`)
 	this.field(`type`)

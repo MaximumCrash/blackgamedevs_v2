@@ -40,7 +40,7 @@ const Index = ({data, location}) => {
           })
           q.term(token.toString(), {fields: ['name'], boost: 10});
           q.term(token.toString(), {fields: ['nameNormalized'], boost: 10});
-          q.term(token.toString(), {fields: ['location'], boost: 5});
+          q.term(token.toString(), {fields: ['locations'], boost: 5});
           q.term(token.toString(), {fields: ['skills'], boost: 3});
 
             
@@ -58,7 +58,7 @@ const Index = ({data, location}) => {
           ? andSearch.filter(x => keywordSearch.some(el => el.id === x.id))
           : keywordSearch
     })
-
+    
      filters.map(({label, set}) => ({label: label.replace(/\s/g, "*"), set})).forEach((el, i) => {
       const filterSearch = lunrIndx.query(function (q) {
         lunr.tokenizer(el.label).forEach(function (token) {
@@ -66,7 +66,7 @@ const Index = ({data, location}) => {
             wildcard:
               lunr.Query.wildcard.LEADING | lunr.Query.wildcard.TRAILING,
           })
-          q.term(token.toString(), {presence: lunr.Query.presence.REQUIRED})
+          //q.term(token.toString(), {presence: lunr.Query.presence.REQUIRED})
           q.term(token.toString(), {fields: [el.set], boost: 10});
         })
         
@@ -77,7 +77,9 @@ const Index = ({data, location}) => {
         }
       })
 
-      andSearch = andSearch.filter(x => filterSearch.some(el => el.id === x.id))
+      console.log(filterSearch)
+
+      andSearch = i > 0 ? andSearch.filter(x => filterSearch.some(el => el.id === x.id)) : filterSearch
 
     });
   const people = andSearch.filter((n) => n.type === 'people').map((d) => {const {node} = AllData[d.type].find(({node}) => node.id === d.id); return ({...d, ...node})});

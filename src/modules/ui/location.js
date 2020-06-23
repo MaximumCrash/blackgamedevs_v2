@@ -7,8 +7,8 @@ import Button from "@ui/Button"
 
 const Location = ({ children }) => {
   const { setFilter, filterSet } = useSite()
-  const filter = filterSet.locations.find((n) => n.label === children.props.children);
-
+  const filter = filterSet.locations.find((n) => n.label === children.props.children.trim());
+  
   return (
     <Button
       className="location"

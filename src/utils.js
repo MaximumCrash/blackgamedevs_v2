@@ -40,7 +40,9 @@ export const sanitizeFilter = (rawBody, fragment) => rawBody.substring(
         const label = n.trim();
         const key = camelize(label);
 
-        return {label, key, set: fragment.toLowerCase()}
+        const set = fragment.toLowerCase();
+
+        return {label, key, set: /\b\w+s\b/.test(set) ? set : `${set}s` }
       })
 
 export const flattenSkills = (AllFilters, set) => AllFilters.map((node) => node[set]).flat(1).reduce((acc, current) => {

@@ -75,7 +75,6 @@ const SiteProvider = ({ children, value }) => {
   const [query, setQuery] = useState("")
 
   const setFilter = (filter, toggle) => {
-    console.log(filter);
     const indexOfFilter = filterKeys.indexOf(filter.key)
     if (toggle) {
       
@@ -84,7 +83,6 @@ const SiteProvider = ({ children, value }) => {
         _filters.splice(indexOfFilter, 1)
         setFilters(_filters)
       } else {
-        console.log(filter);
         setFilters([...filters, filter])
       }
     }

@@ -21,7 +21,7 @@ const Links = ({ children, icon, className, alt }) => {
         alt={alt}
         sx={{
           filter: "invert(80%)",
-          height: "1.46rem",
+          height: "1.2rem",
           mr: ".64rem",
           verticalAlign: "middle",
         }}
@@ -33,7 +33,7 @@ const Links = ({ children, icon, className, alt }) => {
           element = link.props.children.props.children
         }
 
-        return <Box key={`links-link-${index}-${element}`} sx={{ mr: ".65rem", "& > *": { m: 0 } }}>{element}</Box>
+        return <Box key={`links-link-${index}-${element}`} sx={{ mr: ".65rem", "& > *": { m: 0 }, fontSize: '15px' }}>{element}</Box>
       })}
     </Flex>
   )
