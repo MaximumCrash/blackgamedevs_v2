@@ -10,7 +10,7 @@ const { GraphQLJSONObject } = require(`graphql-type-json`)
 const striptags = require(`striptags`)
 const lunr = require(`lunr`)
 
-const sanitizeFilter = (rawBody, fragment) =>
+const sanitizeFilter = (rawBody, fragment, normalize) =>
   rawBody
     .substring(
       rawBody.lastIndexOf(`<${fragment}>`) + (fragment.length + 3),
@@ -20,7 +20,11 @@ const sanitizeFilter = (rawBody, fragment) =>
     .split("\n") //Split by new lines
     .filter(n => n !== "")
     .map(n => {
-      const label = n.trim()
+      let label = n.trim();
+
+      if (normalize) {
+        label = label.replace(/\s/g, "").normalize("NFD").replace(/[\u0300-\u036f]|-/g, "")
+      }
 
       return label
     })
@@ -46,7 +50,9 @@ const cacheKey = `IndexLunr`
 				.find(n => n[0] === "#")
 				.replace(/^#\s/, "").normalize("NFD").replace(/[\u0300-\u036f]|-/g, ""),
 		locations: sanitizeFilter(rawBody, "Location"),
+    locationsNormalized: sanitizeFilter(rawBody, "Location", true),
 		skills: sanitizeFilter(rawBody, "Skills"),
+    skillsNormalized: sanitizeFilter(rawBody, "Skills", true),
 		id,
 		type: node.frontmatter.isCompany ? 'companies' : 'people'
 	};
@@ -58,8 +64,10 @@ const cacheKey = `IndexLunr`
     this.ref(`id`)
     this.field(`name`)
 	this.field(`nameNormalized`)
+  this.field(`locationsNormalized`)
     this.field(`locations`)
 	this.field(`skills`)
+  this.field(`skillsNormalized`)
 	this.field(`id`)
 	this.field(`type`)
       this.pipeline.remove(lunr.stopWordFilter)

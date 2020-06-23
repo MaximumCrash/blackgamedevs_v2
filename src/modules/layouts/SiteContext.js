@@ -9,7 +9,7 @@ import React, {
 } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { useLocation } from "@reach/router"
-import { flattenSkills, sanitizeFilter } from "@utils"
+import { flattenSkills, sanitizeFilter, groupBy } from "@utils"
 
 export const SiteContext = createContext()
 
@@ -71,6 +71,7 @@ const SiteProvider = ({ children, value }) => {
 
   const [filters, setFilters] = useState([])
   const filterKeys = filters.map(({ key }) => key)
+  const filtersGrouped = groupBy(filters, 'set')
 
   const [query, setQuery] = useState("")
 
@@ -102,7 +103,6 @@ const SiteProvider = ({ children, value }) => {
     }
   }
   
-  console.log(filterSet)
   return (
     <SiteContext.Provider
       value={{
@@ -111,6 +111,7 @@ const SiteProvider = ({ children, value }) => {
         clearFilters,
         filterSet,
         filterKeys,
+        filtersGrouped,
         query,
         setQuery,
         AllData,

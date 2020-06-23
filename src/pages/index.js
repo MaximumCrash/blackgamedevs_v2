@@ -8,7 +8,7 @@ import Search from "@search"
 import {groupBy} from '@utils'
 
 const Index = ({data, location}) => {
-  const { query, filters, AllData } = useSite()
+  const { query, filters, filterSet, filtersGrouped, AllData } = useSite()
 
   const { LunrIndex } = useStaticQuery(graphql`
       query LunrInstance {
@@ -58,32 +58,36 @@ const Index = ({data, location}) => {
           ? andSearch.filter(x => keywordSearch.some(el => el.id === x.id))
           : keywordSearch
     })
-    
-     filters.map(({label, set}) => ({label: label.replace(/\s/g, "*"), set})).forEach((el, i) => {
-      const filterSearch = lunrIndx.query(function (q) {
-        lunr.tokenizer(el.label).forEach(function (token) {
-          q.term(token.toString(), {
-            wildcard:
-              lunr.Query.wildcard.LEADING | lunr.Query.wildcard.TRAILING,
-          })
-          //q.term(token.toString(), {presence: lunr.Query.presence.REQUIRED})
-          q.term(token.toString(), {fields: [el.set], boost: 10});
-        })
-        
-      }).map(({ref}) => {
-        return {
-          id: ref, 
-          ...store[ref]
-        }
-      })
 
-      console.log(filterSearch)
+  const people = andSearch.filter((n) => {
+    if (filters.length > 0) {
+      const hasFilter = Object.keys(filtersGrouped).map((group) => {
+        return filtersGrouped[group].some(item => n[group].includes(item.label));
+      }).every(v => v === true);
+      
+      console.log(hasFilter)
 
-      andSearch = i > 0 ? andSearch.filter(x => filterSearch.some(el => el.id === x.id)) : filterSearch
+      return hasFilter && n.type === 'people'
+    }
+    else {
+      return n.type === 'people'
+    }
 
-    });
-  const people = andSearch.filter((n) => n.type === 'people').map((d) => {const {node} = AllData[d.type].find(({node}) => node.id === d.id); return ({...d, ...node})});
-  const companies = andSearch.filter((n) => n.type === 'companies').map((d) => {const {node} = AllData[d.type].find(({node}) => node.id === d.id); return ({...d, ...node})});
+  }).map((d) => {const {node} = AllData[d.type].find(({node}) => node.id === d.id); return ({...d, ...node})});
+  const companies = andSearch.filter((n) => {
+    if (filters.length > 0) {
+      const hasFilter = Object.keys(filtersGrouped).map((group) => {
+        return filtersGrouped[group].some(item => n[group].includes(item.label));
+      }).every(v => v === true);
+
+      
+      return hasFilter && n.type === 'companies'
+    }
+    else {
+      return n.type === 'companies'
+    }
+
+  }).map((d) => {const {node} = AllData[d.type].find(({node}) => node.id === d.id); return ({...d, ...node})});
 
   return (
     <>
