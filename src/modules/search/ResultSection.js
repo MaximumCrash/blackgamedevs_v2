@@ -53,10 +53,13 @@ const ResultSection = ({ results, sortBy = "name", children, query, noun, jumpTo
             </motion.li>
           ))}
         </AnimatePresence>
-        {results && results.length === 0 && (
+        
+      </MDXProvider>
+    </Grid>
+    {results && results.length === 0 && (
           <Flex
             key={"no-results"}
-            sx={{ flexDirection: "column", p: "2rem", pb: 0 }}
+            sx={{ flexDirection: "column", px: "1rem" }}
           >
             {query && <Text>{`No results for ${query}`}</Text>}
             <Text>
@@ -70,8 +73,6 @@ const ResultSection = ({ results, sortBy = "name", children, query, noun, jumpTo
             </Text>
           </Flex>
         )}
-      </MDXProvider>
-    </Grid>
   </Box>
 )
 

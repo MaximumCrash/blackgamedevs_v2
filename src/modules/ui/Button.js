@@ -13,6 +13,7 @@ const Button = ({ children, onClick, ...props }) => (
     sx={{
       fontSize: "1rem",
       fontWeight: "normal",
+      fontFamily: 'body',
       borderRadius: "5px",
       border: "1px solid",
       mb: "1rem",

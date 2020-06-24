@@ -50,6 +50,9 @@ export default {
         color: "link_hover",
       },
     },
+    button: {
+      fontFamily: 'body'
+    }
   },
   fonts: {
     body:
