@@ -70,7 +70,7 @@ module.exports = {
         component: require.resolve(`./src/modules/layouts/site_layout.js`),
       },
     },
-
+    `gatsby-plugin-advanced-sitemap`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -90,6 +90,14 @@ module.exports = {
           workboxConfig: {
             globPatterns: ['**/*']
           }
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://blackgamedevs.com',
+        sitemap: 'https://blackgamedevs.com/sitemap.xml',
+        policy: [{userAgent: '*', allow: '/'}]
       }
     },
     {
