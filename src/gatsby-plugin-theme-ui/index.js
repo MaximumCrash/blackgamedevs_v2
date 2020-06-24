@@ -5,7 +5,7 @@ export default {
     text_secondary: "#999",
     primary: "#EF3054",
     link: "#10A37E",
-    link_secondary: "#886D72",
+    link_secondary: "#ab989b",
     link_hover: "#24F0BC",
     border: "#333",
     filterBorder: "#666",

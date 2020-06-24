@@ -4,14 +4,14 @@
 // SiteProvider around the header down to the footer instead of just the children.
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
-
+import { Box, Image } from "theme-ui"
 
 import { SiteProvider } from "@layouts/SiteContext"
 import Shortcodes from "@ui/shortcodes"
 import Header from "@layouts/header"
 import Footer from "@layouts/footer"
 import ScrollToTop from '@ui/ScrollToTop';
-import { Box, Image } from "theme-ui"
+import Seo from '@layouts/seo'
 
 
 const Layout = ({ children }) => (
@@ -24,7 +24,8 @@ const Layout = ({ children }) => (
       bg: "background",
       color: "text",
     }}
-  >
+  > 
+    <Seo lang="en-US"/>
     <Header />
     <MDXProvider components={Shortcodes} >
       <Box sx={{position:'relative'}}>

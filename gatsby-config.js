@@ -76,10 +76,21 @@ module.exports = {
         name: `Black Game Developers`,
         short_name: `BGD`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
+        background_color: `#111`,
+        theme_color: `#EF3054`,
+        display: `standalone`,
+        icon: 'src/modules/utility/site-logo.png',
+        cache_busting_mode: 'none',
+        crossOrigin: `use-credentials`,
       },
+    },
+    {
+      resolve: 'gatsby-plugin-offline',
+      options: {
+          workboxConfig: {
+            globPatterns: ['**/*']
+          }
+      }
     },
     {
       resolve: `gatsby-plugin-google-fonts`,
@@ -109,8 +120,5 @@ module.exports = {
         ],
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
   ],
 }

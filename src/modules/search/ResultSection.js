@@ -40,7 +40,7 @@ const ResultSection = ({ results, sortBy = "name", children, query, noun, jumpTo
       }}
     >
       <MDXProvider components={Shortcodes}>
-        <AnimatePresence exitBeforeEnter>
+        <AnimatePresence exitBeforeEnter initial={false}>
           {sortNodesBy(results, sortBy).map(({ id, ...otherProps }, index) => (
             <motion.li
               key={`result-obj-${id}-${index}`}
