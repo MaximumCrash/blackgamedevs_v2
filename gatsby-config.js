@@ -4,6 +4,7 @@ module.exports = {
   pathPrefix: "/blackgamedevs",
   siteMetadata: {
     title: `Black Game Developers`,
+    siteUrl: 'https://blackgamedevs.com',
     description: `A list of black game developers, designers, artists, and more. Here they are. Hire them. Buy their stuff.`,
     author: `Arthur Ward, Jr, Catt Small, Chris Algoo, Réjon Taylor-Foster (@Maximum_Crash)`,
   },
