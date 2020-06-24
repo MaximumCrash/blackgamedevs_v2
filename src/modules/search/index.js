@@ -4,7 +4,7 @@ import { jsx, Box } from "theme-ui"
 
 import Sticky from "react-sticky-el"
 import SearchInput from "@search/SearchInput"
-import Filters from "@search/Filters"
+import Filters from "@search/filters"
 
 const Search = () => (
   <Sticky
