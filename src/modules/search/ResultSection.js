@@ -2,7 +2,7 @@
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
 import { motion, AnimatePresence } from "framer-motion"
-import { jsx, Text, Box, Flex } from "theme-ui"
+import { jsx, Text, Box, Flex, Grid } from "theme-ui"
 
 import Shortcodes from "@ui/shortcodes"
 import { sortNodesBy } from "@utils"
@@ -11,24 +11,32 @@ import Link from "@modules/utility/Link"
 
 //Renders a section of our results sorted by "name" (default).
 //Animations are handled by Framer Motion with motion elements and Animate Presence.
-const ResultSection = ({ results, sortBy = "name", children, query, noun }) => (
-  <Box>
+const ResultSection = ({ results, sortBy = "name", children, query, noun, jumpToSection }) => (
+  <Box id={children}>
     <Text as="h2" sx={{ color: "primary", fontWeight: "normal", mb: 3, mt: 3 }}>
       {children}
       <span
         sx={{ fontSize: "1rem", color: "text_secondary" }}
       >{` (${results.length})`}</span>
+
+        <Text className="jump-section-element" sx={{color: "text_secondary",
+              fontSize: "15px",
+              display: "inline-block",
+              ml: "1rem",
+              textDecoration: "underline",
+              cursor: "pointer",}} onClick={() => window.scrollTo({top: document.getElementById(jumpToSection).offsetTop, behavior: 'smooth'})}> Jump to next section </Text>
+
+      
     </Text>
-    <Flex
+    <Grid
       as="ul"
       key="people"
+      columns={['1fr','1fr 1fr', '1fr 1fr 1fr']}
+      gap={['1rem', '2rem']}
       sx={{
         listStyleType: "none",
         p: 0,
-        display: "inline-flex",
-        flexWrap: "wrap",
-        m: "-2rem 0 0 -2rem",
-        width: "calc(100% + 2rem)",
+        width: "calc(100%)",
       }}
     >
       <MDXProvider components={Shortcodes}>
@@ -36,7 +44,6 @@ const ResultSection = ({ results, sortBy = "name", children, query, noun }) => (
           {sortNodesBy(results, sortBy).map(({ id, ...otherProps }, index) => (
             <motion.li
               key={`result-obj-${id}-${index}`}
-              sx={{ m: "2rem 0 0 2rem", width: "30%", maxWidth: "405px" }}
               initial={{ opacity: 0, y: 32 }}
               transition={{ ease: "easeInOut", duration: 0.164 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -64,7 +71,7 @@ const ResultSection = ({ results, sortBy = "name", children, query, noun }) => (
           </Flex>
         )}
       </MDXProvider>
-    </Flex>
+    </Grid>
   </Box>
 )
 

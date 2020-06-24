@@ -1,6 +1,8 @@
-import React, { useState, useLayoutEffect } from "react"
+/** @jsx jsx */
+import React, { useState } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import lunr, { Index as lunrINDEX } from "lunr"
+import {Box, jsx} from 'theme-ui'
 
 import { useSite } from "@layouts/SiteContext"
 import ResultSection from "@search/ResultSection"
@@ -88,15 +90,17 @@ const Index = ({ data, location }) => {
   })
 
   return (
-    <>
+    <Box sx={{'& > *:last-child > h2 > .jump-section-element': {
+      display: 'none'
+  }}}>
       <Search />
-      <ResultSection results={peopleResults} noun={"someone"}>
+      <ResultSection results={peopleResults} noun={"someone"} jumpToSection={'Companies'}>
         People
       </ResultSection>
       <ResultSection results={companies} noun={"a company"}>
         Companies
       </ResultSection>
-    </>
+    </Box>
   )
 }
 

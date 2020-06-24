@@ -5,17 +5,20 @@
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
 
+
 import { SiteProvider } from "@layouts/SiteContext"
 import Shortcodes from "@ui/shortcodes"
 import Header from "@layouts/header"
 import Footer from "@layouts/footer"
-import { Box } from "theme-ui"
+import ScrollToTop from '@ui/ScrollToTop';
+import { Box, Image } from "theme-ui"
+
 
 const Layout = ({ children }) => (
   <Box
     sx={{
       m: "0 auto",
-      padding: "50px 20px 20px",
+      padding: [ "20px 20px 10px", "50px 20px 10px", "50px 20px 20px"],
       maxWidth: "1280px",
       fontFamily: "heading",
       bg: "background",
@@ -23,9 +26,13 @@ const Layout = ({ children }) => (
     }}
   >
     <Header />
-    <MDXProvider components={Shortcodes}>
-      <SiteProvider>{children}</SiteProvider>
+    <MDXProvider components={Shortcodes} >
+      <Box sx={{position:'relative'}}>
+        <SiteProvider>{children}</SiteProvider>
+        <ScrollToTop/>
+      </Box>
     </MDXProvider>
+    
     <Footer />
   </Box>
 )

@@ -5,7 +5,7 @@ import { jsx } from "theme-ui"
 import { motion } from "framer-motion"
 
 const Button = ({ children, onClick, ...props }) => (
-  <motion.div
+  <motion.button
     className="button"
     whileTap={{ scale: 0.8 }}
     {...props}
@@ -22,6 +22,7 @@ const Button = ({ children, onClick, ...props }) => (
       padding: ".2rem .6rem",
       cursor: "pointer",
       transition: "all .1s ease",
+      bg: 'background',
       "& > *": {
         m: 0,
       },
@@ -36,7 +37,7 @@ const Button = ({ children, onClick, ...props }) => (
     onClick={onClick}
   >
     {children}
-  </motion.div>
+  </motion.button>
 )
 
 export default Button

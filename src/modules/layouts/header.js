@@ -35,10 +35,9 @@ const Header = () => {
     <Box
       sx={{
         "& > *": { color: "primary" },
-        "& > h1": { fontSize: "3rem" },
+        "& > h1": { fontSize: "3rem", lineHeight: '1.25em', mb: '.35em' },
         fontFamily: "heading",
-        borderBottom: "1px dotted",
-        borderColor: "border",
+        
       }}
     >
       <MDXProvider components={shortcodes}>
