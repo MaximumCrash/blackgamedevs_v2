@@ -53,7 +53,7 @@ export default {
   },
   fonts: {
     body:
-      'Martel, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu',
+      'Poppins, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu',
     heading:
       'Poppins, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu',
     monospace: "monospace",
