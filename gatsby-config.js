@@ -1,6 +1,7 @@
 const path = require("path")
 
 module.exports = {
+  pathPrefix: "/blackgamedevs",
   siteMetadata: {
     title: `Black Game Developers`,
     description: `A list of black game developers, designers, artists, and more. Here they are. Hire them. Buy their stuff.`,
