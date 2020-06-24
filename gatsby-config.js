@@ -2,7 +2,7 @@ const path = require("path")
 
 module.exports = {
   siteMetadata: {
-    title: `Black Game Devs`,
+    title: `Black Game Developers`,
     description: `A list of black game developers, designers, artists, and more. Here they are. Hire them. Buy their stuff.`,
     author: `Arthur Ward, Jr, Catt Small, Chris Algoo, Réjon Taylor-Foster (@Maximum_Crash)`,
   },
@@ -79,9 +79,8 @@ module.exports = {
         background_color: `#111`,
         theme_color: `#EF3054`,
         display: `standalone`,
-        icon: 'src/modules/utility/site-logo.png',
-        cache_busting_mode: 'none',
         crossOrigin: `use-credentials`,
+        include_favicon: false,
       },
     },
     {
