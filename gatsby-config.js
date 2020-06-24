@@ -93,10 +93,12 @@ module.exports = {
       }
     },
     {
-      resolve: `gatsby-plugin-google-fonts`,
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
       options: {
-        fonts: [`Martel\:400,700`, `Poppins\:300,400,700`],
-        display: "swap",
+        fonts: [{
+          family: 'Poppins',
+          variants: [`300`, `400`, `700`]
+        }],
       },
     },
     {
