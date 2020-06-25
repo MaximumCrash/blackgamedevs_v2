@@ -1,6 +1,7 @@
 const path = require("path")
 
 module.exports = {
+  pathPrefix: "/blackgamedevs_v2",
   siteMetadata: {
     title: `Black Game Developers`,
     siteUrl: 'https://blackgamedevs.com',
@@ -70,7 +71,7 @@ module.exports = {
         component: require.resolve(`./src/modules/layouts/site_layout.js`),
       },
     },
-    `gatsby-plugin-advanced-sitemap`,
+    'gatsby-plugin-sitemap',
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

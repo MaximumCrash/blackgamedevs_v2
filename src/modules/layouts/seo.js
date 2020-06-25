@@ -65,25 +65,37 @@ function SEO({ description, lang, meta, title }) {
           content: `website`,
         },
         {
-          name: `twitter:card`,
-          content: `summary`,
+          property: `twitter:card`,
+          content: `summary_large_image`,
         },
         {
-          name: `twitter:creator`,
+          property: 'og:url',
+          content: 'https://blackgamedevs.com'
+        }, 
+        {
+          property: `twitter:creator`,
           content: site.siteMetadata.author,
         },
         {
-          name: `twitter:title`,
+          property: `twitter:title`,
           content: title,
         },
         {
-          name: `twitter:description`,
+          property: 'twitter:url',
+          content: 'https://blackgamedevs.com'
+        }, 
+        {
+          property: `twitter:description`,
           content: metaDescription,
         },
         {
           property: "og:image",
-          content: "../site-logo.png",
+          content: "https://blackgamedevs.com/site-logo.png",
         },
+        {
+          property: "twitter:image",
+          content: "https://blackgamedevs.com/site-logo.png",
+        }
       ].concat(meta)}
     />
   )
