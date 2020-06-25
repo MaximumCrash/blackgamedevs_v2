@@ -7,7 +7,8 @@ import Location from "@ui/location"
 import { Image, Text } from "theme-ui"
 import gameIcon from "@public/icon-game.svg"
 import businessIcon from "@public/icon-business.svg"
-import iconUser from "@public/icon-user.svg"
+import userIcon from "@public/icon-user.svg"
+import webIcon from '@public/icon-world.svg'
 
 export default {
   h1: props => <Text as="h1" className="title" {...props} />,
@@ -20,10 +21,13 @@ export default {
     <Links {...props} icon={gameIcon} className="games" alt="Games" />
   ),
   Business: props => (
-    <Links {...props} icon={businessIcon} className="business" alt="Business" />
+    <Links {...props} icon={businessIcon} className="business" alt="Business Websites" />
   ),
   Personal: props => (
-    <Links {...props} icon={iconUser} className="personal" alt="Personal" />
+    <Links {...props} icon={userIcon} className="personal" alt="Personal Websites" />
+  ),
+  Website: props => (
+    <Links {...props} icon={webIcon} className="website" alt="Websites" />
   ),
   Skills,
   Location,

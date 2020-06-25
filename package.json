@@ -26,6 +26,7 @@
     "gatsby-source-filesystem": "^2.3.4",
     "gatsby-transformer-sharp": "^2.5.2",
     "graphql-type-json": "^0.3.2",
+    "json2md": "^1.7.0",
     "lunr": "^2.3.8",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
@@ -33,6 +34,7 @@
     "react-helmet": "^6.0.0",
     "react-smooth-collapse": "^2.1.0",
     "react-sticky-el": "^2.0.5",
+    "shortid": "^2.2.15",
     "striptags": "^3.1.1",
     "theme-ui": "^0.3.1"
   },
@@ -52,6 +54,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "transform": "node ./scripts/json-transformer.js",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "repository": {

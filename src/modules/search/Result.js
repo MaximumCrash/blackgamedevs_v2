@@ -37,9 +37,10 @@ const Result = ({ children, frontmatter, rawBody, body }) => {
           borderRadius: "5px",
         },
         "& > .skills": { order: 3 },
-        "& > .personal": { order: 4 },
-        "& > .business": { order: 5 },
-        "& > .games": { order: 6 },
+        "& > .website": {order: 4},
+        "& > .personal": { order: 5 },
+        "& > .business": { order: 6 },
+        "& > .games": { order: 7 },
       }}
     >
       {!hasImage && (

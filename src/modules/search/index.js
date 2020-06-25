@@ -7,9 +7,7 @@ import SearchInput from "@search/SearchInput"
 import Filters from "@search/filters"
 
 const Search = () => (
-  <Sticky
-    dontUpdateHolderHeightWhenSticky={true}
-    hideOnBoundaryHit={false}
+  <Sticky dontUpdateHolderHeightWhenSticky={true}
     sx={{
       position: "relative",
       zIndex: "10",
