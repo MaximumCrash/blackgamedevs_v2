@@ -1,12 +1,9 @@
 //Groups array of objects by a property.
 export const groupBy = (arr, property) => {
-  return arr.reduce(function (memo, x) {
-    if (!memo[x[property]]) {
-      memo[x[property]] = []
-    }
-    memo[x[property]].push(x)
-    return memo
-  }, {})
+  return arr.reduce((r, a) => {
+    r[a[property]] = [...r[a[property]] || [], a];
+    return r;
+}, {});
 }
 
 //Sort our nodes based on a specific field.
@@ -101,4 +98,14 @@ export const filterSearchResults = ({
       const { node } = AllData[d.type].find(({ node }) => node.id === d.id)
       return { ...d, ...node }
     })
+}
+
+export const debounce = (func, wait = 100) => {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func.apply(this, args);
+    }, wait);
+  };
 }

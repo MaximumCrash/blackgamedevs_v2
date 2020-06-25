@@ -58,9 +58,8 @@ const SiteProvider = ({ children, value }) => {
   const AllFilters = directory.edges.map(({ node: { rawBody } }) => {
     //Filter out empty strings, trim whitespace, convert to camelCase for key consistency
     //NOTE(Rejon): The 2nd argument in this SHOULD match the component key ie. <Skills>
-    const skills = sanitizeFilter(rawBody, "Skills")
-
-    const locations = sanitizeFilter(rawBody, "Location") //Filter out empty strings, trim whitespace, convert to camelCase for key consistency
+    const skills = rawBody.includes('<Skills>') ? sanitizeFilter(rawBody, "Skills") : [];
+    const locations = rawBody.includes('<Location>') ? sanitizeFilter(rawBody, "Location") : [] //Filter out empty strings, trim whitespace, convert to camelCase for key consistency
 
     return { skills, locations }
   })
@@ -69,18 +68,14 @@ const SiteProvider = ({ children, value }) => {
   //Flatten them into 1 array. (Since we're managing individual node data like people and companies which share skills and locations)
   const skills = flattenSkills(AllFilters, "skills")
   const locations = flattenSkills(AllFilters, "locations")
-
   const filterSet = { skills, locations } //Helper to make it easier to run comparisons against existing filters in a specific set.
 
   const [filters, setFilters] = useState([]) //Filter State
-  const filterKeys = filters.map(({ key }) => key) //Helper that takes currently selected filters and makes their keys accessible in a single array.
-  const filtersGrouped = groupBy(filters, "set") //Group current filters by their set.
-
-  const [query, setQuery] = useState("") //Current search query
+  const [results, setResults] = useState([]) //Current search query
 
   //Method call that takes a filter object and whether we're toggling, or just activating.
   const setFilter = (filter, toggle) => {
-    const indexOfFilter = filterKeys.indexOf(filter.key)
+    const indexOfFilter = filters.findIndex((f) => f.key === filter.key);
 
     if (toggle) {
       if (indexOfFilter !== -1) {
@@ -116,10 +111,8 @@ const SiteProvider = ({ children, value }) => {
         setFilter,
         clearFilters,
         filterSet,
-        filterKeys,
-        filtersGrouped,
-        query,
-        setQuery,
+        results, 
+        setResults, 
         AllData,
       }}
     >

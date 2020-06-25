@@ -9,7 +9,7 @@ import noUserImage from "@public/no-user-image.png"
 import noCompanyImage from "@public/no-company-image.png"
 
 const Result = ({ children, frontmatter, rawBody, body }) => {
-  const hasImage = rawBody.includes("![")
+  const hasImage = rawBody ? rawBody.includes("![") : false; 
 
   return (
     <Flex

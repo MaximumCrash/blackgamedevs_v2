@@ -1,7 +1,6 @@
 //** @jsx jsx */
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
-import { motion, AnimatePresence } from "framer-motion"
 import { jsx, Text, Box, Flex, Grid } from "theme-ui"
 
 import Shortcodes from "@ui/shortcodes"
@@ -40,19 +39,9 @@ const ResultSection = ({ results, sortBy = "name", children, query, noun, jumpTo
       }}
     >
       <MDXProvider components={Shortcodes}>
-        <AnimatePresence exitBeforeEnter initial={false}>
-          {sortNodesBy(results, sortBy).map(({ id, ...otherProps }, index) => (
-            <motion.li
-              key={`result-obj-${id}-${index}`}
-              initial={{ opacity: 0, y: 32 }}
-              transition={{ ease: "easeInOut", duration: 0.164 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 32 }}
-            >
-              <Result {...otherProps} />
-            </motion.li>
+          {results.map(({ id, ...otherProps }, index) => (
+              <Result key={`result-obj-${id}-${index}`} {...otherProps} />
           ))}
-        </AnimatePresence>
         
       </MDXProvider>
     </Grid>

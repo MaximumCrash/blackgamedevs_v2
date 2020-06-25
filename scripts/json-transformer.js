@@ -30,8 +30,17 @@ json2md.converters.location = (input) => {
 }
 
 json2md.converters.websites = (input) => {
+  const defaults = [
+    'http://link-here.com',
+    'https://twitter.com/username-here',
+    'https://facebook.com/username-here',
+    'https://instagram.com/username-here',
+    'https://youtube.com/username-here',
+    'https://www.patreon.com/username-here'
+  ]
+
   if (Array.isArray(input)) {
-    return `<Website>\n\n${input.map((site) => `[${site[0].trim()}](${site[1] ? site[1].trim(): ''})\n\n`)}</Website>`.replace(/\,/g, '')
+    return `<Website>\n\n${input.filter((site) => !defaults.includes(site[1])).map((site) => `[${site[0].trim()}](${site[1] ? site[1].trim(): ''})\n\n`)}</Website>`.replace(/\,/g, '')
     
   }
   else {
@@ -45,7 +54,16 @@ json2md.converters.websites = (input) => {
 }
 
 json2md.converters.games = (input) => {
-  return `<Games>\n\n${input.map((game) => `[${game[0]}](${game[1]})\n\n`)}</Games>`.replace(/\,/g, '')
+  const defaults = [
+    'http://link-here.com',
+    'https://twitter.com/username-here',
+    'https://facebook.com/username-here',
+    'https://instagram.com/username-here',
+    'https://youtube.com/username-here',
+    'https://www.patreon.com/username-here'
+  ]
+
+  return `<Games>\n\n${input.filter((game) => !defaults.includes(game[1])).map((game) => `[${game[0]}](${game[1]})\n\n`)}</Games>`.replace(/\,/g, '')
 }
 
 //This is because there's a type in the existing companies data.

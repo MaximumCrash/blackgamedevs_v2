@@ -69,6 +69,8 @@ const FilterSet = ({
   removeFilterSet,
   filtersSelected,
 }) => {
+  
+
   return (
     <>
       <Text
@@ -104,23 +106,25 @@ const FilterSet = ({
         }}
       >
         {filtersOfSet.map(filter => {
+          const isActive = filterKeys.includes(filter.key);
+
           return (
             <Button
               onClick={() => onClick(filter)}
               key={filter.key}
               sx={{
                 textTransform: "capitalize",
-                color: filterKeys.includes(filter.key)
+                color: isActive
                   ? "link_hover"
                   : "text_secondary",
-                borderColor: filterKeys.includes(filter.key)
+                borderColor: isActive
                   ? "link_hover"
                   : "filterBorder",
                 "&:hover": {
-                  color: filterKeys.includes(filter.key)
+                  color: isActive
                     ? "link_hover"
                     : "text",
-                  borderColor: filterKeys.includes(filter.key)
+                  borderColor: isActive
                     ? "link_hover"
                     : "text",
                 },
@@ -136,10 +140,11 @@ const FilterSet = ({
 }
 
 const Filters = () => {
-  const { filterSet, filters, setFilter, clearFilters, filterKeys } = useSite()
+  const { filterSet, filters, setFilter, clearFilters } = useSite()
   const [filtersOpen, setFiltersOpen] = useState(false)
 
-  const filteringBy = groupBy(filters, "set")
+  const filteringBy = groupBy(filters, "set") //Group current filters by their set.
+  const filterKeys = filters.map(({ key }) => key) //Helper that takes currently selected filters and makes their keys accessible in a single array.
 
   return (
     <Box>

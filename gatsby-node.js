@@ -71,7 +71,9 @@ const createIndex = async (dirNodes, type, cache) => {
       type: node.frontmatter.isCompany ? "companies" : "people", //NOTE(Rejon): This is hardcoded, but if there will be more than people and companies, change the frontmatter to be a string instead.
     }
     documents.push(doc)
-    store[id] = doc
+    store[id] = {
+      id: doc.id
+    }
   }
 
   //NOTE(Rejon): If any of these indexes don't match key names in the document. Running a search WILL crash.
@@ -80,7 +82,7 @@ const createIndex = async (dirNodes, type, cache) => {
 
     //NOTE: I would prefer to do an object key comparison loop to get these fulfilled,
     //      but this works for now.
-    this.field(`name`)
+    this.field(`name`) 
     this.field(`nameNormalized`)
     this.field(`locationsNormalized`)
     this.field(`locations`)
