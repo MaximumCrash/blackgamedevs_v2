@@ -2,6 +2,11 @@
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
 import { jsx, Text, Box, Flex, Grid } from "theme-ui"
+import {
+  WindowScroller, 
+  AutoSizer, 
+  List
+} from 'react-virtualized';
 
 import Shortcodes from "@ui/shortcodes"
 import { sortNodesBy } from "@utils"
@@ -17,8 +22,14 @@ const ResultSection = ({
   query,
   noun,
   jumpToSection,
-}) => (
-  <Box id={children}>
+}) => {
+  const ITEMS_COUNT = results.length; 
+  const ITEM_SIZE = 300;
+
+
+
+
+  return (<Box id={children}>
     <Text as="h2" sx={{ color: "primary", fontWeight: "normal", mb: 3, mt: 3 }}>
       {children}
       <span
@@ -46,7 +57,58 @@ const ResultSection = ({
         Jump to next section{" "}
       </Text>
     </Text>
-    <Grid
+    <WindowScroller>
+    {({height, scrollTop}) => (
+      <AutoSizer disableHeight>
+      {({width}) =>{
+        const itemsPerRow =3;
+        const rowCount = Math.ceil(ITEMS_COUNT/itemsPerRow);
+       
+        return  (
+        <List className='List'
+          width={width}
+          autoHeight
+          height={height}
+          rowHeight={18}
+          rowCount={rowCount}
+          overscanRowCount={5}
+          rowHeight={ITEM_SIZE}
+          sscrollTop={scrollTop}
+          rowRenderer={
+            ({ index, key, style }) => {
+              const items = [];
+              const fromIndex = index * itemsPerRow;
+              const toIndex = Math.min(fromIndex + itemsPerRow, ITEMS_COUNT);
+
+              for (let i = fromIndex; i < toIndex; i++) {
+                items.push(
+                  <div
+                    className='Item'
+                    key={i}
+                  >
+                    Item {i}
+                  </div>
+                )
+              }
+
+              return (
+                <div
+                  className='Row'
+                  key={key}
+                  style={style}
+                >
+                  {items}
+                </div>
+              )
+            }
+          }
+          />
+      )
+      }}
+    </AutoSizer>
+    )}
+    </WindowScroller>
+    {/* <Grid
       as="ul"
       key="people"
       columns={["1fr", "1fr 1fr", "1fr 1fr 1fr"]}
@@ -62,7 +124,7 @@ const ResultSection = ({
           <Result key={`result-obj-${id}-${index}`} {...otherProps} />
         ))}
       </MDXProvider>
-    </Grid>
+    </Grid> */}
     {results && results.length === 0 && (
       <Flex key={"no-results"} sx={{ flexDirection: "column", px: "1rem" }}>
         {query && <Text>{`No results for ${query}`}</Text>}
@@ -79,5 +141,6 @@ const ResultSection = ({
     )}
   </Box>
 )
+}
 
 export default ResultSection
