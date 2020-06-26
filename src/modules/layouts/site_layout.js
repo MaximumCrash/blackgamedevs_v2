@@ -10,30 +10,29 @@ import { SiteProvider } from "@layouts/SiteContext"
 import Shortcodes from "@ui/shortcodes"
 import Header from "@layouts/header"
 import Footer from "@layouts/footer"
-import ScrollToTop from '@ui/ScrollToTop';
-import Seo from '@layouts/seo'
-
+import ScrollToTop from "@ui/ScrollToTop"
+import Seo from "@layouts/seo"
 
 const Layout = ({ children }) => (
   <Box
     sx={{
       m: "0 auto",
-      padding: [ "20px 20px 10px", "50px 20px 10px", "50px 20px 20px"],
+      padding: ["20px 20px 10px", "50px 20px 10px", "50px 20px 20px"],
       maxWidth: "1280px",
       fontFamily: "heading",
       bg: "background",
       color: "text",
     }}
-  > 
-    <Seo lang="en-US"/>
+  >
+    <Seo lang="en-US" />
     <Header />
-    <MDXProvider components={Shortcodes} >
-      <Box sx={{position:'relative'}}>
+    <MDXProvider components={Shortcodes}>
+      <Box sx={{ position: "relative" }}>
         <SiteProvider>{children}</SiteProvider>
-        <ScrollToTop/>
+        <ScrollToTop />
       </Box>
     </MDXProvider>
-    
+
     <Footer />
   </Box>
 )

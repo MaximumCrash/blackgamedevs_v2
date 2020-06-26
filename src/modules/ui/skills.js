@@ -6,11 +6,11 @@ import Button from "@ui/Button"
 import { useSite } from "@layouts/SiteContext"
 
 const Skills = ({ children }) => {
-  const { filters, setFilter, filterSet } = useSite()
+  const { filters, setFilter, AllFilters } = useSite()
   const _Children = React.Children.toArray(children)
 
   const onClick = f => {
-    const filter = filterSet.skills.find(n => n.label === f.trim()) //Some labels have a chance of spaces at the end based on user input error.
+    const filter = AllFilters.Skills.find(n => n.label === f.trim()) //Some labels have a chance of spaces at the end based on user input error.
     setFilter(filter)
   }
 
@@ -36,6 +36,7 @@ const Skills = ({ children }) => {
               fontSize: "15px",
               mr: ".25",
               mb: ".5rem",
+              textTransform: 'capitalize',
               color: isActive ? "link_hover" : "text_secondary",
               borderColor: isActive ? "link_hover" : "text_secondary",
               "&:hover": {

@@ -7,12 +7,13 @@ import SearchInput from "@search/SearchInput"
 import Filters from "@search/filters"
 
 const Search = () => (
-  <Sticky dontUpdateHolderHeightWhenSticky={true}
+  <Sticky
+    dontUpdateHolderHeightWhenSticky={true}
     sx={{
       position: "relative",
       zIndex: "10",
-      width: ['calc(100% + 40px)', 'auto'],
-      left: ['-20px', 'unset'],
+      width: ["calc(100% + 40px)", "auto"],
+      left: ["-20px", "unset"],
 
       "& > *": {
         position: "relative",
@@ -25,7 +26,13 @@ const Search = () => (
     }}
   >
     <Box
-      sx={{ p: 3, pb: 2, borderBottom: "1px dotted", borderTop: "1px dotted", borderColor: "border"}}
+      sx={{
+        p: 3,
+        pb: 2,
+        borderBottom: "1px dotted",
+        borderTop: "1px dotted",
+        borderColor: "border",
+      }}
     >
       <SearchInput />
       <Filters />

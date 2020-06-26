@@ -13,7 +13,7 @@ const Button = ({ children, onClick, ...props }) => (
     sx={{
       fontSize: "1rem",
       fontWeight: "normal",
-      fontFamily: 'body',
+      fontFamily: "body",
       borderRadius: "5px",
       border: "1px solid",
       mb: "1rem",
@@ -23,7 +23,7 @@ const Button = ({ children, onClick, ...props }) => (
       padding: ".2rem .6rem",
       cursor: "pointer",
       transition: "all .1s ease",
-      bg: 'background',
+      bg: "background",
       "& > *": {
         m: 0,
       },

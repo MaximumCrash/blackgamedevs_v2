@@ -51,8 +51,8 @@ export default {
       },
     },
     button: {
-      fontFamily: 'body'
-    }
+      fontFamily: "body",
+    },
   },
   fonts: {
     body:
@@ -65,7 +65,5 @@ export default {
     body: 1.5,
     heading: ".95em",
   },
-  breakpoints: [
-    '650px','1100px', 'infinity',
-  ]
+  breakpoints: ["650px", "1100px", "infinity"],
 }

@@ -64,13 +64,11 @@ const FilterHeader = ({ onClick, filtersOpen }) => (
 const FilterSet = ({
   children,
   filtersOfSet,
-  filterKeys,
+  filters,
   onClick,
   removeFilterSet,
   filtersSelected,
 }) => {
-  
-
   return (
     <>
       <Text
@@ -106,7 +104,7 @@ const FilterSet = ({
         }}
       >
         {filtersOfSet.map(filter => {
-          const isActive = filterKeys.includes(filter.key);
+          const isActive = filters.length > 0 && filters.find((n) => n.key === filter.key)
 
           return (
             <Button
@@ -114,19 +112,11 @@ const FilterSet = ({
               key={filter.key}
               sx={{
                 textTransform: "capitalize",
-                color: isActive
-                  ? "link_hover"
-                  : "text_secondary",
-                borderColor: isActive
-                  ? "link_hover"
-                  : "filterBorder",
+                color: isActive ? "link_hover" : "text_secondary",
+                borderColor: isActive ? "link_hover" : "filterBorder",
                 "&:hover": {
-                  color: isActive
-                    ? "link_hover"
-                    : "text",
-                  borderColor: isActive
-                    ? "link_hover"
-                    : "text",
+                  color: isActive ? "link_hover" : "text",
+                  borderColor: isActive ? "link_hover" : "text",
                 },
               }}
             >
@@ -140,11 +130,10 @@ const FilterSet = ({
 }
 
 const Filters = () => {
-  const { filterSet, filters, setFilter, clearFilters } = useSite()
+  const { AllFilters, filters, setFilter, clearFilters } = useSite()
   const [filtersOpen, setFiltersOpen] = useState(false)
-
-  const filteringBy = groupBy(filters, "set") //Group current filters by their set.
-  const filterKeys = filters.map(({ key }) => key) //Helper that takes currently selected filters and makes their keys accessible in a single array.
+  
+  const groupedFilters = filters.length > 0 ? groupBy(filters, 'set') : {};
 
   return (
     <Box>
@@ -153,7 +142,7 @@ const Filters = () => {
           onClick={() => setFiltersOpen(!filtersOpen)}
           filtersOpen={filtersOpen}
         />
-        {filters.length > 0 && (
+        {Object.keys(filters).length > 0 && (
           <Text
             sx={{
               color: "text_secondary",
@@ -190,16 +179,16 @@ const Filters = () => {
         }}
       >
         {`Filtering by: `}
-        {Object.keys(filteringBy).map((type, index) => {
+        {Object.keys(groupedFilters).map((type, index) => {
           return (
-            <React.Fragment key={type}>
+            <React.Fragment key={`filtering-by-${type}`}>
               <span
                 sx={{ textTransform: "capitalize", color: "primary" }}
               >{`${type} `}</span>
-              <span sx={{ color: "text_secondary" }}>
-                ({filteringBy[type].map(({ label }) => label).join(", ")})
+              <span sx={{ color: "text_secondary", textTransform: "capitalize" }}>
+                ({groupedFilters[type].map(({ label }) => label).join(", ")})
               </span>
-              {index !== Object.keys(filteringBy).length - 1 && (
+              {index !== Object.keys(groupedFilters).length - 1 && (
                 <span sx={{ fontWeight: "bold" }}>{` and `}</span>
               )}
             </React.Fragment>
@@ -210,12 +199,12 @@ const Filters = () => {
         expanded={filtersOpen}
         sx={{ pl: "1rem", pr: "1rem", mt: ".24rem" }}
       >
-        {Object.keys(filterSet).map((set, index) => (
+        {Object.keys(AllFilters).map((set, index) => (
           <FilterSet
-            filtersOfSet={filterSet[set]}
-            filterKeys={filterKeys}
-            filtersSelected={filters.some(n => n.set === set)}
-            onClick={filter => setFilter({ ...filter, set }, true)}
+            filtersOfSet={AllFilters[set]}
+            filters={filters}
+            filtersSelected={filters.length > 0 && filters.some((n) => n.set === set)}
+            onClick={filter => setFilter(filter, true)}
             removeFilterSet={() => clearFilters(set)}
             key={`filter-set-${index}`}
           >

@@ -6,20 +6,18 @@ import { useSite } from "@layouts/SiteContext"
 import Button from "@ui/Button"
 
 const Location = ({ children }) => {
-  const { setFilter, filterSet, filters } = useSite()
-  const filter = filterSet.locations.find(
+  const { setFilter, AllFilters, filters } = useSite()
+  const filter = AllFilters.Location.find(
     n => n.label === children.props.children.trim()
   )
 
-  const isActive = filters.find(
-          n => n.label === children.props.children.trim()
-        )
+  const isActive = filters.find(n => n.label === children.props.children.trim())
 
   return (
     <Button
       className="location"
       onClick={() => setFilter(filter)}
-      sx={{        
+      sx={{
         color: isActive ? "link_hover" : "text_secondary",
         borderColor: isActive ? "link_hover" : "text_secondary",
         "&:hover": {
@@ -28,7 +26,7 @@ const Location = ({ children }) => {
         },
         "&:hover > *": { color: isActive ? "link_hover" : "text" },
         "& > *": {
-          m: 0, 
+          m: 0,
           display: "inline-block",
           color: isActive ? "link_hover" : "text_secondary",
           borderColor: isActive ? "link_hover" : "text_secondary",

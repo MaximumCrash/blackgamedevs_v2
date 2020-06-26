@@ -9,7 +9,7 @@ import React, {
 } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { useLocation } from "@reach/router"
-import { flattenSkills, sanitizeFilter, groupBy } from "@utils"
+import { flattenSkills, sanitizeFilter, groupBy, flattenFilter } from "@utils"
 
 export const SiteContext = createContext()
 
@@ -23,6 +23,9 @@ export const useSite = () => {
 }
 
 const SiteProvider = ({ children, value }) => {
+  const [filters, setFilters] = useState([]) //Filter State
+  const [results, setResults] = useState([]) //Current search query
+
   //Get all the results data (directory)
   const { directory } = useStaticQuery(graphql`
     {
@@ -45,52 +48,62 @@ const SiteProvider = ({ children, value }) => {
     }
   `)
 
+  const AllFilters = {};
+  const filterFragments = ["Skills", "Location"]; //<- Update this to match React Fragment keynames for filtering!
+
   //Transform that data into something consumable (People, Companies)
   //NOTE(Rejon): Used to securely match result ids to data for rendering when searching/filtering (see )
-  const AllData = {
-    people: directory.edges.filter(({ node }) => !node.frontmatter.isCompany),
-    companies: directory.edges.filter(({ node }) => node.frontmatter.isCompany),
-  }
-
-  //Get all existing and unique Filters by taking copy between
-  //NOTE(Rejon): Because filters are automagically generated we do the heavy lifting to sanitize text.
-  //             We do this to get our filters into something consistent for comparisons, rendering, and querying via input.
-  const AllFilters = directory.edges.map(({ node: { rawBody } }) => {
+  const AllData = directory.edges.reduce((obj, {node}) => {
+    let filterData = {};
+    
     //Filter out empty strings, trim whitespace, convert to camelCase for key consistency
     //NOTE(Rejon): The 2nd argument in this SHOULD match the component key ie. <Skills>
-    const skills = rawBody.includes('<Skills>') ? sanitizeFilter(rawBody, "Skills") : [];
-    const locations = rawBody.includes('<Location>') ? sanitizeFilter(rawBody, "Location") : [] //Filter out empty strings, trim whitespace, convert to camelCase for key consistency
+    filterFragments.map((fragment) => {
+      if (node.rawBody.includes(`<${fragment}>`)) {
 
-    return { skills, locations }
+        //If we haven't touched this fragment before we need to update All Filters.
+        if (!AllFilters[fragment]) {
+          AllFilters[fragment] = [];
+        }
+
+        const _filter = sanitizeFilter(node.rawBody, fragment);
+
+        filterData[fragment] = _filter;
+        //NOTE(Rejon): Because filters are automagically generated we do the heavy lifting to sanitize text.
+        //             We do this to get our filters into something consistent for comparisons, rendering, and querying via input.
+        AllFilters[fragment].push(_filter);
+      }
+    })
+
+    return (obj[node.id] = {
+      ...node, 
+      ...filterData,
+    }, obj)
+
+  }, {});
+
+  //Ensure unique filters. 
+  Object.keys(AllFilters).map((set) => {
+    AllFilters[set] = flattenFilter(AllFilters[set]);
   })
-
-  //Seperate filters based on whether they are skills or locations.
-  //Flatten them into 1 array. (Since we're managing individual node data like people and companies which share skills and locations)
-  const skills = flattenSkills(AllFilters, "skills")
-  const locations = flattenSkills(AllFilters, "locations")
-  const filterSet = { skills, locations } //Helper to make it easier to run comparisons against existing filters in a specific set.
-
-  const [filters, setFilters] = useState([]) //Filter State
-  const [results, setResults] = useState([]) //Current search query
 
   //Method call that takes a filter object and whether we're toggling, or just activating.
   const setFilter = (filter, toggle) => {
-    const indexOfFilter = filters.findIndex((f) => f.key === filter.key);
+    const indexOfFilter = filters.length > 0 ? filters.findIndex(f => f.key === filter.key) : -1;
 
     if (toggle) {
       if (indexOfFilter !== -1) {
-        //Remove array if it exists
-        const _filters = [...filters]
-        _filters.splice(indexOfFilter, 1)
-        setFilters(_filters)
+        //Remove the filter
+        setFilters(prevFilters => ([...prevFilters].filter((n) => n.key !== filter.key)));
       } else {
         //Add filter if it doesn't exist.
-        setFilters([...filters, filter])
+        setFilters(prevFilters => ([...prevFilters, filter]))
       }
     } else {
       //Just activate/add a filter, no toggle.
       if (indexOfFilter === -1) {
-        setFilters([...filters, filter])
+        //Add filter if it doesn't exist.
+        setFilters(prevFilters => ([...prevFilters, filter]))
       }
     }
   }
@@ -98,9 +111,9 @@ const SiteProvider = ({ children, value }) => {
   //Method call that removes filters entirely, or by a specific set.
   const clearFilters = set => {
     if (set) {
-      setFilters([...filters].filter(n => n.set !== set))
+      setFilters(prevFilters => ([...prevFilters].filter((n) => n.set !== set)));
     } else {
-      setFilters([])
+      setFilters({})
     }
   }
 
@@ -110,10 +123,10 @@ const SiteProvider = ({ children, value }) => {
         filters,
         setFilter,
         clearFilters,
-        filterSet,
-        results, 
-        setResults, 
+        results,
+        setResults,
         AllData,
+        AllFilters
       }}
     >
       {children}

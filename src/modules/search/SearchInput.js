@@ -5,12 +5,12 @@ import { navigate } from "@reach/router"
 import lunr, { Index as lunrINDEX } from "lunr"
 import { graphql, useStaticQuery } from "gatsby"
 
-import {debounce} from '@utils'
+import { debounce } from "@utils"
 import searchIcon from "@public/search_icon.svg"
 import { useSite } from "@layouts/SiteContext"
 
 const SearchInput = () => {
-  const { results, setResults } = useSite()
+  const { results, setResults, AllData } = useSite()
 
   //Get our LunrIndex from our Gatsby Node.
   const { LunrIndex } = useStaticQuery(graphql`
@@ -21,63 +21,53 @@ const SearchInput = () => {
 
   //Tap lunr and load the Index we built during run time.
   const lunrIndx = lunrINDEX.load(LunrIndex.index)
-  const { store } = LunrIndex //<- Grab our Store.
 
   const onSubmit = e => {
     e.preventDefault()
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
-  const onChange = (value) => {
-    console.log(value)
+  const onChange = value => {
+    
+    if (value === "" || value === null || value === undefined) {
+      setResults(AllData);
+    }
+
     let andSearch = [] //<- Array to combine results by AND instead of just OR
 
     //"Keywords" is taking our query and transforming each word by a space into a keyword to query for.
-    const keywords = value
-    .trim() // remove trailing and leading spaces
-    .replace(/\s/g, "*") // remove user's wildcards
-    .toLowerCase()
-    .split(/\s+/) //Split by spaces
+    const query = value
+      .trim() // remove trailing and leading spaces
+      .replace(/\s/g, "*") // remove user's wildcards
+      .toLowerCase()
 
-  //Run our query
-  keywords
-    // loop over keywords
-    .forEach((el, i) => {
-      // per-single-keyword results
-      const keywordSearch = lunrIndx
-        .query(function (q) {
-          //Use our tokenizer
-          //NOTE(Rejon): Lunr is PICKY and treats each space in our query as an individual token.
-          //             Our tokenizer regex (in gatsby-node.js) isn't perfect, so we do some double checking.
-          lunr.tokenizer(el).forEach(function (token) {
-    
-            q.term(token.toString(), { editDistance: el.length > 5 ? 2 : 0 }) //<- If our token is longer than 5 characters, let the accidental distance be 2 letters (ie. "A" <- Z,Y,B,C are 2 distances away from A in both directions.)
-            q.term(token.toString(), {
-              //<- Wildcard treatment for our token specifically.
-              wildcard:
-                lunr.Query.wildcard.LEADING | lunr.Query.wildcard.TRAILING,
-            })
-            q.term(token.toString(), { fields: ["name"], boost: 10 }) //<- Boost the value of our query for a specific field.
-            q.term(token.toString(), { fields: ["nameNormalized"], boost: 10 })
-            q.term(token.toString(), { fields: ["locations"], boost: 5 })
-            q.term(token.toString(), { fields: ["skills"], boost: 3 })
+    // per-single-keyword results
+    //NOTE(Rejon): I could have provided the filter labels to our search,
+    //             but because the labels (even normalized) have a lot of spaces,
+    //             LUNR will be picky and show incorrect results.
+    const searchResults = lunrIndx
+      .query(function (q) {
+        //Use our tokenizer
+        //NOTE(Rejon): Lunr is PICKY and treats each space in our query as an individual token.
+        //             Our tokenizer regex (in gatsby-node.js) isn't perfect, so we do some double checking.
+        lunr.tokenizer(query).forEach(function (token) {
+          q.term(token.toString(), { editDistance: query.length > 5 ? 2 : 0 }) //<- If our token is longer than 5 characters, let the accidental distance be 2 letters (ie. "A" <- Z,Y,B,C are 2 distances away from A in both directions.)
+          q.term(token.toString(), {
+            //<- Wildcard treatment for our token specifically.
+            wildcard:
+              lunr.Query.wildcard.LEADING | lunr.Query.wildcard.TRAILING,
           })
+          q.term(token.toString(), { fields: ["name"], boost: 10 }) //<- Boost the value of our query for a specific field.
+          q.term(token.toString(), { fields: ["nameNormalized"], boost: 10 })
+          q.term(token.toString(), { fields: ["locations"], boost: 5 })
+          q.term(token.toString(), { fields: ["skills"], boost: 3 })
         })
-        .map(({ ref }) => {
-          //<- Map through all of our results based on the id, grab our data from the store by it's id.
-          return {
-            id: ref,
-            ...store[ref],
-          }
-        })
-      // intersect current keywordSearch with andSearch
-      andSearch =
-        i > 0
-          ? andSearch.filter(x => keywordSearch.some(el => el.id === x.id))
-          : keywordSearch
-    })
+      })
+      .map(({ ref }) => {
+        return AllData[ref];
+      })
 
-    console.log(andSearch);
+    setResults(searchResults);
   }
 
   return (

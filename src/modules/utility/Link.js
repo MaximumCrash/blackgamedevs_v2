@@ -32,7 +32,7 @@ const Link = ({
       {...other}
       target="_blank"
       rel="nofollow noopener noreferrer"
-      sx={{transition: 'all .164s easeInOut'}}
+      sx={{ transition: "all .164s easeInOut" }}
     >
       {children}
     </ThemeLink>

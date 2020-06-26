@@ -72,7 +72,8 @@ const createIndex = async (dirNodes, type, cache) => {
     }
     documents.push(doc)
     store[id] = {
-      id: doc.id
+      id: doc.id,
+      type: doc.type
     }
   }
 
@@ -82,7 +83,7 @@ const createIndex = async (dirNodes, type, cache) => {
 
     //NOTE: I would prefer to do an object key comparison loop to get these fulfilled,
     //      but this works for now.
-    this.field(`name`) 
+    this.field(`name`)
     this.field(`nameNormalized`)
     this.field(`locationsNormalized`)
     this.field(`locations`)
@@ -117,7 +118,6 @@ exports.createResolvers = ({ cache, createResolvers }) => {
             })
             .filter(
               node =>
-                node.frontmatter !== undefined &&
                 node.fileAbsolutePath &&
                 node.fileAbsolutePath.match(/(\/directory\/).+/) !== null
             )

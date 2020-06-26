@@ -4,7 +4,7 @@ module.exports = {
   pathPrefix: "/blackgamedevs_v2",
   siteMetadata: {
     title: `Black Game Developers`,
-    siteUrl: 'https://blackgamedevs.com',
+    siteUrl: "https://blackgamedevs.com",
     description: `A list of black game developers, designers, artists, and more. Here they are. Hire them. Buy their stuff.`,
     author: `Arthur Ward, Jr, Catt Small, Chris Algoo, Réjon Taylor-Foster (@Maximum_Crash)`,
   },
@@ -71,7 +71,7 @@ module.exports = {
         component: require.resolve(`./src/modules/layouts/site_layout.js`),
       },
     },
-    'gatsby-plugin-sitemap',
+    "gatsby-plugin-sitemap",
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -86,28 +86,30 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-offline',
+      resolve: "gatsby-plugin-offline",
       options: {
-          workboxConfig: {
-            globPatterns: ['**/*']
-          }
-      }
+        workboxConfig: {
+          globPatterns: ["**/*"],
+        },
+      },
     },
     {
-      resolve: 'gatsby-plugin-robots-txt',
+      resolve: "gatsby-plugin-robots-txt",
       options: {
-        host: 'https://blackgamedevs.com',
-        sitemap: 'https://blackgamedevs.com/sitemap.xml',
-        policy: [{userAgent: '*', allow: '/'}]
-      }
+        host: "https://blackgamedevs.com",
+        sitemap: "https://blackgamedevs.com/sitemap.xml",
+        policy: [{ userAgent: "*", allow: "/" }],
+      },
     },
     {
       resolve: `gatsby-plugin-prefetch-google-fonts`,
       options: {
-        fonts: [{
-          family: 'Poppins',
-          variants: [`300`, `400`, `700`]
-        }],
+        fonts: [
+          {
+            family: "Poppins",
+            variants: [`300`, `400`, `700`],
+          },
+        ],
       },
     },
     {

@@ -1,10 +1,15 @@
 //Groups array of objects by a property.
 export const groupBy = (arr, property) => {
   return arr.reduce((r, a) => {
-    r[a[property]] = [...r[a[property]] || [], a];
-    return r;
-}, {});
+    r[a[property]] = [...(r[a[property]] || []), a]
+    return r
+  }, {})
 }
+
+Object.filter = (obj, predicate) => 
+    Object.keys(obj)
+          .filter( key => predicate(obj[key]) )
+          .reduce( (res, key) => (res[key] = obj[key], res), {} );
 
 //Sort our nodes based on a specific field.
 //NOTE(Rejon): How we sort by "name"
@@ -44,11 +49,11 @@ export const sanitizeFilter = (rawBody, fragment) =>
       const label = n.trim() //Remove whitespace from ends.
       const key = camelize(label) //camelCase our Key for easier management in code (NOTE): This is because ANYTHING can be a filter.
 
-      const set = fragment.toLowerCase() //our filter "set"
+      const set = fragment; //our filter "set"
 
       //Check and make sure our set always ends in "s"
       //NOTE(Rejon): <Location> -> locations
-      return { label, key, set: /\b\w+s\b/.test(set) ? set : `${set}s` }
+      return { label, key, set }
     })
 
 //This is takes in AllFilters which come seperated by Skills/Location/ect. because of how our data is written.
@@ -58,6 +63,15 @@ export const flattenSkills = (AllFilters, set) =>
   AllFilters.map(node => node[set])
     .flat(1)
     .reduce((acc, current) => {
+      const x = acc.find(item => item.key === current.key)
+      if (!x) {
+        return acc.concat([current])
+      } else {
+        return acc
+      }
+    }, [])
+
+export const flattenFilter = (filtersOfSet) => filtersOfSet.flat(1).reduce((acc, current) => {
       const x = acc.find(item => item.key === current.key)
       if (!x) {
         return acc.concat([current])
@@ -101,11 +115,11 @@ export const filterSearchResults = ({
 }
 
 export const debounce = (func, wait = 100) => {
-  let timeout;
-  return function(...args) {
-    clearTimeout(timeout);
+  let timeout
+  return function (...args) {
+    clearTimeout(timeout)
     timeout = setTimeout(() => {
-      func.apply(this, args);
-    }, wait);
-  };
+      func.apply(this, args)
+    }, wait)
+  }
 }

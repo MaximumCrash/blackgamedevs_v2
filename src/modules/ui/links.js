@@ -36,7 +36,12 @@ const Links = ({ children, icon, className, alt }) => {
         return (
           <Box
             key={`links-link-${index}-${element}`}
-            sx={{ mr: ".65rem", "& > *": { m: 0 }, fontSize: "15px", transition: 'all .164s easeInOut' }}
+            sx={{
+              mr: ".65rem",
+              "& > *": { m: 0 },
+              fontSize: "15px",
+              transition: "all .164s easeInOut",
+            }}
           >
             {element}
           </Box>

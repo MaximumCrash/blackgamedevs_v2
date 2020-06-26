@@ -10,7 +10,14 @@ import Link from "@modules/utility/Link"
 
 //Renders a section of our results sorted by "name" (default).
 //Animations are handled by Framer Motion with motion elements and Animate Presence.
-const ResultSection = ({ results, sortBy = "name", children, query, noun, jumpToSection }) => (
+const ResultSection = ({
+  results,
+  sortBy = "name",
+  children,
+  query,
+  noun,
+  jumpToSection,
+}) => (
   <Box id={children}>
     <Text as="h2" sx={{ color: "primary", fontWeight: "normal", mb: 3, mt: 3 }}>
       {children}
@@ -18,20 +25,32 @@ const ResultSection = ({ results, sortBy = "name", children, query, noun, jumpTo
         sx={{ fontSize: "1rem", color: "text_secondary" }}
       >{` (${results.length})`}</span>
 
-        <Text className="jump-section-element" sx={{color: "text_secondary",
-              fontSize: "15px",
-              display: "inline-block",
-              ml: "1rem",
-              textDecoration: "underline",
-              cursor: "pointer",}} onClick={() => window.scrollTo({top: document.getElementById(jumpToSection).offsetTop, behavior: 'smooth'})}> Jump to next section </Text>
-
-      
+      <Text
+        className="jump-section-element"
+        sx={{
+          color: "text_secondary",
+          fontSize: "15px",
+          display: "inline-block",
+          ml: "1rem",
+          textDecoration: "underline",
+          cursor: "pointer",
+        }}
+        onClick={() =>
+          window.scrollTo({
+            top: document.getElementById(jumpToSection).offsetTop,
+            behavior: "smooth",
+          })
+        }
+      >
+        {" "}
+        Jump to next section{" "}
+      </Text>
     </Text>
     <Grid
       as="ul"
       key="people"
-      columns={['1fr','1fr 1fr', '1fr 1fr 1fr']}
-      gap={['1rem', '2rem']}
+      columns={["1fr", "1fr 1fr", "1fr 1fr 1fr"]}
+      gap={["1rem", "2rem"]}
       sx={{
         listStyleType: "none",
         p: 0,
@@ -39,29 +58,25 @@ const ResultSection = ({ results, sortBy = "name", children, query, noun, jumpTo
       }}
     >
       <MDXProvider components={Shortcodes}>
-          {results.map(({ id, ...otherProps }, index) => (
-              <Result key={`result-obj-${id}-${index}`} {...otherProps} />
-          ))}
-        
+        {results.map(({ id, ...otherProps }, index) => (
+          <Result key={`result-obj-${id}-${index}`} {...otherProps} />
+        ))}
       </MDXProvider>
     </Grid>
     {results && results.length === 0 && (
-          <Flex
-            key={"no-results"}
-            sx={{ flexDirection: "column", px: "1rem" }}
+      <Flex key={"no-results"} sx={{ flexDirection: "column", px: "1rem" }}>
+        {query && <Text>{`No results for ${query}`}</Text>}
+        <Text>
+          {`Think ${noun} is missing? Add them to the list `}
+          <Link
+            to="https://github.com/QuantumBox/blackgamedevs"
+            sx={{ cursor: "pointer" }}
           >
-            {query && <Text>{`No results for ${query}`}</Text>}
-            <Text>
-              {`Think ${noun} is missing? Add them to the list `}
-              <Link
-                to="https://github.com/QuantumBox/blackgamedevs"
-                sx={{ cursor: "pointer" }}
-              >
-                here.
-              </Link>
-            </Text>
-          </Flex>
-        )}
+            here.
+          </Link>
+        </Text>
+      </Flex>
+    )}
   </Box>
 )
 
