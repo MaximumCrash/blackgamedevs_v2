@@ -21,7 +21,7 @@ const ResultsRenderer = ({ results, resultsPerPage = 9 }) => {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.23,
+        staggerChildren: 0.1,
       },
     },
   }
