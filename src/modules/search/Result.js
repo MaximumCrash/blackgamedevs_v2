@@ -14,6 +14,7 @@ const Result = ({ children, frontmatter, rawBody, body }) => {
   return (
     <Flex
       sx={{
+        flex: 1,
         flexDirection: "column",
         alignItems: "flex-start",
         position: "relative",

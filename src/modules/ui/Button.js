@@ -4,10 +4,10 @@ import { jsx } from "theme-ui"
 
 import { motion } from "framer-motion"
 
-const Button = ({ children, onClick, ...props }) => (
+const Button = ({ children, onClick, noTap, ...props }) => (
   <motion.button
     className="button"
-    whileTap={{ scale: 0.8 }}
+    whileTap={!noTap ? { scale: 0.864 } : {}}
     {...props}
     transition={{ ease: "easeInOut", duration: 0.1 }}
     sx={{

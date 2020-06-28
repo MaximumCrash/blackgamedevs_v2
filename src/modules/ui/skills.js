@@ -20,7 +20,6 @@ const Skills = ({ children }) => {
       sx={{
         flexWrap: "wrap",
         mt: "1rem",
-        mb: ".64rem",
         alignItems: "center",
         justifyContent: "flex-start",
       }}
@@ -35,8 +34,7 @@ const Skills = ({ children }) => {
             sx={{
               fontSize: "15px",
               mr: ".25",
-              mb: ".5rem",
-              textTransform: 'capitalize',
+              textTransform: "capitalize",
               color: isActive ? "link_hover" : "text_secondary",
               borderColor: isActive ? "link_hover" : "text_secondary",
               "&:hover": {

@@ -6,10 +6,10 @@ export const groupBy = (arr, property) => {
   }, {})
 }
 
-Object.filter = (obj, predicate) => 
-    Object.keys(obj)
-          .filter( key => predicate(obj[key]) )
-          .reduce( (res, key) => (res[key] = obj[key], res), {} );
+Object.filter = (obj, predicate) =>
+  Object.keys(obj)
+    .filter(key => predicate(obj[key]))
+    .reduce((res, key) => ((res[key] = obj[key]), res), {})
 
 //Sort our nodes based on a specific field.
 //NOTE(Rejon): How we sort by "name"
@@ -49,7 +49,7 @@ export const sanitizeFilter = (rawBody, fragment) =>
       const label = n.trim() //Remove whitespace from ends.
       const key = camelize(label) //camelCase our Key for easier management in code (NOTE): This is because ANYTHING can be a filter.
 
-      const set = fragment; //our filter "set"
+      const set = fragment //our filter "set"
 
       //Check and make sure our set always ends in "s"
       //NOTE(Rejon): <Location> -> locations
@@ -71,14 +71,15 @@ export const flattenSkills = (AllFilters, set) =>
       }
     }, [])
 
-export const flattenFilter = (filtersOfSet) => filtersOfSet.flat(1).reduce((acc, current) => {
-      const x = acc.find(item => item.key === current.key)
-      if (!x) {
-        return acc.concat([current])
-      } else {
-        return acc
-      }
-    }, [])
+export const flattenFilter = filtersOfSet =>
+  filtersOfSet.flat(1).reduce((acc, current) => {
+    const x = acc.find(item => item.key === current.key)
+    if (!x) {
+      return acc.concat([current])
+    } else {
+      return acc
+    }
+  }, [])
 
 //Filters our search results by checking against our filters by group and by the result's type.
 //We then return the merged data by fetching it safely from our AllData (queried in PageContext)
@@ -112,14 +113,4 @@ export const filterSearchResults = ({
       const { node } = AllData[d.type].find(({ node }) => node.id === d.id)
       return { ...d, ...node }
     })
-}
-
-export const debounce = (func, wait = 100) => {
-  let timeout
-  return function (...args) {
-    clearTimeout(timeout)
-    timeout = setTimeout(() => {
-      func.apply(this, args)
-    }, wait)
-  }
 }

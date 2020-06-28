@@ -73,7 +73,7 @@ const createIndex = async (dirNodes, type, cache) => {
     documents.push(doc)
     store[id] = {
       id: doc.id,
-      type: doc.type
+      type: doc.type,
     }
   }
 

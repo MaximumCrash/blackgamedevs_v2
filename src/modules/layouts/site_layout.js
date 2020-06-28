@@ -22,6 +22,9 @@ const Layout = ({ children }) => (
       fontFamily: "heading",
       bg: "background",
       color: "text",
+      '& *:focus': {
+        outline: theme => `${theme.colors.link_hover} auto 1px !important`
+      }
     }}
   >
     <Seo lang="en-US" />

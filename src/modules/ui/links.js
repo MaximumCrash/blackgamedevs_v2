@@ -9,6 +9,7 @@ const Links = ({ children, icon, className, alt }) => {
     <Flex
       className={className}
       sx={{
+        "&:first-of-type": { mt: ".5rem" },
         alignItems: "flex-start",
         width: "100%",
         mb: ".64rem",

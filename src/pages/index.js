@@ -11,22 +11,22 @@ import { groupBy, filterSearchResults } from "@utils"
 const Index = ({ data, location }) => {
   const { filters, AllFilters, results, AllData } = useSite()
 
-  const resultsToRender = results.length > 0 ? results : AllData;
-  console.log(resultsToRender)
+  const peopleResults = Object.values(
+    Object.filter(results, entry => !entry.frontmatter.isCompany && (filters.length > 0 ? filters.every(f => {
+      if (!entry[f.set] || !entry[f.set].length) return false; 
 
-  let peopleResults = [];
-  let companyResults = [];
-  
-  if (Array.isArray(resultsToRender)) { //We've got Search Results.
-    const filteredResults = filters.length > 0 ? results.filter((r) => filters.find((f) => r[f.set].find((s) => s.key === f.key))) : results;
-  }
-  else { //We're rendering using AllData
-    peopleResults = Object.values(Object.filter(AllData, entry => !entry.frontmatter.isCompany))
-    companyResults = Object.values(Object.filter(AllData, entry => entry.frontmatter.isCompany))
-  }
+      return entry[f.set].find((n) => n.key === f.key);
+    }) : true))
+  )
 
-  console.log(peopleResults);
-  console.log(companyResults);
+  const companyResults = Object.values(
+    Object.filter(results, entry => entry.frontmatter.isCompany && (filters.length > 0 ? filters.every(f => {
+      if (!entry[f.set] || !entry[f.set].length) return false; 
+
+      return entry[f.set].find((n) => n.key === f.key);
+    }) : true))
+  )
+
 
   return (
     <Box

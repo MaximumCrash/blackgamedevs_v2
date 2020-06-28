@@ -104,7 +104,8 @@ const FilterSet = ({
         }}
       >
         {filtersOfSet.map(filter => {
-          const isActive = filters.length > 0 && filters.find((n) => n.key === filter.key)
+          const isActive =
+            filters.length > 0 && filters.find(n => n.key === filter.key)
 
           return (
             <Button
@@ -132,8 +133,8 @@ const FilterSet = ({
 const Filters = () => {
   const { AllFilters, filters, setFilter, clearFilters } = useSite()
   const [filtersOpen, setFiltersOpen] = useState(false)
-  
-  const groupedFilters = filters.length > 0 ? groupBy(filters, 'set') : {};
+
+  const groupedFilters = filters.length > 0 ? groupBy(filters, "set") : {}
 
   return (
     <Box>
@@ -185,7 +186,9 @@ const Filters = () => {
               <span
                 sx={{ textTransform: "capitalize", color: "primary" }}
               >{`${type} `}</span>
-              <span sx={{ color: "text_secondary", textTransform: "capitalize" }}>
+              <span
+                sx={{ color: "text_secondary", textTransform: "capitalize" }}
+              >
                 ({groupedFilters[type].map(({ label }) => label).join(", ")})
               </span>
               {index !== Object.keys(groupedFilters).length - 1 && (
@@ -203,7 +206,9 @@ const Filters = () => {
           <FilterSet
             filtersOfSet={AllFilters[set]}
             filters={filters}
-            filtersSelected={filters.length > 0 && filters.some((n) => n.set === set)}
+            filtersSelected={
+              filters.length > 0 && filters.some(n => n.set === set)
+            }
             onClick={filter => setFilter(filter, true)}
             removeFilterSet={() => clearFilters(set)}
             key={`filter-set-${index}`}

@@ -1,15 +1,18 @@
 //** @jsx jsx */
-import React from "react"
+import React, {useRef} from "react"
 import { Box, Input, jsx } from "theme-ui"
 import { navigate } from "@reach/router"
 import lunr, { Index as lunrINDEX } from "lunr"
 import { graphql, useStaticQuery } from "gatsby"
+import debounce from "lodash.debounce"
+import {useForm} from 'react-hook-form'
 
-import { debounce } from "@utils"
 import searchIcon from "@public/search_icon.svg"
 import { useSite } from "@layouts/SiteContext"
 
 const SearchInput = () => {
+  const formEl = useRef(null);
+  const { handleSubmit, register } = useForm();
   const { results, setResults, AllData } = useSite()
 
   //Get our LunrIndex from our Gatsby Node.
@@ -22,21 +25,25 @@ const SearchInput = () => {
   //Tap lunr and load the Index we built during run time.
   const lunrIndx = lunrINDEX.load(LunrIndex.index)
 
-  const onSubmit = e => {
-    e.preventDefault()
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
-
-  const onChange = value => {
+  const onSubmit = ({keywords}) => {
     
-    if (value === "" || value === null || value === undefined) {
-      setResults(AllData);
+
+    if (
+      keywords.replace(/\s/g, "") === "" ||
+      keywords === null ||
+      keywords === undefined 
+    ) {
+      if (results !== []) {
+        setResults(AllData)
+      }
+      
+      return; 
     }
 
     let andSearch = [] //<- Array to combine results by AND instead of just OR
 
     //"Keywords" is taking our query and transforming each word by a space into a keyword to query for.
-    const query = value
+    const query = keywords
       .trim() // remove trailing and leading spaces
       .replace(/\s/g, "*") // remove user's wildcards
       .toLowerCase()
@@ -64,11 +71,21 @@ const SearchInput = () => {
         })
       })
       .map(({ ref }) => {
-        return AllData[ref];
+        return AllData[ref]
       })
 
-    setResults(searchResults);
+    setResults(searchResults)
+    
   }
+
+  const autoSubmitForm = debounce(() => {
+    if (formEl.current !== null) {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+      formEl.current.dispatchEvent(new Event('submit'));
+    }
+  }, 132);
+
+
 
   return (
     <Box
@@ -81,7 +98,8 @@ const SearchInput = () => {
         as="form"
         method="GET"
         role="search"
-        onSubmit={onSubmit}
+        ref={formEl}
+        onSubmit={handleSubmit(onSubmit)}
         sx={{ position: "relative", mb: "0.5rem" }}
       >
         <img
@@ -103,7 +121,8 @@ const SearchInput = () => {
           type="search"
           aria-label="Search"
           placeholder={"Search..."}
-          onChange={({ target: { value } }) => debounce(onChange(value), 64)}
+          ref={register}
+          onChange={autoSubmitForm}
           sx={{
             border: "none",
             borderRadius: "100000px",
