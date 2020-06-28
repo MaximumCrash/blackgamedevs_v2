@@ -19,6 +19,9 @@ function SEO({ description, lang, meta, title }) {
             title
             description
             author
+            siteUrl
+            keywords
+            themeColor
           }
         }
       }
@@ -38,6 +41,18 @@ function SEO({ description, lang, meta, title }) {
         {
           name: `description`,
           content: metaDescription,
+        },
+        {
+          name: 'keywords',
+          content: site.siteMetadata.keywords
+        },
+        {
+          name: 'theme-color',
+          content: site.siteMetadata.themeColor
+        },
+        {
+          name: 'author',
+          content: site.siteMetadata.author
         },
         {
           name: "title",

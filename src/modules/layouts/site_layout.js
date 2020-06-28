@@ -22,7 +22,7 @@ const Layout = ({ children }) => (
       fontFamily: "heading",
       bg: "background",
       color: "text",
-      "& *:focus": {
+      "& button:focus, & a:focus": {
         outline: theme => `${theme.colors.link_hover} auto 1px !important`,
       },
     }}
