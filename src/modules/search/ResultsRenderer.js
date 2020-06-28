@@ -19,10 +19,7 @@ const ResultsRenderer = ({ results, resultsPerPage = 9 }) => {
   const containerVariant = {
     hidden: { opacity: 0 },
     show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
+      opacity: 1
     },
   }
 
@@ -44,13 +41,12 @@ const ResultsRenderer = ({ results, resultsPerPage = 9 }) => {
           width: "calc(100%)",
         }}
         animate="show"
-        initial="hidden"
+        initial="show"
       >
         {resultsToRender.map(({ id, ...otherProps }, index) => (
           <motion.li
             key={`result-obj-${id}-${index}`}
             variants={itemVariant}
-            exit="hidden"
           >
             <Result {...otherProps} />
           </motion.li>
