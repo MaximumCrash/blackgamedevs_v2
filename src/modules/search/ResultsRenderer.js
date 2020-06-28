@@ -16,22 +16,9 @@ const ResultsRenderer = ({ results, resultsPerPage = 9 }) => {
     }
   }, [results])
 
-  const containerVariant = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1
-    },
-  }
-
-  const itemVariant = {
-    hidden: { opacity: 0, y: 64, scale: 0.98 },
-    show: { opacity: 1, y: 0, scale: 1 },
-  }
-
   return (
     <>
       <motion.ul
-        variants={containerVariant}
         sx={{
           display: "grid",
           gridTemplateColumns: ["1fr", "1fr 1fr", "1fr 1fr 1fr"],
@@ -40,13 +27,12 @@ const ResultsRenderer = ({ results, resultsPerPage = 9 }) => {
           p: 0,
           width: "calc(100%)",
         }}
-        animate="show"
-        initial="show"
       >
         {resultsToRender.map(({ id, ...otherProps }, index) => (
           <motion.li
             key={`result-obj-${id}-${index}`}
-            variants={itemVariant}
+            initial={{ opacity: 0, y: 64, scale: 0.98 }}
+			animate={{ opacity: 1, y: 0, scale: 1 }}
           >
             <Result {...otherProps} />
           </motion.li>
