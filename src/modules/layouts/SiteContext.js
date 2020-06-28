@@ -23,8 +23,6 @@ export const useSite = () => {
 }
 
 const SiteProvider = ({ children, value }) => {
-  
-
   //Get all the results data (directory)
   const { directory } = useStaticQuery(graphql`
     {

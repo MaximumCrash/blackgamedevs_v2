@@ -12,21 +12,34 @@ const Index = ({ data, location }) => {
   const { filters, AllFilters, results, AllData } = useSite()
 
   const peopleResults = Object.values(
-    Object.filter(results, entry => !entry.frontmatter.isCompany && (filters.length > 0 ? filters.every(f => {
-      if (!entry[f.set] || !entry[f.set].length) return false; 
+    Object.filter(
+      results,
+      entry =>
+        !entry.frontmatter.isCompany &&
+        (filters.length > 0
+          ? filters.every(f => {
+              if (!entry[f.set] || !entry[f.set].length) return false
 
-      return entry[f.set].find((n) => n.key === f.key);
-    }) : true))
+              return entry[f.set].find(n => n.key === f.key)
+            })
+          : true)
+    )
   )
 
   const companyResults = Object.values(
-    Object.filter(results, entry => entry.frontmatter.isCompany && (filters.length > 0 ? filters.every(f => {
-      if (!entry[f.set] || !entry[f.set].length) return false; 
+    Object.filter(
+      results,
+      entry =>
+        entry.frontmatter.isCompany &&
+        (filters.length > 0
+          ? filters.every(f => {
+              if (!entry[f.set] || !entry[f.set].length) return false
 
-      return entry[f.set].find((n) => n.key === f.key);
-    }) : true))
+              return entry[f.set].find(n => n.key === f.key)
+            })
+          : true)
+    )
   )
-
 
   return (
     <Box

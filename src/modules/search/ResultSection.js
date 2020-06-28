@@ -60,14 +60,25 @@ const ResultSection = ({
       </Text>
 
       <MDXProvider components={Shortcodes}>
-        {(results && results.length > 0) && (
+        {results && results.length > 0 && (
           <ResultsRenderer results={results} {...otherProps} />
         )}
       </MDXProvider>
       {results && results.length === 0 && (
-        <Flex key={"no-results"} sx={{ flexDirection: "column", px: "1rem", mb: 3 }}>
-          {query ? <Text sx={{fontWeight: 'medium', fontSize:'1.5rem'}}>{`No results for ${query}`}</Text> : <Text sx={{fontWeight: 'medium', fontSize:'1.5rem'}}>No Results...</Text>}
-          
+        <Flex
+          key={"no-results"}
+          sx={{ flexDirection: "column", px: "1rem", mb: 3 }}
+        >
+          {query ? (
+            <Text
+              sx={{ fontWeight: "medium", fontSize: "1.5rem" }}
+            >{`No results for ${query}`}</Text>
+          ) : (
+            <Text sx={{ fontWeight: "medium", fontSize: "1.5rem" }}>
+              No Results...
+            </Text>
+          )}
+
           <Text>
             {`Think ${noun} is missing? Add them to the list `}
             <Link

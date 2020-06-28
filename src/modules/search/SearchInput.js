@@ -1,18 +1,18 @@
 //** @jsx jsx */
-import React, {useRef} from "react"
+import React, { useRef } from "react"
 import { Box, Input, jsx } from "theme-ui"
 import { navigate } from "@reach/router"
 import lunr, { Index as lunrINDEX } from "lunr"
 import { graphql, useStaticQuery } from "gatsby"
 import debounce from "lodash.debounce"
-import {useForm} from 'react-hook-form'
+import { useForm } from "react-hook-form"
 
 import searchIcon from "@public/search_icon.svg"
 import { useSite } from "@layouts/SiteContext"
 
 const SearchInput = () => {
-  const formEl = useRef(null);
-  const { handleSubmit, register } = useForm();
+  const formEl = useRef(null)
+  const { handleSubmit, register } = useForm()
   const { results, setResults, AllData } = useSite()
 
   //Get our LunrIndex from our Gatsby Node.
@@ -25,19 +25,17 @@ const SearchInput = () => {
   //Tap lunr and load the Index we built during run time.
   const lunrIndx = lunrINDEX.load(LunrIndex.index)
 
-  const onSubmit = ({keywords}) => {
-    
-
+  const onSubmit = ({ keywords }) => {
     if (
       keywords.replace(/\s/g, "") === "" ||
       keywords === null ||
-      keywords === undefined 
+      keywords === undefined
     ) {
       if (results !== []) {
         setResults(AllData)
       }
-      
-      return; 
+
+      return
     }
 
     let andSearch = [] //<- Array to combine results by AND instead of just OR
@@ -75,17 +73,14 @@ const SearchInput = () => {
       })
 
     setResults(searchResults)
-    
   }
 
   const autoSubmitForm = debounce(() => {
     if (formEl.current !== null) {
       window.scrollTo({ top: 0, behavior: "smooth" })
-      formEl.current.dispatchEvent(new Event('submit'));
+      formEl.current.dispatchEvent(new Event("submit"))
     }
-  }, 132);
-
-
+  }, 132)
 
   return (
     <Box
