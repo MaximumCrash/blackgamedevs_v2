@@ -9,7 +9,7 @@ const companies = require("../DEPRECATED/companies.json") //<- Old Companies JSO
 //they are written. Even though we use the order: X property to ensure display
 //consistency this means that folks who use screen readers will hear the order of content
 //differently.
-const preferredOrder = ["name", "location", "image", "skills", "websites", "games", "ganes"]
+const preferredOrder = ["name", "location", "image", "skills", "websites", "business", "games", "ganes"]
 
 //Converts the name from JSON into "# NAME" for Markdown
 json2md.converters.name = (input, json2md) => {
