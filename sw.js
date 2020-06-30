@@ -35,11 +35,18 @@ self.__precacheManifest = [
   },
   {
     "url": "404.html",
-    "revision": "a592120d7ae74f75d5d118fc1c1d4110"
+    "revision": "a8ad796ef1d9e830240d4cd073e230c1"
   },
   {
     "url": "404/index.html",
-    "revision": "09bd95e35860563cc0b9e9eacef83bab"
+    "revision": "336b2273be906039670b61127bc54277"
+  },
+  {
+    "url": "app-369239fe44bd694ba7b5.js"
+  },
+  {
+    "url": "app-369239fe44bd694ba7b5.js.map",
+    "revision": "eeb410e5ed6165d00e3d078aa591725e"
   },
   {
     "url": "app-558410296119267eb51b.js"
@@ -96,7 +103,7 @@ self.__precacheManifest = [
   },
   {
     "url": "chunk-map.json",
-    "revision": "29e375c08a774932603e6e5ebbad8d79"
+    "revision": "d4b6b852d45ba318b42f9c4aaaa7bc42"
   },
   {
     "url": "component---cache-caches-gatsby-plugin-offline-app-shell-js-235e751eb037707e5d1a.js"
@@ -202,6 +209,13 @@ self.__precacheManifest = [
   {
     "url": "component---src-pages-index-js-d4626db4362990927b49.js.map",
     "revision": "c82e6ab548e0adcfc4440a1e5fba8895"
+  },
+  {
+    "url": "component---src-pages-index-js-fba8730d6d3c315dd4ab.js"
+  },
+  {
+    "url": "component---src-pages-index-js-fba8730d6d3c315dd4ab.js.map",
+    "revision": "3e9426789df1e64e9bef5a51c0171e17"
   },
   {
     "url": "favicon.ico",
@@ -363,7 +377,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "215f2e23019f684ebbb9335b60a78361"
+    "revision": "da1b4e6c7de5b7661176b532053e7489"
   },
   {
     "url": "loading.png",
@@ -387,7 +401,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "b280d012bead2c47b34f0604de4c22bd"
+    "revision": "e3f0edc0b476ca3e0defc17945e03dd0"
   },
   {
     "url": "page-data/404.html/page-data.json",
@@ -399,7 +413,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "2bcc18cb241e643e8f3f7a75fbddee5f"
+    "revision": "f862d1d166a9bfb064b7a302a9402869"
   },
   {
     "url": "page-data/dev-404-page/page-data.json",
@@ -556,8 +570,15 @@ self.__precacheManifest = [
     "revision": "6a71ce082bce558243be2afdad891b53"
   },
   {
+    "url": "webpack-runtime-fbd0d54d3883bd9fc5e4.js"
+  },
+  {
+    "url": "webpack-runtime-fbd0d54d3883bd9fc5e4.js.map",
+    "revision": "970dcdb88717b990914bc09a09c0cbbf"
+  },
+  {
     "url": "webpack.stats.json",
-    "revision": "470171d73e144b94ba2004d78b366013"
+    "revision": "965a0beb0b44bb196742461ccd230194"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
@@ -650,7 +671,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/blackgamedevs_v2/app-94a9a1c986fb00733a6f.js`))) {
+  if (!resources || !(await caches.match(`/blackgamedevs_v2/app-369239fe44bd694ba7b5.js`))) {
     return await fetch(event.request)
   }
 
