@@ -1,7 +1,7 @@
 //** @jsx jsx */
 import React from "react"
 import { Box, Flex, jsx } from "theme-ui"
-import Link from "@modules/utility/Link"
+
 const Links = ({ children, icon, className, alt }) => {
   const _Children = React.Children.toArray(children)
 

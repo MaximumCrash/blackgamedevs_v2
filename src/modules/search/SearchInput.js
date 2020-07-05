@@ -1,7 +1,6 @@
 //** @jsx jsx */
 import React, { useRef } from "react"
 import { Box, Input, jsx } from "theme-ui"
-import { navigate } from "@reach/router"
 import lunr, { Index as lunrINDEX } from "lunr"
 import { graphql, useStaticQuery } from "gatsby"
 import debounce from "lodash.debounce"
@@ -35,11 +34,9 @@ const SearchInput = () => {
         setResults(AllData)
       }
 
-      return
+      return;
     }
-
-    let andSearch = [] //<- Array to combine results by AND instead of just OR
-
+    
     //"Keywords" is taking our query and transforming each word by a space into a keyword to query for.
     const query = keywords
       .trim() // remove trailing and leading spaces

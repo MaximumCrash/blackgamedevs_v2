@@ -12,8 +12,6 @@ import { Box, jsx } from "theme-ui"
 
 import shortcodes from "@ui/shortcodes.js"
 
-import _Header from "./header.mdx"
-
 const Header = () => {
   const { allMdx: edges } = useStaticQuery(graphql`
     query MyQuery {

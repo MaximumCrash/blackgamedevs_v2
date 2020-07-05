@@ -34,6 +34,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/directory/images/`,
+      },
+    },
+    {
       resolve: "gatsby-plugin-theme-ui",
       options: {
         prismPreset: "night-owl",

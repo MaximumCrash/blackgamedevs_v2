@@ -3,7 +3,6 @@ import React from "react"
 import { Flex, jsx } from "theme-ui"
 
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import { motion } from "framer-motion"
 
 import noUserImage from "@public/no-user-image.png"
 import noCompanyImage from "@public/no-company-image.png"
@@ -18,6 +17,9 @@ const Result = ({ children, frontmatter, rawBody, body }) => {
         flexDirection: "column",
         alignItems: "flex-start",
         position: "relative",
+        borderBottom: ['1px solid', 'unset', 'unset'],
+        borderColor: 'filterBorder',
+        paddingBottom: '0.7rem',
         "& > .title": {
           fontSize: ["1.4rem", "1.25em", "1.25em"],
           margin: "0 0 .5rem",

@@ -4,7 +4,7 @@
 // SiteProvider around the header down to the footer instead of just the children.
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
-import { Box, Image } from "theme-ui"
+import { Box } from "theme-ui"
 
 import { SiteProvider } from "@layouts/SiteContext"
 import Shortcodes from "@ui/shortcodes"

@@ -1,8 +1,13 @@
-const json2md = require("json2md") //<- We use this with custom converters to make our MDX content. 
-const fs = require("fs")
 
+const fs = require("fs")
+const got = require('got')
+const del = require('del');
+const ora = require('ora');
+
+const {bgdMinimizer} = require('./minimizeImages');
 const people = require("../DEPRECATED/people.json") //<- Old People JSON
 const companies = require("../DEPRECATED/companies.json") //<- Old Companies JSON
+const json2md = require("json2md") //<- We use this with custom converters to make our MDX content. 
 
 //This is the preferred order we'd like to see the MDX data in. 
 //This is important for accessibility, because the results render in the order
@@ -10,6 +15,9 @@ const companies = require("../DEPRECATED/companies.json") //<- Old Companies JSO
 //consistency this means that folks who use screen readers will hear the order of content
 //differently.
 const preferredOrder = ["name", "location", "image", "skills", "websites", "business", "games", "ganes"]
+
+const acceptedImageEndings = ['png', 'webp', 'jpg', 'gif', 'gifv', 'jpeg']; //<- This is for security, since we're dynamically creating filenames with file endings from a server response.
+
 
 //Converts the name from JSON into "# NAME" for Markdown
 json2md.converters.name = (input, json2md) => {
@@ -19,7 +27,7 @@ json2md.converters.name = (input, json2md) => {
 //Grabs the image url, imageAlt (in the form of the persons name), and out puts it as
 //![ImageName](Image URL) <- Markdown Image
 json2md.converters.image = ({ input, imageAlt }) => {
-  if (input === "http://image-link-here.com/image.png") {
+  if (input === "http://image-link-here.com/image.png" || typeof image === 'undefined') {
     return ""
   }
 
@@ -29,9 +37,12 @@ json2md.converters.image = ({ input, imageAlt }) => {
     input
       .match(/[ \w-]+\./g)
       .pop()
+      .trim()
       .replace(".", "")
+      .replace(/\s/g, "_")
+      .replace(/[^a-zA-Z0-9\_]/g, "")
 
-  return `![${imageName}](${imgURL})`
+  return `![${imageName}](./images/${imageName})`
 }
 
 //Takes the skills data, removes any extra whitespace and renders
@@ -117,81 +128,172 @@ json2md.converters.games = input => {
 //This is because there's a typo in the existing companies data.
 json2md.converters.ganes = json2md.converters.games
 
+
+
+
 //The method that transforms our data into something consumable by json2md. 
 //Because json2md requires the data format to be: [{keyname: "String Data"}] 
 //we need to convert it like so: [{name: "Réjon Taylor-Foster"}]
 
 //This data then gets parsed through the converters above into a format acceptable
 //by our MDX files. 
-const entryTransformer = file => {
+const entryTransformer = async (file) => {
   file.splice(0, 1) //<- Remove the first element cause it's the template.
 
-  const _outData = file.map(entry =>
-    Object.keys(entry).sort((a,b) => { //<- We sort the order here using preferredOrder
-        return preferredOrder.indexOf(a) - preferredOrder.indexOf(b)
-      })
-      .filter(n => entry[n] !== "" && entry[n] !== null) //<- Filter out empty entries that are empty or null
-      .map(field => {
-        const returnObj = {}
-        returnObj[field] = entry[field]
+  const rollout = file.map(async entry => {
+    const formatted = Object.keys(entry).sort((a,b) => { //<- We sort the order here using preferredOrder
+          return preferredOrder.indexOf(a) - preferredOrder.indexOf(b)
+        })
+        .filter(n => entry[n] !== "" && entry[n] !== null)
+        .map(async field => {
+          const returnObj = {}
+          returnObj[field] = entry[field]
 
-        if (field === "image" && entry.name) { //<- If the field is image, and the entry has a name, we provide the name as the Image Alt. 
-          returnObj[field] = { input: entry[field], imageAlt: entry.name }
-        }
+          //If the field is an image and it's not the image default. 
+          //We should download the photo and set the returnObj's alt properly.
+          if (field === "image" && entry[field] !== "http://image-link-here.com/image.png") {
+            let imageName =
+              entry.name ||
+              entry[field]
+                .match(/[ \w-]+\./g)
+                .pop()
+                .replace(".", "")
+
+            imageName = imageName.trim()
+            .replace(/\s/g, "_")
+            .replace(/[^a-zA-Z0-9\_]/g, "")
+
+            returnObj[field] = { input: entry[field], imageAlt: imageName }
+
+            //Download the image using it's URL.
+            const resp = await got.stream(entry[field])
+            .on('error', (err) => {
+              console.error(err)
+            })
+            .on('response', (res) => {
+              if (res.statusCode === 404) {
+                return;
+              }
+
+              const fileEnding = res.headers['content-type'].split("/").pop();
+              const fileName = imageName;
+
+              //If the response file ending doesn't match our accepted
+              //image endings. DO NOT create the file. 
+              //This is a security concern in the case of bad actors.
+              if (acceptedImageEndings.includes(fileEnding))
+              {
+                resp.pipe(fs.createWriteStream(`${__dirname}/downloadedImages/${fileName}.${fileEnding}`))
+              }
+            });
+          }
 
         return returnObj
       })
-  )
+      
+      const results = await Promise.all(formatted);
 
-  return _outData
+      return results;
+
+  })
+
+  const output = await Promise.all(rollout);
+
+  return output; 
 }
+
+
 
 //The main function of this json-transformer script. 
 const main = () => {
+  if (!fs.existsSync(`${__dirname}/downloadedImages`)){
+    fs.mkdirSync(`${__dirname}/downloadedImages`);
+  }
+
+  const peopleProg = ora('Transforming people.json for json2md').start();
+
   //Transform our people data.
-  const peopleData = entryTransformer(people)
+  const tranformedPeople = entryTransformer(people).then((peopleData) => {
+    peopleProg.succeed();
 
-  peopleData.map((person, index) => { //<- Map through each individual person and make their MDX file.
-    let { name } =
-      person.find(n => Object.keys(n)[0] === "name") || `person_${index}` //Get their name
-    let mdxData = json2md(person) //<- Convert their data using our transformers.
+    const peopleProgB = ora('Creating MDX files for People').start();
+    
+    peopleData.map((person, index) => { //<- Map through each individual person and make their MDX file.
+      const { name } =
+        person.find(n => Object.keys(n)[0] === "name") || `person_${index}` //Get their name
+      const mdxData = json2md(person) //<- Convert their data using our transformers.
 
-    const fileName = name
-      .trim()
-      .replace(/\s/g, "_")
-      .replace(/[^a-zA-Z0-9\_]/g, "")
+      const fileName = name
+        .trim()
+        .replace(/\s/g, "_")
+        .replace(/[^a-zA-Z0-9\_]/g, "")
 
-    //Create the file.
-    fs.writeFile(
-      `${__dirname}/../directory/${fileName}_v1.mdx`,
-      mdxData,
-      (err, data) => {
-        if (err) return console.error(err, data)
-      }
-    )
+      //Create the file.
+      fs.writeFile(
+        `${__dirname}/../directory/${fileName}_v1.mdx`,
+        mdxData,
+        (err, data) => {
+          if (err) return console.error(err, data)
+        }
+      )
+    })
+
+    peopleProgB.succeed();
+
+    const companiesProg = ora('Transforming companies.json for json2md').start();
+
+    //Do the same thing for the companies data. 
+    const tranformedCompanies = entryTransformer(companies).then((companyData) => {
+      companiesProg.succeed();
+
+      const companiesProgB = ora('Creating MDX files for Companies').start();
+
+      companyData.map((company, index) => {
+        const { name } =
+          company.find(n => Object.keys(n)[0] === "name") || `company_${index}`
+        
+        //NOTE(Rejon): For companies we just add the frontmatter isCompany.
+        const mdxData = `---\nisCompany: true\n---\n\n${json2md(company)}`
+
+        const fileName = name
+          .trim()
+          .replace(/\s/g, "_")
+          .replace(/[^a-zA-Z0-9\_]/g, "")
+
+        fs.writeFile(
+          `${__dirname}/../directory/${fileName}_v1.mdx`,
+          mdxData,
+          (err, data) => {
+            if (err) return console.error(err, data)
+          }
+        )
+      })
+
+      companiesProgB.succeed();
+
+      cleanUp();
+    })
   })
 
-  //Do the same thing for the companies data. 
-  const companyData = entryTransformer(companies)
+  
+  
 
-  companyData.map((company, index) => {
-    let { name } =
-      company.find(n => Object.keys(n)[0] === "name") || `company_${index}`
-    let mdxData = `---\nisCompany: true\n---\n\n${json2md(company)}`
+const cleanUp = async () => {
+  bgdMinimizer().then(() => {
+    const cleanUpProg = ora('Clean up!').start();
+    del(`${__dirname}/downloadedImages`).then(() => {
+      cleanUpProg.succeed();
+    })
+  
+  });
 
-    const fileName = name
-      .trim()
-      .replace(/\s/g, "_")
-      .replace(/[^a-zA-Z0-9\_]/g, "")
-
-    fs.writeFile(
-      `${__dirname}/../directory/${fileName}_v1.mdx`,
-      mdxData,
-      (err, data) => {
-        if (err) return console.error(err, data)
-      }
-    )
-  })
+  
 }
 
+
+}
+
+
 main(); //<- What gets run when we run the script.
+
+

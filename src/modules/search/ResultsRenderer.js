@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react"
 
 import Result from "@search/Result"
 import Button from "@modules/ui/Button"
-import { jsx, Grid } from "theme-ui"
-import { AnimatePresence, motion } from "framer-motion"
+import { jsx } from "theme-ui"
+import {  motion } from "framer-motion"
 
 const ResultsRenderer = ({ results, resultsPerPage = 9 }) => {
   const [currentPage, setCurrentPage] = useState(1)

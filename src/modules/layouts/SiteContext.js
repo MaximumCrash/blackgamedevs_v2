@@ -5,11 +5,9 @@ import React, {
   createContext,
   useContext,
   useState,
-  useLayoutEffect,
 } from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { useLocation } from "@reach/router"
-import { flattenSkills, sanitizeFilter, groupBy, flattenFilter } from "@utils"
+import {  sanitizeFilter, flattenFilter } from "@utils"
 
 export const SiteContext = createContext()
 

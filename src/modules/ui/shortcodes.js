@@ -9,6 +9,7 @@ import gameIcon from "@public/icon-game.svg"
 import businessIcon from "@public/icon-business.svg"
 import userIcon from "@public/icon-user.svg"
 import webIcon from "@public/icon-world.svg"
+import Button from '@ui/Button'
 
 export default {
   h1: props => <Text as="h1" className="title" {...props} />,
@@ -41,4 +42,5 @@ export default {
   ),
   Skills,
   Location,
+  Button
 }

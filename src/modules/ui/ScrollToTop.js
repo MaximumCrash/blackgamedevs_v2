@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 
 import Sticky from "react-sticky-el"
-import { motion } from "framer-motion"
 import { Image } from "theme-ui"
 
 import backToTopIcon from "@public/back-to-top.svg"

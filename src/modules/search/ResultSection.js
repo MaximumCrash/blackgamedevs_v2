@@ -1,5 +1,5 @@
 //** @jsx jsx */
-import React, { useState, useEffect, useRef } from "react"
+import React from "react"
 import { MDXProvider } from "@mdx-js/react"
 import { jsx, Text, Box, Flex, Grid } from "theme-ui"
 

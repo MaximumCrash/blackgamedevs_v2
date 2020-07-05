@@ -1,16 +1,15 @@
 /** @jsx jsx */
-import React, { useState } from "react"
+import React from "react"
 
 import { Box, jsx } from "theme-ui"
 
 import { useSite } from "@layouts/SiteContext"
 import ResultSection from "@search/ResultSection"
 import Search from "@search"
-import { groupBy, filterSearchResults } from "@utils"
 
 const Index = ({ data, location }) => {
-  const { filters, AllFilters, results, AllData } = useSite()
-
+  const { filters, results } = useSite()
+  console.log(results);
   const peopleResults = Object.values(
     Object.filter(
       results,
