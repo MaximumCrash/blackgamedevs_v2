@@ -1,10 +1,9 @@
 ---
 name: Edit a Person Entry
 about: Template to propose changes to an existing person entry
-title: 'BGD Edit Person Entry: YOURNAME'
+title: "BGD Edit Person Entry: YOURNAME"
 labels: Edit Entry
-assignees: ''
-
+assignees: ""
 ---
 
 <-- Include only what you want to change! -->

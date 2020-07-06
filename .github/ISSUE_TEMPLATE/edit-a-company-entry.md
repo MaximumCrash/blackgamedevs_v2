@@ -1,15 +1,14 @@
 ---
 name: Edit a Company Entry
 about: Template to propose changes to an existing company entry
-title: 'BGD Edit Company: COMPANYNAME'
+title: "BGD Edit Company: COMPANYNAME"
 labels: Edit Entry
-assignees: ''
-
+assignees: ""
 ---
 
 ---
-isCompany: true
----
+
+## isCompany: true
 
 # COMPANY NAME TO CHANGE
 

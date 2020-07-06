@@ -17,9 +17,9 @@ const Result = ({ children, frontmatter, rawBody, body }) => {
         flexDirection: "column",
         alignItems: "flex-start",
         position: "relative",
-        borderBottom: ['1px solid', 'unset', 'unset'],
-        borderColor: 'filterBorder',
-        paddingBottom: '0.7rem',
+        borderBottom: ["1px solid", "unset", "unset"],
+        borderColor: "filterBorder",
+        paddingBottom: "0.7rem",
         "& > .title": {
           fontSize: ["1.4rem", "1.25em", "1.25em"],
           margin: "0 0 .5rem",

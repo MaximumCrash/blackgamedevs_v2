@@ -9,7 +9,7 @@ import Search from "@search"
 
 const Index = ({ data, location }) => {
   const { filters, results } = useSite()
-  console.log(results);
+  console.log(results)
   const peopleResults = Object.values(
     Object.filter(
       results,

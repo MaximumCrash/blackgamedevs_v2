@@ -34,9 +34,9 @@ const SearchInput = () => {
         setResults(AllData)
       }
 
-      return;
+      return
     }
-    
+
     //"Keywords" is taking our query and transforming each word by a space into a keyword to query for.
     const query = keywords
       .trim() // remove trailing and leading spaces

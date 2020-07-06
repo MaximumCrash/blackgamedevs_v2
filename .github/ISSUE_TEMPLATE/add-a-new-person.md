@@ -1,10 +1,9 @@
 ---
 name: Add A New Person
 about: Template for a new person entry
-title: 'BGD New Person: YOUR NAME'
+title: "BGD New Person: YOUR NAME"
 labels: New Entry, good first issue
-assignees: ''
-
+assignees: ""
 ---
 
 # YOUR NAME

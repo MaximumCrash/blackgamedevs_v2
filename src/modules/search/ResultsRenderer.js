@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react"
 import Result from "@search/Result"
 import Button from "@modules/ui/Button"
 import { jsx } from "theme-ui"
-import {  motion } from "framer-motion"
+import { motion } from "framer-motion"
 
 const ResultsRenderer = ({ results, resultsPerPage = 9 }) => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -32,7 +32,7 @@ const ResultsRenderer = ({ results, resultsPerPage = 9 }) => {
           <motion.li
             key={`result-obj-${id}-${index}`}
             initial={{ opacity: 0, y: 64, scale: 0.98 }}
-			animate={{ opacity: 1, y: 0, scale: 1 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
           >
             <Result {...otherProps} />
           </motion.li>

@@ -7,8 +7,9 @@ module.exports = {
     siteUrl: "https://blackgamedevs.com",
     description: `A list of black game developers, designers, artists, and more. Here they are. Hire them. Buy their stuff.`,
     author: `Arthur Ward, Jr, Catt Small, Chris Algoo, Réjon Taylor-Foster (@Maximum_Crash)`,
-    keywords: 'Black, game developers, designers, writers, artists, creatives, black game developers, directory, hiring, find black game developers',
-    themeColor: '#EF3054'
+    keywords:
+      "Black, game developers, designers, writers, artists, creatives, black game developers, directory, hiring, find black game developers",
+    themeColor: "#EF3054",
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

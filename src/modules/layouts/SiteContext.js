@@ -1,13 +1,9 @@
 // This file is the site's global state that's provided through
 // React's Context API.
 // You'll most likely see the use of useSite to access context.
-import React, {
-  createContext,
-  useContext,
-  useState,
-} from "react"
+import React, { createContext, useContext, useState } from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import {  sanitizeFilter, flattenFilter } from "@utils"
+import { sanitizeFilter, flattenFilter } from "@utils"
 
 export const SiteContext = createContext()
 

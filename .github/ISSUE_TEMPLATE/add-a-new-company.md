@@ -1,15 +1,14 @@
 ---
 name: Add a New Company
 about: Template for a new company entry
-title: 'BGD New Company: COMPANY NAME'
+title: "BGD New Company: COMPANY NAME"
 labels: New Entry
-assignees: ''
-
+assignees: ""
 ---
 
 ---
-isCompany: true
----
+
+## isCompany: true
 
 # COMPANY NAME
 

@@ -43,16 +43,16 @@ function SEO({ description, lang, meta, title }) {
           content: metaDescription,
         },
         {
-          name: 'keywords',
-          content: site.siteMetadata.keywords
+          name: "keywords",
+          content: site.siteMetadata.keywords,
         },
         {
-          name: 'theme-color',
-          content: site.siteMetadata.themeColor
+          name: "theme-color",
+          content: site.siteMetadata.themeColor,
         },
         {
-          name: 'author',
-          content: site.siteMetadata.author
+          name: "author",
+          content: site.siteMetadata.author,
         },
         {
           name: "title",
