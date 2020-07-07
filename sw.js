@@ -35,18 +35,18 @@ self.__precacheManifest = [
   },
   {
     "url": "404.html",
-    "revision": "22f04f8f96448672297b1e48469f75b1"
+    "revision": "e65e36b8d5f9d77fc62defdb4386ed1b"
   },
   {
     "url": "404/index.html",
-    "revision": "22c8effbbffb6315d68a4a64c9eec982"
+    "revision": "999746445bf10042ff887f430ccc4e08"
   },
   {
-    "url": "app-31fe421249f5701b8650.js"
+    "url": "app-d3372c8e8dbefcd58a1e.js"
   },
   {
-    "url": "app-31fe421249f5701b8650.js.map",
-    "revision": "730df51dcf32c0ee2572e511d6621c96"
+    "url": "app-d3372c8e8dbefcd58a1e.js.map",
+    "revision": "bc02e61edce3758cb1432f33288b4372"
   },
   {
     "url": "back-to-top.svg",
@@ -54,7 +54,7 @@ self.__precacheManifest = [
   },
   {
     "url": "chunk-map.json",
-    "revision": "ac15c43f04469011c98bf8acde0b9006"
+    "revision": "e2c584a64a36efff36b6dc66847edca7"
   },
   {
     "url": "component---cache-caches-gatsby-plugin-offline-app-shell-js-235e751eb037707e5d1a.js"
@@ -71,11 +71,11 @@ self.__precacheManifest = [
     "revision": "f1af83addf0a5677536b39fbcb4837e0"
   },
   {
-    "url": "component---src-pages-index-js-224d0adc90ad3c455561.js"
+    "url": "component---src-pages-index-js-e3dfa149ed918ebb614d.js"
   },
   {
-    "url": "component---src-pages-index-js-224d0adc90ad3c455561.js.map",
-    "revision": "073ed773b59e1bb8aba67eee168db691"
+    "url": "component---src-pages-index-js-e3dfa149ed918ebb614d.js.map",
+    "revision": "a4a7e8614b38e96f7db69acf44a0a6d9"
   },
   {
     "url": "directory_images/Adewale_Haroun_v1.webp",
@@ -493,7 +493,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "ac43b81637dfedb483e1849e318b13db"
+    "revision": "bf83b479facbb46b75aad37b337150da"
   },
   {
     "url": "loading.png",
@@ -517,7 +517,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "29b7b11f72a40c677f12870cd922282e"
+    "revision": "adf121ba37e63c4b243f078826dccaf5"
   },
   {
     "url": "page-data/404.html/page-data.json",
@@ -529,7 +529,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "093c895953ba6b0f5d478779746f5cad"
+    "revision": "2a431405fb6f3c0f4755ab0c8923389c"
   },
   {
     "url": "page-data/index/page-data.json",
@@ -570,15 +570,15 @@ self.__precacheManifest = [
     "url": "static/no-company-image-153041c5fc8829bccf58691403f06e8d.png"
   },
   {
-    "url": "webpack-runtime-4697cd65b2b232fb40ce.js"
+    "url": "webpack-runtime-666471b4235571201ff3.js"
   },
   {
-    "url": "webpack-runtime-4697cd65b2b232fb40ce.js.map",
-    "revision": "0bdec35f18b4752411b6545f8ba94a6d"
+    "url": "webpack-runtime-666471b4235571201ff3.js.map",
+    "revision": "a5479d29ad0dbdf93b6b941e858fc904"
   },
   {
     "url": "webpack.stats.json",
-    "revision": "1c1f6f8db3be3f18f31c6ceb0e45a19c"
+    "revision": "65b2a6114dc6332af0b99119df280019"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
@@ -671,7 +671,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/blackgamedevs_v2/app-31fe421249f5701b8650.js`))) {
+  if (!resources || !(await caches.match(`/blackgamedevs_v2/app-d3372c8e8dbefcd58a1e.js`))) {
     return await fetch(event.request)
   }
 
