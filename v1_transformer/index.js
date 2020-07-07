@@ -63,34 +63,24 @@ const entryTransformer = async (file, prog) => {
               .replace(/[^a-zA-Z0-9\_]/g, "")
               .replace(/\s/g, "_")
 
-          returnObj[field] = {input: entry[field], imageAlt: imageName};
-
           if (entry[field] !== "http://image-link-here.com/image.png") {
-            const fileEnding = entry[field].replace(/^.*\./, '').split("?")[0]
-            if (entry.name === "Biru Jones") {
-                  const stream = await got.stream(entry[field]); 
-                  console.dir(stream)
+              try { 
+                const stream = await got(entry[field]); 
+                const fileEnding = stream.headers['content-type'].split("/")[1];
+                  
+                //If the response file ending doesn't match our accepted
+                //image endings. DO NOT create the file.
+                //This is a security concern in the case of bad actors.
+                if (acceptedImageEndings.includes(fileEnding)) {
+                  returnObj[field] = {input: entry[field], imageAlt: imageName, fileEnding: fileEnding.replace(/png|jpg|jpeg/g, 'webp')};
+                  fs.createWriteStream(`${__dirname}/tempImages/${imageName}_v1.${fileEnding}`).write(stream.rawBody);
                 }
-            //If the response file ending doesn't match our accepted
-            //image endings. DO NOT create the file.
-            //This is a security concern in the case of bad actors.
-            if (acceptedImageEndings.includes(fileEnding)) {
-              try {
-                
-
-                await pipeline(
-                  got.stream(entry[field]),
-                  fs.createWriteStream(
-                    `${__dirname}/tempImages/${imageName}_v1.${fileEnding}`
-                  )
-                )
               } catch (err) {
-                fs.unlinkSync(`${__dirname}/tempImages/${imageName}_v1.${fileEnding}`)
+                
                 //Do Nothing, ignore the photo
                 prog.warn(`Image Download Error(404/500) for ${entry.name}`)
               }
             }
-          }
         }
 
         return returnObj
@@ -111,7 +101,7 @@ const cleanUp = async () => {
   try {
     await bgdMinimizer() //<- See minimizeImages.js
     const cleanUpProg = ora("Clean up!").start()
-    //await del(`${__dirname}/tempImages`) //<- Delete the tempImages directory
+    await del(`${__dirname}/tempImages`) //<- Delete the tempImages directory
     cleanUpProg.succeed("Whew chile...Clean up is all done!")
 
     console.info(`ℹ️ - Output now viewable in 'directory' folder. 😎👉👉 Enjoy`)

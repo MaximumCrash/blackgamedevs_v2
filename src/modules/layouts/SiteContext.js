@@ -22,7 +22,6 @@ const SiteProvider = ({ children, value }) => {
     {
       directory: allMdx(
         filter: { fileAbsolutePath: { regex: "//directory//" } }
-        sort: { fields: headings___value, order: ASC }
       ) {
         edges {
           node {
@@ -30,6 +29,9 @@ const SiteProvider = ({ children, value }) => {
             fileAbsolutePath
             body
             rawBody
+            headings(depth: h1) {
+              value
+            }
             frontmatter {
               isCompany
             }
@@ -43,8 +45,12 @@ const SiteProvider = ({ children, value }) => {
   const filterFragments = ["Skills", "Location"] //<- Update this to match React Fragment keynames for filtering!
 
   //Transform that data into something consumable (People, Companies)
+  //NOTE(Rejon): I would use graphql to sort by heading value, but graphql is case sensitive. 
+  //             So lower case elements would always be last :/
   //NOTE(Rejon): Used to securely match result ids to data for rendering when searching/filtering (see )
-  const AllData = directory.edges.reduce((obj, { node }) => {
+  const AllData = directory.edges
+  .sort((a, b) => a.node.headings[0].value.localeCompare(b.node.headings[0].value))
+  .reduce((obj, { node }) => {
     let filterData = {}
 
     //Filter out empty strings, trim whitespace, convert to camelCase for key consistency
@@ -105,7 +111,7 @@ const SiteProvider = ({ children, value }) => {
       }
     }
 
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    window.scrollTo({ top: 0 })
   }
 
   //Method call that removes filters entirely, or by a specific set.
@@ -116,7 +122,7 @@ const SiteProvider = ({ children, value }) => {
       setFilters([])
     }
 
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    window.scrollTo({ top: 0 })
   }
 
   return (

@@ -11,7 +11,6 @@ import ResultsRenderer from "@modules/search/ResultsRenderer"
 //Animations are handled by Framer Motion with motion elements and Animate Presence.
 const ResultSection = ({
   results,
-  sortBy = "name",
   children,
   query,
   noun,
@@ -67,7 +66,7 @@ const ResultSection = ({
       {results && results.length === 0 && (
         <Flex
           key={"no-results"}
-          sx={{ flexDirection: "column", px: "1rem", mb: 3 }}
+          sx={{ flexDirection: "column", px: "1rem", mb: 3, textAlign: ['center', 'unset', 'unset'] }}
         >
           {query ? (
             <Text

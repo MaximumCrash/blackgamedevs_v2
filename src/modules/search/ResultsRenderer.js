@@ -6,7 +6,7 @@ import Button from "@modules/ui/Button"
 import { jsx } from "theme-ui"
 import { motion } from "framer-motion"
 
-const ResultsRenderer = ({ results, resultsPerPage = 9 }) => {
+const ResultsRenderer = ({ results, resultsPerPage = 12 }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const resultsToRender = results.slice(0, resultsPerPage * currentPage)
 
@@ -31,7 +31,7 @@ const ResultsRenderer = ({ results, resultsPerPage = 9 }) => {
         {resultsToRender.map(({ id, ...otherProps }, index) => (
           <motion.li
             key={`result-obj-${id}-${index}`}
-            initial={{ opacity: 0, y: 64, scale: 0.98 }}
+            initial={currentPage !== 1 ? { opacity: 0.1, y: 64, scale: 0.96 } : false}
             animate={{ opacity: 1, y: 0, scale: 1 }}
           >
             <Result {...otherProps} />

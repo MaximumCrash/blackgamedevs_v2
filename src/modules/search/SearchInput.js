@@ -26,9 +26,9 @@ const SearchInput = () => {
 
   const onSubmit = ({ keywords }) => {
     if (
-      keywords.replace(/\s/g, "") === "" ||
+    (keywords.replace(/\s/g, "") === "" ||
       keywords === null ||
-      keywords === undefined
+      keywords === undefined) && results !== AllData
     ) {
       if (results !== []) {
         setResults(AllData)
@@ -74,10 +74,10 @@ const SearchInput = () => {
 
   const autoSubmitForm = debounce(() => {
     if (formEl.current !== null) {
-      window.scrollTo({ top: 0, behavior: "smooth" })
+      window.scrollTo({ top: 0})
       formEl.current.dispatchEvent(new Event("submit"))
     }
-  }, 132)
+  }, 124)
 
   return (
     <Box

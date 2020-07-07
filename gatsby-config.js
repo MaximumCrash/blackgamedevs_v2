@@ -35,13 +35,6 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/directory/images/`,
-      },
-    },
-    {
       resolve: "gatsby-plugin-theme-ui",
       options: {
         prismPreset: "night-owl",
@@ -50,7 +43,6 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-remark-images`,
     "gatsby-remark-unwrap-images",
     {
       resolve: `gatsby-plugin-mdx`,
@@ -63,9 +55,10 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              backgroundColor: "none",
-              disableBgImage: true,
-              maxWidth: 1000,
+              maxWidth: 400,
+              linkImagesToOriginal: false, 
+              quality: 30,
+              loading: 'lazy',
               wrapperStyle: result => `width: 100%;margin-left: 0;`,
             },
           },
@@ -81,6 +74,12 @@ module.exports = {
         component: require.resolve(`./src/modules/layouts/site_layout.js`),
       },
     },
+    {
+    resolve: 'gatsby-plugin-preconnect',
+    options: {
+      domains: ['https://localhost:9000', 'https://blackgamedevs.com'],
+    },
+  },
     "gatsby-plugin-sitemap",
     {
       resolve: `gatsby-plugin-manifest`,

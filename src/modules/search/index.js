@@ -7,7 +7,7 @@ import SearchInput from "@search/SearchInput"
 import Filters from "@search/filters"
 
 const Search = () => (
-  <Sticky
+    <Sticky
     dontUpdateHolderHeightWhenSticky={true}
     sx={{
       position: "relative",
@@ -38,6 +38,6 @@ const Search = () => (
       <Filters />
     </Box>
   </Sticky>
-)
+  )
 
 export default Search

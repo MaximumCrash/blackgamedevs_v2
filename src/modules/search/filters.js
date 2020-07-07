@@ -1,5 +1,5 @@
 //** @jsx jsx */
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import { Text, Box, Flex, jsx } from "theme-ui"
 import SmoothCollapse from "react-smooth-collapse"
 
@@ -131,6 +131,7 @@ const FilterSet = ({
 }
 
 const Filters = () => {
+  const filterListEl = useRef(null)
   const { AllFilters, filters, setFilter, clearFilters } = useSite()
   const [filtersOpen, setFiltersOpen] = useState(false)
 
@@ -140,7 +141,13 @@ const Filters = () => {
     <Box>
       <Flex sx={{ alignItems: "center" }}>
         <FilterHeader
-          onClick={() => setFiltersOpen(!filtersOpen)}
+          onClick={() => {
+            setFiltersOpen(!filtersOpen);
+            
+            if (filterListEl.current && filterListEl.current._main.current && !filtersOpen) {
+              filterListEl.current._main.current.scrollTo({top: 0});
+            }
+          }}
           filtersOpen={filtersOpen}
         />
         {Object.keys(filters).length > 0 && (
@@ -166,6 +173,7 @@ const Filters = () => {
           pr: "1rem",
           mt: "0.32rem",
           position: "relative",
+          visibility: ['none', 'visible', 'visible'],
           "&::after": {
             content: '""',
             position: "absolute",
@@ -200,7 +208,8 @@ const Filters = () => {
       </SmoothCollapse>
       <SmoothCollapse
         expanded={filtersOpen}
-        sx={{ pl: "1rem", pr: "1rem", mt: ".24rem" }}
+        ref={filterListEl}
+        sx={{ pl: "1rem", pr: "1rem", mt: ".24rem", maxHeight: ['73vh', 'unset', 'unset'], overflow: filtersOpen ? 'auto !important' : 'hidden' }}
       >
         {Object.keys(AllFilters).map((set, index) => (
           <FilterSet

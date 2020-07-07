@@ -8,7 +8,7 @@ module.exports.bgdMDX = _input => {
 
   //Grabs the image url, imageAlt (in the form of the persons name), and out puts it as
   //![ImageName](Image URL) <- Markdown Image
-  json2md.converters.image = ({ input, imageAlt }) => {
+  json2md.converters.image = ({ input, imageAlt, fileEnding }) => {
     if (
       input === "http://image-link-here.com/image.png" ||
       typeof input === "undefined"
@@ -27,7 +27,7 @@ module.exports.bgdMDX = _input => {
         .replace(/\s/g, "_")
         .replace(/[^a-zA-Z0-9\_]/g, "")
 
-    return `![${imageName}](./images/${imageName}_v1.${input.split(".").pop()})`
+    return `![${imageName}](./directory_images/${imageName}_v1.${fileEnding})`
   }
 
   //Takes the skills data, removes any extra whitespace and renders
