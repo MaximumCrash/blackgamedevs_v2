@@ -75,7 +75,7 @@ const SearchInput = () => {
   const autoSubmitForm = debounce(() => {
     if (formEl.current !== null) {
       window.scrollTo({ top: 0})
-      formEl.current.dispatchEvent(new Event("submit"))
+      formEl.current.dispatchEvent(new Event("submit", {cancelable: true}))
     }
   }, 124)
 
@@ -88,7 +88,6 @@ const SearchInput = () => {
     >
       <Box
         as="form"
-        method="GET"
         role="search"
         ref={formEl}
         onSubmit={handleSubmit(onSubmit)}
