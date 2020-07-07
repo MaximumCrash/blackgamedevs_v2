@@ -35,67 +35,18 @@ self.__precacheManifest = [
   },
   {
     "url": "404.html",
-    "revision": "a8ad796ef1d9e830240d4cd073e230c1"
+    "revision": "22f04f8f96448672297b1e48469f75b1"
   },
   {
     "url": "404/index.html",
-    "revision": "336b2273be906039670b61127bc54277"
+    "revision": "22c8effbbffb6315d68a4a64c9eec982"
   },
   {
-    "url": "app-369239fe44bd694ba7b5.js"
+    "url": "app-31fe421249f5701b8650.js"
   },
   {
-    "url": "app-369239fe44bd694ba7b5.js.map",
-    "revision": "eeb410e5ed6165d00e3d078aa591725e"
-  },
-  {
-    "url": "app-558410296119267eb51b.js"
-  },
-  {
-    "url": "app-558410296119267eb51b.js.map",
-    "revision": "47720f815b0c58c86b1df2114c563468"
-  },
-  {
-    "url": "app-6161a7d033276258f7ab.js"
-  },
-  {
-    "url": "app-6161a7d033276258f7ab.js.map",
-    "revision": "2b79dfe5b988f82cdb8786c66b7cccac"
-  },
-  {
-    "url": "app-69a837e5f6e3da716655.js"
-  },
-  {
-    "url": "app-69a837e5f6e3da716655.js.map",
-    "revision": "85c6e1b441f8e8046e9be3d296a6446c"
-  },
-  {
-    "url": "app-8882e9c0e315db2e810b.js"
-  },
-  {
-    "url": "app-8882e9c0e315db2e810b.js.map",
-    "revision": "93da8620c1327ccf0f92517a0e501297"
-  },
-  {
-    "url": "app-8eeb31542497ccfe2e2a.js"
-  },
-  {
-    "url": "app-8eeb31542497ccfe2e2a.js.map",
-    "revision": "86327d68e7a8ccfdf9c1afa9a27af589"
-  },
-  {
-    "url": "app-94a9a1c986fb00733a6f.js"
-  },
-  {
-    "url": "app-94a9a1c986fb00733a6f.js.map",
-    "revision": "d0e7e0587290557e7854acda37bf1fde"
-  },
-  {
-    "url": "app-ef7fb12f3f42b803656a.js"
-  },
-  {
-    "url": "app-ef7fb12f3f42b803656a.js.map",
-    "revision": "8408f4350bd7556ae3ed3d6aa06e8c91"
+    "url": "app-31fe421249f5701b8650.js.map",
+    "revision": "730df51dcf32c0ee2572e511d6621c96"
   },
   {
     "url": "back-to-top.svg",
@@ -103,7 +54,7 @@ self.__precacheManifest = [
   },
   {
     "url": "chunk-map.json",
-    "revision": "d4b6b852d45ba318b42f9c4aaaa7bc42"
+    "revision": "ac15c43f04469011c98bf8acde0b9006"
   },
   {
     "url": "component---cache-caches-gatsby-plugin-offline-app-shell-js-235e751eb037707e5d1a.js"
@@ -120,102 +71,267 @@ self.__precacheManifest = [
     "revision": "f1af83addf0a5677536b39fbcb4837e0"
   },
   {
-    "url": "component---src-pages-index-js-008c8cb40e573a389c9b.js"
+    "url": "component---src-pages-index-js-224d0adc90ad3c455561.js"
   },
   {
-    "url": "component---src-pages-index-js-008c8cb40e573a389c9b.js.map",
-    "revision": "10084ff32cad25ac59d5b9aac899a1f7"
+    "url": "component---src-pages-index-js-224d0adc90ad3c455561.js.map",
+    "revision": "073ed773b59e1bb8aba67eee168db691"
   },
   {
-    "url": "component---src-pages-index-js-07e2a8f4960de7454914.js"
+    "url": "directory_images/Adewale_Haroun_v1.webp",
+    "revision": "e2d0ba8953bffd337d740e8f87fd7aa6"
   },
   {
-    "url": "component---src-pages-index-js-07e2a8f4960de7454914.js.map",
-    "revision": "66f0f26ab35931a0fd1be1864a730797"
+    "url": "directory_images/Ahmed_Abdullah_v1.webp",
+    "revision": "c49577485e511fd368209e40c064db1d"
   },
   {
-    "url": "component---src-pages-index-js-20452a8bc51261627ac7.js"
+    "url": "directory_images/Ajari_Wilson_v1.webp",
+    "revision": "8f8d738839f63bcbf3064e6628761998"
   },
   {
-    "url": "component---src-pages-index-js-20452a8bc51261627ac7.js.map",
-    "revision": "e19b9a62f0901643e7b54ac7ae0c1f6f"
+    "url": "directory_images/Akira_Thompson_v1.gif",
+    "revision": "ad5601080f9fc9324adb216629b1452a"
   },
   {
-    "url": "component---src-pages-index-js-23d6304744b25f2c2f29.js"
+    "url": "directory_images/Alex_Okafor_v1.webp",
+    "revision": "59fb47c11586c07c2a39293c83ff22c6"
   },
   {
-    "url": "component---src-pages-index-js-23d6304744b25f2c2f29.js.map",
-    "revision": "dd29c1b59a3dc98bf9531655b37f7fa9"
+    "url": "directory_images/Alexander_Francois_v1.webp",
+    "revision": "a17208917d4d45445a086606d82541e6"
   },
   {
-    "url": "component---src-pages-index-js-24c8516cf9cd5805f188.js"
+    "url": "directory_images/Algitt_Studios_v1.webp",
+    "revision": "fec20ce43d8fdb3f6f1efecda92a792d"
   },
   {
-    "url": "component---src-pages-index-js-24c8516cf9cd5805f188.js.map",
-    "revision": "6e1f0ff09c9a4e48aa93eba1d45cafa6"
+    "url": "directory_images/Algorythmic_Studios_v1.webp",
+    "revision": "2a7f6b05b4b2801c96fdcf127eee2fe7"
   },
   {
-    "url": "component---src-pages-index-js-2daba1d36dd7eaf09549.js"
+    "url": "directory_images/Andreas_J_Hester_v1.webp",
+    "revision": "09ff23d51041495d55ca432fd4d944de"
   },
   {
-    "url": "component---src-pages-index-js-2daba1d36dd7eaf09549.js.map",
-    "revision": "3e5762c893189b169d47fbf593694158"
+    "url": "directory_images/Andy_James_Nicholis_v1.webp",
+    "revision": "2a33a68cf5ebde69a821f8c200059f99"
   },
   {
-    "url": "component---src-pages-index-js-4228b9cd20dee156f668.js"
+    "url": "directory_images/Anisiuba_Uche_v1.webp",
+    "revision": "6494b51be10653c25b9120262649ed88"
   },
   {
-    "url": "component---src-pages-index-js-4228b9cd20dee156f668.js.map",
-    "revision": "8e9d6b65bcabda184bdc6ace55bfca07"
+    "url": "directory_images/Anthony_G_Smith_IV_v1.webp",
+    "revision": "8cf5798b58163e50bdea1a0c4dfea786"
   },
   {
-    "url": "component---src-pages-index-js-67a5d122af84f38a8aa3.js"
+    "url": "directory_images/ardydo_v1.webp",
+    "revision": "f4e3fc1ad2cc43d9602dae0cca41e17f"
   },
   {
-    "url": "component---src-pages-index-js-67a5d122af84f38a8aa3.js.map",
-    "revision": "b04e0d2ddab7f24c81f319d579f127c3"
+    "url": "directory_images/Arthur_Ward_Jr_v1.webp",
+    "revision": "761a6493718f35b8fb6c9a71b45096d2"
   },
   {
-    "url": "component---src-pages-index-js-84698ff8139f87dc1170.js"
+    "url": "directory_images/Audley_Gordon_v1.webp",
+    "revision": "189facab494824561b4bcc0593acb115"
   },
   {
-    "url": "component---src-pages-index-js-84698ff8139f87dc1170.js.map",
-    "revision": "52eabf7b311963730640d91ae440d1fd"
+    "url": "directory_images/Ben_Wilson_v1.webp",
+    "revision": "9237b859b7fb2b38e8da29cec9441143"
   },
   {
-    "url": "component---src-pages-index-js-9ee8e188685d05907f1b.js"
+    "url": "directory_images/Biru_Jones_v1.webp",
+    "revision": "7aa100ea4b023e632bfb81a5039f5c25"
   },
   {
-    "url": "component---src-pages-index-js-9ee8e188685d05907f1b.js.map",
-    "revision": "9cc28e1715ae41550696a2acf5d73721"
+    "url": "directory_images/Catt_Small_v1.webp",
+    "revision": "77f6825113ca76691182a39b1bd77fbb"
   },
   {
-    "url": "component---src-pages-index-js-b011a0779cbf98780dcd.js"
+    "url": "directory_images/Cedric_J_Adams_v1.webp",
+    "revision": "35ff112f362d2566c5e479ee11858878"
   },
   {
-    "url": "component---src-pages-index-js-b011a0779cbf98780dcd.js.map",
-    "revision": "3fef7712a512d15f56bc4c4fad46c7a0"
+    "url": "directory_images/Chris_Wells_v1.webp",
+    "revision": "824fcf7854c252485e876aabb7107d9c"
   },
   {
-    "url": "component---src-pages-index-js-c04dc16131f68fb4bbd4.js"
+    "url": "directory_images/Christian_Howard_v1.webp",
+    "revision": "0472e9793adc8761058391f61f9821e1"
   },
   {
-    "url": "component---src-pages-index-js-c04dc16131f68fb4bbd4.js.map",
-    "revision": "0e29140cf6b145366b648d5741836fed"
+    "url": "directory_images/DanDylan_Lavictoire_v1.webp",
+    "revision": "34994f05087fe97949cbb622f9d596aa"
   },
   {
-    "url": "component---src-pages-index-js-d4626db4362990927b49.js"
+    "url": "directory_images/Dani_Lalonders_v1.webp",
+    "revision": "3d6e75f87d1f845cb33ee3151c046c38"
   },
   {
-    "url": "component---src-pages-index-js-d4626db4362990927b49.js.map",
-    "revision": "c82e6ab548e0adcfc4440a1e5fba8895"
+    "url": "directory_images/Decoy_Games_v1.webp",
+    "revision": "c49577485e511fd368209e40c064db1d"
   },
   {
-    "url": "component---src-pages-index-js-fba8730d6d3c315dd4ab.js"
+    "url": "directory_images/Derrick_Fields_v1.webp",
+    "revision": "c919d11d82ca892204bcf2571e8e34a9"
   },
   {
-    "url": "component---src-pages-index-js-fba8730d6d3c315dd4ab.js.map",
-    "revision": "3e9426789df1e64e9bef5a51c0171e17"
+    "url": "directory_images/Donald_Harris_v1.webp",
+    "revision": "5c941299ab47e3273b1769166f9be846"
+  },
+  {
+    "url": "directory_images/Edible_Entertainment_v1.webp",
+    "revision": "372b2b99b399fd5c49935b99a7432b92"
+  },
+  {
+    "url": "directory_images/Endless_Fluff_v1.webp",
+    "revision": "7ec774ec1b14d00991cf6cff7cad9cfe"
+  },
+  {
+    "url": "directory_images/Evan_Higgins_v1.webp",
+    "revision": "3ef9bf6f22c7ea037badd7624e04bf1e"
+  },
+  {
+    "url": "directory_images/GN_Games_v1.webp",
+    "revision": "7c860d8f2b7ce983429d676e6eb55da1"
+  },
+  {
+    "url": "directory_images/Grand_Scheme_Games_v1.gif",
+    "revision": "a84f6bcb0d403508ced81ced0c515ff1"
+  },
+  {
+    "url": "directory_images/Grover_Wimberly_IV_v1.webp",
+    "revision": "fad38fc76968f652b02965373e11941d"
+  },
+  {
+    "url": "directory_images/Hermann_Kayode_v1.webp",
+    "revision": "90aba6aa165f8bba164790522558873e"
+  },
+  {
+    "url": "directory_images/Hughes_Who_Technologies_Studio_v1.webp",
+    "revision": "999462eab1e04eb67b18c623a1a27da1"
+  },
+  {
+    "url": "directory_images/Jord_Farrell_v1.webp",
+    "revision": "a63dbc08a90fe0e3dc8a47bf4c4b23af"
+  },
+  {
+    "url": "directory_images/KIROO_Games_v1.webp",
+    "revision": "39dcb936059cd49e0ed14affea242fa4"
+  },
+  {
+    "url": "directory_images/Kola_Studios_v1.webp",
+    "revision": "1d76a8100f84d28365ba7b2149ca582a"
+  },
+  {
+    "url": "directory_images/Legeci_Studios_v1.webp",
+    "revision": "c7c75d659e08f284f215e7ffb9511ccb"
+  },
+  {
+    "url": "directory_images/Leonard_J_Paul_v1.webp",
+    "revision": "5afcec695beaaaf4d3f0a4808085a0a3"
+  },
+  {
+    "url": "directory_images/Lucky_Shot_Media_v1.webp",
+    "revision": "f1410181fc12fd47af1cb3a45cd7223d"
+  },
+  {
+    "url": "directory_images/MABManZ_v1.webp",
+    "revision": "e15ab788050395c133beb382c78b557d"
+  },
+  {
+    "url": "directory_images/Mattieau_Manikk_StCyr_v1.webp",
+    "revision": "45ef0f6dad22a63e77101c4890f21186"
+  },
+  {
+    "url": "directory_images/Mel_Cummings_v1.webp",
+    "revision": "5fd5086cc0bd09b819cb2201e24e1cff"
+  },
+  {
+    "url": "directory_images/Miscellaneum_Studios_v1.webp",
+    "revision": "7cb72eb9c79e94a2be72e573ece8b6d4"
+  },
+  {
+    "url": "directory_images/More_Fire_Games_v1.webp",
+    "revision": "d41f4194f4604e2eb21768383bacbf45"
+  },
+  {
+    "url": "directory_images/Nathan_McClain_v1.webp",
+    "revision": "33875fbf2395a76ee90a67944c101a23"
+  },
+  {
+    "url": "directory_images/Noohkema_Interactive_v1.webp",
+    "revision": "4024b21290aa5b2f5878d7953a6126e6"
+  },
+  {
+    "url": "directory_images/OMC_Games_v1.webp",
+    "revision": "8e08eef4989c3b293368c6a799079a5e"
+  },
+  {
+    "url": "directory_images/One_Man_Left_Studios_v1.webp",
+    "revision": "3f35a68c6bd3faab084df08b4d39eaf6"
+  },
+  {
+    "url": "directory_images/PawByte_v1.webp",
+    "revision": "e972b7d9d98d8db7fcdf9a9656b31a0f"
+  },
+  {
+    "url": "directory_images/Quinn_George_v1.webp",
+    "revision": "05fba762aa10e6aeb2ae09f76b8d3c63"
+  },
+  {
+    "url": "directory_images/Revelation_Interactive_v1.webp",
+    "revision": "a445c83e22b22891d25e6b76e74a7391"
+  },
+  {
+    "url": "directory_images/Shont_MurrayDaniels_v1.webp",
+    "revision": "619d797f3c5a53e5947afc5e8cbd1fbb"
+  },
+  {
+    "url": "directory_images/Stormy_Nights_v1.webp",
+    "revision": "146011e275b1c350fb3d250c13ef44fa"
+  },
+  {
+    "url": "directory_images/SwordSharp_v1.webp",
+    "revision": "f8653901398d0a1f04f75bb7b3fcac38"
+  },
+  {
+    "url": "directory_images/Sylverstone_Khandr_v1.webp",
+    "revision": "b1982817a4e4a7a87ca67c2731c946c0"
+  },
+  {
+    "url": "directory_images/TJ_Hughes_Terrifying_Jellyfish_v1.gif",
+    "revision": "62fb730472af7fec36bf8b9cb1283be1"
+  },
+  {
+    "url": "directory_images/TQ_Jefferson_v1.webp",
+    "revision": "973ef9b34a44667a08601bea0b277408"
+  },
+  {
+    "url": "directory_images/Trey_Douglas_v1.webp",
+    "revision": "b5d935c2855a466b4338815da604edbb"
+  },
+  {
+    "url": "directory_images/Tyler_Rotheram_v1.webp",
+    "revision": "313efb92b92f5bf06480af43ad5d011a"
+  },
+  {
+    "url": "directory_images/Victor_Burgos_v1.gif",
+    "revision": "3101329bd75447156d5235ef410cbe12"
+  },
+  {
+    "url": "directory_images/Waking_Oni_v1.webp",
+    "revision": "c919d11d82ca892204bcf2571e8e34a9"
+  },
+  {
+    "url": "directory_images/Whim_Independent_Studios_v1.webp",
+    "revision": "db7794260bf7828b75054f2d1a8bfc6c"
+  },
+  {
+    "url": "directory_images/White_Guardian_Studios_v1.webp",
+    "revision": "4852dee4e5668fb94b0ba56195e5cc57"
   },
   {
     "url": "favicon.ico",
@@ -377,7 +493,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "da1b4e6c7de5b7661176b532053e7489"
+    "revision": "ac43b81637dfedb483e1849e318b13db"
   },
   {
     "url": "loading.png",
@@ -401,7 +517,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "e3f0edc0b476ca3e0defc17945e03dd0"
+    "revision": "29b7b11f72a40c677f12870cd922282e"
   },
   {
     "url": "page-data/404.html/page-data.json",
@@ -413,11 +529,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "f862d1d166a9bfb064b7a302a9402869"
-  },
-  {
-    "url": "page-data/dev-404-page/page-data.json",
-    "revision": "ab935f94fe76bebdaa856ee7a3b135f1"
+    "revision": "093c895953ba6b0f5d478779746f5cad"
   },
   {
     "url": "page-data/index/page-data.json",
@@ -426,10 +538,6 @@ self.__precacheManifest = [
   {
     "url": "page-data/offline-plugin-app-shell-fallback/page-data.json",
     "revision": "43232b01cc861c0701a3ece4bd67720b"
-  },
-  {
-    "url": "robots.txt",
-    "revision": "8d56dad080f0ca75d55f49e013d24c18"
   },
   {
     "url": "search_icon.svg",
@@ -444,16 +552,13 @@ self.__precacheManifest = [
     "revision": "e7fd5f56184025854d49d47f02ab698e"
   },
   {
-    "url": "static/d/1090166420.json"
-  },
-  {
-    "url": "static/d/2417117884.json"
-  },
-  {
     "url": "static/d/2602323158.json"
   },
   {
     "url": "static/d/2844921279.json"
+  },
+  {
+    "url": "static/d/3595299048.json"
   },
   {
     "url": "static/d/3599092153.json"
@@ -465,120 +570,15 @@ self.__precacheManifest = [
     "url": "static/no-company-image-153041c5fc8829bccf58691403f06e8d.png"
   },
   {
-    "url": "webpack-runtime-135855cc85ad0ad29191.js"
+    "url": "webpack-runtime-4697cd65b2b232fb40ce.js"
   },
   {
-    "url": "webpack-runtime-135855cc85ad0ad29191.js.map",
-    "revision": "ed282d2d7b2132595b94f974e01eaf77"
-  },
-  {
-    "url": "webpack-runtime-19e89fc5ea2c7a8d65d3.js"
-  },
-  {
-    "url": "webpack-runtime-19e89fc5ea2c7a8d65d3.js.map",
-    "revision": "eb125019e50c259710df0cdfa324ba07"
-  },
-  {
-    "url": "webpack-runtime-48f35a4494f78b3f400e.js"
-  },
-  {
-    "url": "webpack-runtime-48f35a4494f78b3f400e.js.map",
-    "revision": "a3fd7417ec84e20b3edca5df29164e5f"
-  },
-  {
-    "url": "webpack-runtime-4e06a44200bf58723a6e.js"
-  },
-  {
-    "url": "webpack-runtime-4e06a44200bf58723a6e.js.map",
-    "revision": "67cbd527e02029484be995f88f7af58b"
-  },
-  {
-    "url": "webpack-runtime-56a4152b531aa67b7764.js"
-  },
-  {
-    "url": "webpack-runtime-56a4152b531aa67b7764.js.map",
-    "revision": "3444cb32ca3bba9132fa206f69c78693"
-  },
-  {
-    "url": "webpack-runtime-57e967e28157a0a3062b.js"
-  },
-  {
-    "url": "webpack-runtime-57e967e28157a0a3062b.js.map",
-    "revision": "351a1da38bb68d6564fc920d89fd7449"
-  },
-  {
-    "url": "webpack-runtime-724c9dc958ee8a268455.js"
-  },
-  {
-    "url": "webpack-runtime-724c9dc958ee8a268455.js.map",
-    "revision": "cf6cf72f042e14f43761e312072eacc4"
-  },
-  {
-    "url": "webpack-runtime-8a7903ef178329251b03.js"
-  },
-  {
-    "url": "webpack-runtime-8a7903ef178329251b03.js.map",
-    "revision": "fd4a55e3a268d4d72972914b555db79b"
-  },
-  {
-    "url": "webpack-runtime-b0c387b42da00b442386.js"
-  },
-  {
-    "url": "webpack-runtime-b0c387b42da00b442386.js.map",
-    "revision": "9b1684216004afacb94eebe46d63a949"
-  },
-  {
-    "url": "webpack-runtime-b9403af085a2ffdf85e7.js"
-  },
-  {
-    "url": "webpack-runtime-b9403af085a2ffdf85e7.js.map",
-    "revision": "bf45b67d356a094f2439f086310800d4"
-  },
-  {
-    "url": "webpack-runtime-d8bf7fc2891cb83a094d.js"
-  },
-  {
-    "url": "webpack-runtime-d8bf7fc2891cb83a094d.js.map",
-    "revision": "56f74cdd83cb63d658346ab8b34d8bc2"
-  },
-  {
-    "url": "webpack-runtime-efb9baeaa1e79da41189.js"
-  },
-  {
-    "url": "webpack-runtime-efb9baeaa1e79da41189.js.map",
-    "revision": "e99ed6399587339fc21135cecfd8c6e0"
-  },
-  {
-    "url": "webpack-runtime-f12962ea5a50f48f89a9.js"
-  },
-  {
-    "url": "webpack-runtime-f12962ea5a50f48f89a9.js.map",
-    "revision": "7c844cad6bbbb358dd4a8ce28c0fb57e"
-  },
-  {
-    "url": "webpack-runtime-f468a0f7de32abc86bd0.js"
-  },
-  {
-    "url": "webpack-runtime-f468a0f7de32abc86bd0.js.map",
-    "revision": "7cf80dd9c26b48fc357cbd669ecd3c0f"
-  },
-  {
-    "url": "webpack-runtime-f5ba09985711a7b8f9c1.js"
-  },
-  {
-    "url": "webpack-runtime-f5ba09985711a7b8f9c1.js.map",
-    "revision": "6a71ce082bce558243be2afdad891b53"
-  },
-  {
-    "url": "webpack-runtime-fbd0d54d3883bd9fc5e4.js"
-  },
-  {
-    "url": "webpack-runtime-fbd0d54d3883bd9fc5e4.js.map",
-    "revision": "970dcdb88717b990914bc09a09c0cbbf"
+    "url": "webpack-runtime-4697cd65b2b232fb40ce.js.map",
+    "revision": "0bdec35f18b4752411b6545f8ba94a6d"
   },
   {
     "url": "webpack.stats.json",
-    "revision": "965a0beb0b44bb196742461ccd230194"
+    "revision": "1c1f6f8db3be3f18f31c6ceb0e45a19c"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
@@ -671,7 +671,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/blackgamedevs_v2/app-369239fe44bd694ba7b5.js`))) {
+  if (!resources || !(await caches.match(`/blackgamedevs_v2/app-31fe421249f5701b8650.js`))) {
     return await fetch(event.request)
   }
 
